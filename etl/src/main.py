@@ -1,7 +1,7 @@
 import pandas as pd
 import unicodedata # biblioteca para transformar em ASCII, removendo caracteres especiais
 # Abrido o arquivo CSV
-medicamentos = pd.read_csv("data/TA_RESTRICAO_MEDICAMENTO.csv", encoding="latin1", sep=';',  on_bad_lines='skip')
+medicamentos = pd.read_csv("../data/TA_RESTRICAO_MEDICAMENTO.csv", encoding="latin1", sep=';',  on_bad_lines='skip')
 
 # Limpeza
 
