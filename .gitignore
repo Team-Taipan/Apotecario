@@ -4,6 +4,7 @@ venv/
 env/
 
 # VsCode
+.vscode
 launch.json
 
 # Cache do Python
