@@ -1,0 +1,1 @@
+//O _ diz ao Expo: "Ei, isso é apenas um arquivo de suporte, não crie uma tela para ele". (Não esqueça de atualizar o import no seu arquivo de código!).
