@@ -105,7 +105,7 @@ CREATE TABLE Medicamento(
 	med_nome VARCHAR(100) not null,
 	med_origem ENUM("USUARIO", "ANVISA") not null,
 	med_fotoURL VARCHAR(255),-- mudar para tratamento? 
-	per_criador INT not null,
+	per_criador INT,
 	
 	CONSTRAINT fk_medicamento_perfil FOREIGN KEY (per_criador) REFERENCES Perfil(per_codigo)
 
@@ -195,7 +195,7 @@ CREATE TABLE Tratamento(
 
 	tra_codigo INT primary key not null auto_increment,
 	tra_inicioTratamento DATETIME not null,
-	tra_fimTratameno DATETIME,
+	tra_fimTratamento DATETIME,
 	tra_qtdPorDose INT not null,
 	fre_codigo INT not null,
 	med_codigo INT not null,
@@ -226,7 +226,7 @@ CREATE TABLE RegistroConsumo(
 	rec_codigo INT primary key not null auto_increment,
 	rec_dataProgramada DATETIME not null,
 	rec_dataRegistro DATETIME not null,
-	rec_tomado TINYINT(1) not null,
+	rec_tomado TINYINT(1),
 	rec_qtdTomado INT not null,
 	rec_anotacao VARCHAR(90),
 	tra_codigo INT not null,
