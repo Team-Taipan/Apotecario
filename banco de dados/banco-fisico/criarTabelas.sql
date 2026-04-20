@@ -23,7 +23,7 @@ CREATE TABLE Perfil(
 
 CREATE TABLE Parentesco(
     par_codigo INT PRIMARY KEY AUTO_INCREMENT,
-    par_descricao VARCHAR(45) NOT NULL -- 'Pai', 'Mãe', 'Cônjuge', etc.
+    par_descricao VARCHAR(45) NOT NULL -- 'Pai', 'Mãe', 'Cônjuge', "Cuidador", etc.
 );
 
 CREATE TABLE Vinculo(
