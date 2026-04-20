@@ -1,5 +1,7 @@
 
-
+DROP DATABASE ApotecarioDB;
+CREATE DATABASE ApotecarioDB;
+USE ApotecarioDB;
 
 CREATE TABLE Conta(
 
@@ -29,7 +31,7 @@ CREATE TABLE Vinculo(
 	cot_codigo INT not null,
 	per_codigo INT not null,
 	vin_dataInicio DATE not null,
-	vin_dataFim DATE not null,
+	vin_dataFim DATE,
 	vin_papel ENUM("Admin", "Cuidador", "Convidado") not null,
 	par_codigo INT not null,
 	
@@ -58,23 +60,21 @@ CREATE TABLE Medicao(
 
 	mdc_codigo INT primary key not null auto_increment,
 	mdc_nome VARCHAR(45) unique not null,
-	mdc_unidade VARCHAR(3)not NULL 
+	mdc_unidade VARCHAR(10)not NULL 
 
 );
 
 CREATE TABLE RegistroMedicao(
 
+	rem_codigo INT primary key not null auto_increment,
 	per_codigo INT not null,
 	mdc_codigo INT not null,
-	rem_valor DECIMAL(4,2) not null,
+	rem_valor DECIMAL(6,2) not null,
 	rem_data DATETIME not null,
 	rem_anotacao VARCHAR(90),
 	
-	PRIMARY KEY(per_codigo, mdc_codigo),
-	
 	CONSTRAINT fk_registro_medicao FOREIGN KEY (mdc_codigo) REFERENCES Medicao(mdc_codigo),
 	CONSTRAINT fk_registro_medicao_perfil FOREIGN KEY (per_codigo) REFERENCES Perfil(per_codigo)
-	
 	
 );
 
@@ -87,15 +87,97 @@ CREATE TABLE Sintoma(
 
 CREATE TABLE RegistroSintomas(
 
-	per_codigo INT not null,
+	res_codigo INT primary key not null auto_increment,
+ 	per_codigo INT not null,
 	sin_codigo INT not null,
-	sin_intensidade INT not null,
-	sin_data DATETIME not null,
-	sin_anotacao VARCHAR(90),
-	
-	PRIMARY KEY(per_codigo, sin_codigo),
+	res_intensidade INT not null,
+	res_data DATETIME not null,
+	res_anotacao VARCHAR(90),
 	
 	CONSTRAINT fk_registro_sintoma FOREIGN KEY (sin_codigo) REFERENCES Sintoma(sin_codigo),
 	CONSTRAINT fk_registro_sintoma_perfil FOREIGN KEY (per_codigo) REFERENCES Perfil(per_codigo)
+
+);
+
+CREATE TABLE Medicamento(
+
+	med_codigo INT primary key not null auto_increment,
+	med_nome VARCHAR(100) not null,
+	med_origem ENUM("USUARIO", "ANVISA") not null,
+	med_fotoURL VARCHAR(255),-- mudar para tratamento? 
+	per_criador INT not null,
+	
+	CONSTRAINT fk_medicamento_perfil FOREIGN KEY (per_criador) REFERENCES Perfil(per_codigo)
+
+);
+
+-- Formas pré-cadastradas vindas da anvisa e associadas com todos os medicamentos (pilula, comprimido...)
+CREATE TABLE Forma(
+
+	for_codigo INT primary key not null auto_increment,
+	for_nome VARCHAR(45) unique not null
+
+);
+
+CREATE TABLE FormaMedicamento(
+
+	for_codigo INT not null,
+	med_codigo INT not null,
+	
+	PRIMARY KEY(for_codigo, med_codigo), -- chave composta
+	
+	CONSTRAINT fk_forma_medicamento FOREIGN KEY (for_codigo) REFERENCES Forma(for_codigo),
+	CONSTRAINT fk_medicamento_forma FOREIGN KEY (med_codigo) REFERENCES Medicamento(med_codigo)
+
+);
+
+-- Principios pré-cadastrados vindos da anvisa e associadas só com medicamentos da ANVISA
+CREATE TABLE PrincipioAtivo(
+
+	pri_codigo INT primary key not null auto_increment,
+	pri_nome VARCHAR(255) unique not null
+
+);
+
+CREATE TABLE MedicamentoPrincipio(
+
+	pri_codigo INT not null,
+	med_codigo INT not null,
+	
+	PRIMARY KEY(pri_codigo, med_codigo),
+	
+	CONSTRAINT fk_principio_medicamento FOREIGN KEY (pri_codigo) REFERENCES PrincipioAtivo(pri_codigo),
+	CONSTRAINT fk_medicamento_principio FOREIGN KEY (med_codigo) REFERENCES Medicamento(med_codigo)
+
+);
+
+-- Dose pré-cadastradas vindas da anvisa e associadas só com medicamentos da ANVISA
+CREATE TABLE Dosagem(
+
+	dos_codigo INT primary key not null auto_increment,
+	dos_valor DECIMAL(6,2) not null,
+	dos_unidade VARCHAR(4) not null
+
+);
+
+CREATE TABLE MedicamentoDosagem(
+
+	dos_codigo INT not null,
+	med_codigo INT not null,
+
+	PRIMARY KEY(dos_codigo, med_codigo),
+	
+	CONSTRAINT fk_dose_medicamento FOREIGN KEY (dos_codigo) REFERENCES Dosagem(dos_codigo),
+	CONSTRAINT fk_medicamento_dose FOREIGN KEY (med_codigo) REFERENCES Medicamento(med_codigo)
+);
+
+
+CREATE TABLE TRATAMENTO(
+
+	tra_codigo INT primary key not null auto_increment,
+	tra_inicioTratamento DATETIME not null,
+	tra_fimTratameno DATETIME,
+	tra_qtdPorDose INT not null,
+	
 
 );
