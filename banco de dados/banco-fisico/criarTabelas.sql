@@ -1,5 +1,5 @@
 
-DROP DATABASE ApotecarioDB;
+DROP DATABASE IF EXISTS ApotecarioDB;
 CREATE DATABASE ApotecarioDB;
 USE ApotecarioDB;
 
@@ -156,7 +156,7 @@ CREATE TABLE Dosagem(
 
 	dos_codigo INT primary key not null auto_increment,
 	dos_valor DECIMAL(6,2) not null,
-	dos_unidade VARCHAR(4) not null
+	dos_unidade VARCHAR(10) not null
 
 );
 
@@ -171,13 +171,66 @@ CREATE TABLE MedicamentoDosagem(
 	CONSTRAINT fk_medicamento_dose FOREIGN KEY (med_codigo) REFERENCES Medicamento(med_codigo)
 );
 
+CREATE TABLE Frequencia(
 
-CREATE TABLE TRATAMENTO(
+	fre_codigo INT primary key not null auto_increment,
+	fre_tipo ENUM("Custom", "Intervalo", "Ciclo") not null,
+	fre_cicloAtivo INT,
+	fre_cicloRepouso INT,
+	fre_intervaloHoras int
+
+);
+
+CREATE TABLE Horario(
+
+	hor_codigo INT primary key not null auto_increment,
+	hor_hora TIME not null,
+	fre_codigo INT not null,
+	
+	CONSTRAINT fk_frequencia_horario FOREIGN KEY (fre_codigo) REFERENCES Frequencia(fre_codigo)
+);
+
+
+CREATE TABLE Tratamento(
 
 	tra_codigo INT primary key not null auto_increment,
 	tra_inicioTratamento DATETIME not null,
 	tra_fimTratameno DATETIME,
 	tra_qtdPorDose INT not null,
+	fre_codigo INT not null,
+	med_codigo INT not null,
+	per_codigo INT not null,
 	
+	CONSTRAINT fk_tratamento_frequencia FOREIGN KEY (fre_codigo) REFERENCES Frequencia(fre_codigo),
+	CONSTRAINT fk_tratamento_perfil FOREIGN KEY (per_codigo) REFERENCES Perfil(per_codigo),
+	CONSTRAINT fk_tratamento_medicamento FOREIGN KEY (med_codigo) REFERENCES Medicamento(med_codigo)
+
+);
+
+
+CREATE TABLE TratamentoEstoque(
+
+	tae_codigo INT primary key not null auto_increment,
+	tae_qtdAtual INT not null,
+	tae_qtdMinimaAviso INT,
+	tae_ultimaAtualizacao DATETIME, 
+	tra_codigo INT not null,
+	
+	CONSTRAINT fk_estoque_tratamento FOREIGN KEY (tra_codigo) REFERENCES Tratamento(tra_codigo)
+	
+
+);
+
+CREATE TABLE RegistroConsumo(
+
+	rec_codigo INT primary key not null auto_increment,
+	rec_dataProgramada DATETIME not null,
+	rec_dataRegistro DATETIME not null,
+	rec_tomado TINYINT(1) not null,
+	rec_qtdTomado INT not null,
+	rec_anotacao VARCHAR(90),
+	tra_codigo INT not null,
+	
+	CONSTRAINT fk_registro_tratamento FOREIGN KEY (tra_codigo) REFERENCES Tratamento(tra_codigo)
 
 );
