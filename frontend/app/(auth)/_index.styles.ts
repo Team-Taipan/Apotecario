@@ -9,21 +9,20 @@ export const styles = StyleSheet.create({
   },
   backgroundImage: {
     position: 'absolute',
-    top: 0,
-    left: 0,
-    width: '100%',
-    height: '100%',
+    width: width,
+    height: height,
+    resizeMode: 'cover',
   },
   loginSheet: {
     flex: 1,
     marginTop: height * 0.3, // Onde a "folha" de login começa a subir
-    backgroundColor: 'rgb(230, 242, 240, 0.7)', // Fundo branco com transparência para o efeito de blur
     borderTopLeftRadius: 45,
     borderTopRightRadius: 45,
     overflow: 'hidden', // Garante que o blur respeite os cantos arredondados
     paddingHorizontal: 24,
-
-    // Sombra para o efeito de profundidade >> bem sútil para
+    justifyContent: 'space-between', 
+    paddingBottom: 20, // Espaço para o conteúdo não ficar colado no final da tela - Footer 
+    // Sombra para o efeito de profundidade, bem sútil
     shadowColor: '#000',
     shadowOffset: { width: 0, height: -4 },
     shadowOpacity: 0.2,
@@ -31,7 +30,8 @@ export const styles = StyleSheet.create({
     elevation: 15,
   },
   content: {
-    marginTop: 40,
+    flex: 1,
+    paddingTop: 30,
     alignItems: 'center',
   },
   title: {
@@ -56,8 +56,10 @@ export const styles = StyleSheet.create({
     marginBottom: 30,
   },
   linkText: {
+    flex: 1,
     color: Colors.secondary_text,
     fontSize: 12,
+    marginLeft: 8,
   },
   forgotPassword: {
     color: Colors.accent,
@@ -65,30 +67,31 @@ export const styles = StyleSheet.create({
     fontWeight: '600',
   },
   button: {
-    width: '100%',
-    height: 50,
-    borderRadius: 10,
-    justifyContent: 'center',
-    alignItems: 'center',
-    overflow: 'hidden',
-  },
-  buttonText: {
-    color: '#f5f6f7',
-    fontSize: 16,
-    fontWeight: '600',
-  },
+     height: 52,
+     borderRadius: 12,
+     justifyContent: 'center',
+     alignItems: 'center',
+   },
+   buttonText: {
+     color: Colors.background_text_input,
+     fontSize: 16,
+     fontFamily: 'Inter',
+     fontWeight: 'bold',
+   },
   footer: {
     flexDirection: 'row',
-    marginTop: 30,
+    padding: 20,
+    justifyContent: 'center',
   },
   footerText: {
     color: Colors.secondary_text,
-    fontSize: 13,
+    fontSize: 12,
+    fontFamily: 'Inter'
   },
   footerLink: {
     color: Colors.accent,
     fontWeight: 'bold',
-    fontSize: 13,
+    fontSize: 12,
     marginLeft: 5,
   },
 });
