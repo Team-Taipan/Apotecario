@@ -14,6 +14,7 @@ export class Vinculo {
   perfil!: Perfil;
 
   @ManyToOne({ entity: () => Parentesco, fieldName: "par_codigo" })
+  parentesco!: Parentesco;
 
   @Property({ fieldName: 'vin_dataInicio' })
   dataInicio!: Date;
