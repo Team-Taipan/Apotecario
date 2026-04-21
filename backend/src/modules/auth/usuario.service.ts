@@ -1,9 +1,11 @@
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, ConflictException, Injectable } from '@nestjs/common';
 import { EntityManager } from '@mikro-orm/mysql';
 import { CriarContaDto } from './dto/criar-usuario.dto';
 import { AtualizarContaDto } from './dto/atualizar-usuario.dto';
 import { Conta } from './entities/conta.entity';
 import { NotFoundException } from '@nestjs/common';
+import * as bcrypt from 'bcrypt';
+
 
 @Injectable()
 export class UsuarioService {
@@ -12,15 +14,26 @@ export class UsuarioService {
 
   // Método para criar uma conta, usando o DTO e o EntityManager do MikroORM
   async criarUsuario(dto: CriarContaDto) {
+    
+    // Verificação se o email existe
+    const emailJaCadastrado = await this.em.findOne(Conta, { email: dto.email });
+
+    if(emailJaCadastrado) {
+      throw new ConflictException('Esse email já está cadastrado');
+    }
+  
     // Verificação básica (antes de salvar)
     if (dto.senha !== dto.confirmarSenha) {
-      throw new Error('As senhas não conferem');
+      throw new BadRequestException('As senhas não conferem');
     }
+
+    const rodadasSalt = 10; // numero de iterações para gerar o hash
+    const senhaHasheada = await bcrypt.hash(dto.senha, rodadasSalt);
 
     // Usando o 'create' do EntityManager (ele já lida melhor com a tipagem)
     const conta = this.em.create(Conta, {
       email: dto.email,
-      senha: dto.senha,
+      senha: senhaHasheada,
       ultimoLogin: new Date(),
     });
 
@@ -66,3 +79,5 @@ export class UsuarioService {
   }
   
 }
+
+// Referência para Bcrypt no Nest: https://docs.nestjs.com/security/encryption-and-hashing
