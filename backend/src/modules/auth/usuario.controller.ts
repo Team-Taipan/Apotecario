@@ -1,8 +1,9 @@
 import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
 import { UsuarioService } from './usuario.service';
 import { CriarContaDto } from './dto/criar-usuario.dto';
-import { UpdateUserDto } from './dto/atualizar-usuario.dto';
+import { AtualizarContaDto } from './dto/atualizar-usuario.dto';
 import { ApiTags, ApiOperation, ApiResponse } from '@nestjs/swagger'; // Importa o decorador ApiTags para organizar a documentação do Swagger por categorias
+
 
 @ApiTags('Contas') // Agrupa no Swagger
 @Controller('usuario')
@@ -20,23 +21,29 @@ export class UsuarioController {
 
   }
 
-  @Get()
-  async findAll() {
-    return this.usuarioService.findAll();
+  @Get("todos")
+  async buscarTodos() {
+    return this.usuarioService.buscarTodosUsuarios();
   }
 
   @Get(':id')
-  async findOne(@Param('id') id: string) {
-    return this.usuarioService.findOne(+id);
+  async buscarUsuario(@Param('id') id: string) {
+    return this.usuarioService.buscarUsuarioPorID(+id);
   }
 
   @Patch(':id')
-  async update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
-    return this.usuarioService.update(+id, updateUserDto);
+  async atualizar(@Param('id') id: string, @Body() atualizarContaDto : AtualizarContaDto) {
+    return this.usuarioService.atualizarUsuario(+id, atualizarContaDto);
   }
 
   @Delete(':id')
-  async remove(@Param('id') id: string) {
-    return this.usuarioService.remove(+id);
+  async remover(@Param('id') id: string) {
+    return this.usuarioService.removerUsuario(+id);
   }
+
+  // TODO: Função de verificarLogin
+
+  // TODO: Função de recuperarSenha
+  
+
 }

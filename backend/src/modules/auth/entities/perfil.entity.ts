@@ -2,6 +2,7 @@ import { Entity, PrimaryKey, Property, Enum } from '@mikro-orm/core';
 
 @Entity({ tableName: 'Perfil' })
 export class Perfil {
+  
   @PrimaryKey({ fieldName: 'per_codigo' })
   id!: number;
 
@@ -13,4 +14,5 @@ export class Perfil {
 
   @Enum({ fieldName: 'per_tipo', items: ['Titular', 'Dependente'] })
   tipo!: string;
+
 }

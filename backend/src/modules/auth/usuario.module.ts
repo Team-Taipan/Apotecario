@@ -13,4 +13,4 @@ import { Parentesco } from './entities/parentesco.entity';
   controllers: [UsuarioController],
   providers: [UsuarioService],
 })
-export class UserModule {}
+export class UsuarioModule {}

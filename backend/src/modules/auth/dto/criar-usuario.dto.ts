@@ -2,6 +2,7 @@ import { IsEmail, IsNotEmpty, MinLength, IsString, Matches } from 'class-validat
 import { ApiProperty } from '@nestjs/swagger'; // O ApiProperty é um decorador do NestJS que ajuda a documentar as propriedades das DTOs para o Swagger, permitindo que a documentação seja gerada automaticamente com exemplos e descrições.
 
 export class CriarContaDto {
+
     @ApiProperty({ example: 'usuario@fatec.sp.gov.br', description: 'E-mail do usuário' })
     @IsNotEmpty({ message: 'O e-mail é obrigatório' })
     @IsEmail({}, { message: 'O e-mail informado é inválido' })
@@ -14,4 +15,5 @@ export class CriarContaDto {
 
     @IsNotEmpty({ message: 'A confirmação de senha é obrigatória' })
     confirmarSenha!: string;
+    
 }
