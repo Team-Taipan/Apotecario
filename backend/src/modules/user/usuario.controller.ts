@@ -3,6 +3,7 @@ import { UsuarioService } from './usuario.service';
 import { CriarContaDto } from './dto/criar-usuario.dto';
 import { AtualizarContaDto } from './dto/atualizar-usuario.dto';
 import { ApiTags, ApiOperation, ApiResponse } from '@nestjs/swagger'; // Importa o decorador ApiTags para organizar a documentação do Swagger por categorias
+import { LoginDto } from './dto/fazer-login.dto';
 
 
 @ApiTags('Contas') // Agrupa no Swagger
@@ -42,7 +43,12 @@ export class UsuarioController {
   }
 
   // TODO: Função de verificarLogin
-  
+  @Post()
+  @ApiOperation({ summary: 'Faz o login de uma conta de usuário' })
+  @ApiResponse({ status: 200, description: 'Login realizado com sucesso' })
+  async fazerLogin(@Body() loginDto: LoginDto) {
+    return this.usuarioService.validarLogin(loginDto);
+  }
 
   // TODO: Função de recuperarSenha
   
