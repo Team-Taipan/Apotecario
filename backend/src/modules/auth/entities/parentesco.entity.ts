@@ -6,5 +6,5 @@ export class Parentesco {
   id!: number;
 
   @Property({ fieldName: 'par_descricao' })
-  description!: string;
+  descricao!: string;
 }

@@ -2,6 +2,7 @@ import { Entity, PrimaryKey, Property } from '@mikro-orm/core';
 
 @Entity({ tableName: 'Conta' })
 export class Conta {
+
   @PrimaryKey({ fieldName: 'cot_codigo' })
   id!: number;
 
@@ -10,8 +11,9 @@ export class Conta {
 
   @Property({ fieldName: 'cot_senha', hidden: true }) 
   // hidden para não vazar em selects simples
-  password!: string;
+  senha!: string;
 
   @Property({ fieldName: 'cot_ultimoLogin' })
-  lastLogin!: Date;
+  ultimoLogin!: Date;
+  
 }

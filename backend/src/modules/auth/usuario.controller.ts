@@ -1,39 +1,42 @@
 import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
-import { UserService } from './user.service';
-import { CriarContaDto } from './dto/create-user.dto';
-import { UpdateUserDto } from './dto/update-user.dto';
+import { UsuarioService } from './usuario.service';
+import { CriarContaDto } from './dto/criar-usuario.dto';
+import { UpdateUserDto } from './dto/atualizar-usuario.dto';
 import { ApiTags, ApiOperation, ApiResponse } from '@nestjs/swagger'; // Importa o decorador ApiTags para organizar a documentação do Swagger por categorias
 
 @ApiTags('Contas') // Agrupa no Swagger
-@Controller('user')
-export class UserController {
-  constructor(private readonly userService: UserService) {}
+@Controller('usuario')
+export class UsuarioController {
+
+  constructor(private readonly usuarioService: UsuarioService) {}
 
   // O endpoint de registro agora espera um criarContaDto, que tem validações automáticas graças ao ValidationPipe configurado no main.ts
-  @Post('registro')
+  @Post()
   @ApiOperation({ summary: 'Cria uma nova conta de usuário' })
   @ApiResponse({ status: 201, description: 'Conta criada com sucesso.' })
-  async create(@Body() criarContaDto: CriarContaDto) {
-    return this.userService.create(criarContaDto);
+  async criar(@Body() criarContaDto: CriarContaDto) {
+
+    return this.usuarioService.criarUsuario(criarContaDto);
+
   }
 
   @Get()
   async findAll() {
-    return this.userService.findAll();
+    return this.usuarioService.findAll();
   }
 
   @Get(':id')
   async findOne(@Param('id') id: string) {
-    return this.userService.findOne(+id);
+    return this.usuarioService.findOne(+id);
   }
 
   @Patch(':id')
   async update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
-    return this.userService.update(+id, updateUserDto);
+    return this.usuarioService.update(+id, updateUserDto);
   }
 
   @Delete(':id')
   async remove(@Param('id') id: string) {
-    return this.userService.remove(+id);
+    return this.usuarioService.remove(+id);
   }
 }

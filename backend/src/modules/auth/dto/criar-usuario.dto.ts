@@ -10,8 +10,8 @@ export class CriarContaDto {
     @ApiProperty({ example: 'Senha123', description: 'Senha de acesso' })
     @IsNotEmpty({ message: 'A senha é obrigatória' })
     @MinLength(8, { message: 'A senha deve ter no mínimo 8 caracteres' })
-    password!: string;
+    senha!: string;
 
     @IsNotEmpty({ message: 'A confirmação de senha é obrigatória' })
-    passwordConfirm!: string;
+    confirmarSenha!: string;
 }

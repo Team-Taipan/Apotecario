@@ -12,8 +12,8 @@ export class Vinculo {
   perfil!: Perfil;
 
   @Property({ fieldName: 'vin_dataInicio' })
-  startDate!: Date;
+  dataInicio!: Date;
 
   @Enum({ fieldName: 'vin_papel', items: ['Admin', 'Cuidador', 'Convidado'] })
-  role!: string;
+  papel!: string;
 }

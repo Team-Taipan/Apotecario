@@ -1,26 +1,26 @@
 import { Injectable } from '@nestjs/common';
 import { EntityManager } from '@mikro-orm/mysql';
-import { CriarContaDto } from './dto/create-user.dto';
-import { UpdateUserDto } from './dto/update-user.dto';
+import { CriarContaDto } from './dto/criar-usuario.dto';
+import { UpdateUserDto } from './dto/atualizar-usuario.dto';
 import { Conta } from './entities/conta.entity';
 import { NotFoundException } from '@nestjs/common';
 
 @Injectable()
-export class UserService {
+export class UsuarioService {
   constructor(private readonly em: EntityManager) { } // em significa "EntityManager" do MikroORM, que é a principal interface para interagir com o banco de dados, tipo um gerente de operações. Ele é injetado no construtor da classe, permitindo que os métodos do serviço usem o EntityManager para realizar operações de CRUD nas entidades do banco de dados.
 
   // Método para criar uma conta, usando o DTO e o EntityManager do MikroORM
-  async create(dto: CriarContaDto) {
+  async criarUsuario(dto: CriarContaDto) {
     // Verificação básica (antes de salvar)
-    if (dto.password !== dto.passwordConfirm) {
+    if (dto.senha !== dto.confirmarSenha) {
       throw new Error('As senhas não conferem');
     }
 
     // Usando o 'create' do EntityManager (ele já lida melhor com a tipagem)
     const conta = this.em.create(Conta, {
       email: dto.email,
-      password: dto.password,
-      lastLogin: new Date(),
+      senha: dto.senha,
+      ultimoLogin: new Date(),
     });
 
     // Salva e envia para o MySQL

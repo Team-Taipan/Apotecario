@@ -6,11 +6,11 @@ export class Perfil {
   id!: number;
 
   @Property({ fieldName: 'per_nome' })
-  name!: string;
+  nome!: string;
 
   @Property({ fieldName: 'per_avatar' })
   avatar!: string;
 
   @Enum({ fieldName: 'per_tipo', items: ['Titular', 'Dependente'] })
-  type!: string;
+  tipo!: string;
 }

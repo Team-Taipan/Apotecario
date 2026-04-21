@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
-import { UserService } from './user.service';
-import { UserController } from './user.controller';
+import { UsuarioService } from './usuario.service';
+import { UsuarioController } from './usuario.controller';
 import { MikroOrmModule } from '@mikro-orm/nestjs';
 import { Conta } from './entities/conta.entity';
 import { Perfil } from './entities/perfil.entity';
@@ -10,7 +10,7 @@ import { Parentesco } from './entities/parentesco.entity';
 @Module({
   // Aqui registramos as entidades para que o MikroORM possa gerenciá-las
   imports: [MikroOrmModule.forFeature([Conta, Perfil, Vinculo, Parentesco])],
-  controllers: [UserController],
-  providers: [UserService],
+  controllers: [UsuarioController],
+  providers: [UsuarioService],
 })
 export class UserModule {}
