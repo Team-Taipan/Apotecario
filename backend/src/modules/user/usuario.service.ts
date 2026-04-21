@@ -35,8 +35,7 @@ export class UsuarioService {
     // Usando o 'create' do EntityManager (ele já lida melhor com a tipagem)
     const conta = this.em.create(Conta, {
       email: dto.email,
-      senha: senhaHasheada,
-      ultimoLogin: new Date(),
+      senha: senhaHasheada
     });
 
     // Salva e envia para o MySQL
@@ -54,11 +53,11 @@ export class UsuarioService {
       throw new UnauthorizedException('E-mail ou senha incorretos');
     }
 
-    const senhaConfirmada = this.hashService.compararSenhaHash(dto.senha, conta.senha);
+    const senhaConfirmada = await this.hashService.compararSenhaHash(dto.senha, conta.senha);
 
     // verificando se o hash bate com a senha digitada
     if(!senhaConfirmada) {
-      throw new UnauthorizedException('Senha incorreta');
+      throw new UnauthorizedException('E-mail ou senha incorretos');
     }
     
     // guardando se é o primeiro acesso do usuário

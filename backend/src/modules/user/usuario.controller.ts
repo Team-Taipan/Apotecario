@@ -22,7 +22,7 @@ export class UsuarioController {
 
   }
 
-  @Get("todos")
+  @Get("all")
   async buscarTodos() {
     return this.usuarioService.buscarTodosUsuarios();
   }
@@ -42,8 +42,7 @@ export class UsuarioController {
     return this.usuarioService.removerUsuario(+id);
   }
 
-  // TODO: Função de verificarLogin
-  @Post()
+  @Post("login")
   @ApiOperation({ summary: 'Faz o login de uma conta de usuário' })
   @ApiResponse({ status: 200, description: 'Login realizado com sucesso' })
   async fazerLogin(@Body() loginDto: LoginDto) {

@@ -13,7 +13,7 @@ export class Conta {
   // hidden para não vazar em selects simples
   senha!: string;
 
-  @Property({ fieldName: 'cot_ultimoLogin' })
-  ultimoLogin!: Date;
+  @Property({ fieldName: 'cot_ultimoLogin', nullable: true })
+  ultimoLogin?: Date;
   
 }
