@@ -1,3 +1,5 @@
+import * as dotenv from 'dotenv';
+dotenv.config();
 import { ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
@@ -13,7 +15,6 @@ async function bootstrap() {
     .setTitle('Apotecário API')
     .setDescription('Documentação do sistema de gestão de medicamentos')
     .setVersion('1.0')
-    .addTag('users') // Você pode criar tags para organizar as rotas
     .build();
 
   const document = SwaggerModule.createDocument(app, config);

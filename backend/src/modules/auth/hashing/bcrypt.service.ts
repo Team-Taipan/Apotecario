@@ -4,6 +4,7 @@ import { HashService } from './hash.services';
 
 // implementação do nosso 'contrato', foi criado um service caso queiramos trocar o metodo de hash
 // cumprindo o padrão de injeção de dependencia do Nest
+
 export class BcryptService extends HashService{
 
     async hash(senha : string): Promise<string> {

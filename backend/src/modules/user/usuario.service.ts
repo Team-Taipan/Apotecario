@@ -6,13 +6,18 @@ import { Conta } from './entities/conta.entity';
 import { NotFoundException, UnauthorizedException } from '@nestjs/common';
 import { HashService } from '../auth/hashing/hash.services';
 import { LoginDto } from './dto/fazer-login.dto';
+import { JwtService } from '@nestjs/jwt';
 
 
 
 @Injectable()
 export class UsuarioService {
   
-  constructor(private readonly em: EntityManager, private readonly hashService: HashService ) { } // em significa "EntityManager" do MikroORM, que é a principal interface para interagir com o banco de dados, tipo um gerente de operações. Ele é injetado no construtor da classe, permitindo que os métodos do serviço usem o EntityManager para realizar operações de CRUD nas entidades do banco de dados.
+  constructor(
+              private readonly em: EntityManager, // em significa "EntityManager" do MikroORM, que é a principal interface para interagir com o banco de dados, tipo um gerente de operações. Ele é injetado no construtor da classe, permitindo que os métodos do serviço usem o EntityManager para realizar operações de CRUD nas entidades do banco de dados.
+              private readonly hashService: HashService,
+              private readonly jwtService: JwtService
+            ) { } 
 
   // Método para criar uma conta, usando o DTO e o EntityManager do MikroORM
   async criarUsuario(dto: CriarContaDto) {
@@ -67,7 +72,9 @@ export class UsuarioService {
     conta.ultimoLogin = new Date();
     await this.em.flush();
 
-    return { id: conta.id, email: conta.email,  exibirIntroducao: primeiroAcesso};
+    const payload = { id: conta.id, email: conta.email,  exibirIntroducao: primeiroAcesso }
+
+    return { access_token: await this.jwtService.signAsync(payload)};
   }
 
   async buscarTodosUsuarios() {
