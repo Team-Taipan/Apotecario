@@ -7,7 +7,7 @@ CREATE TABLE Conta(
 	cot_codigo INT primary key not null auto_increment,
 	cot_email VARCHAR(255) unique not null,
 	cot_senha varchar(60) not null,
-	cot_ultimoLogin DATETIME not null
+	cot_ultimoLogin DATETIME 
 
 );
 
@@ -16,12 +16,12 @@ CREATE TABLE Perfil(
 	per_codigo INT primary key not null auto_increment,
 	per_nome VARCHAR(45) not null,
 	per_avatar VARCHAR(255) not null,
-	per_tipo ENUM("Titular", "Dependente")
+	per_tipo ENUM("Titular", "Dependente") not null
 
 );
 
 CREATE TABLE Parentesco(
-    par_codigo INT PRIMARY KEY AUTO_INCREMENT,
+    par_codigo INT primary key not null auto_increment,
     par_descricao VARCHAR(45) NOT NULL -- 'Pai', 'Mãe', 'Cônjuge', "Cuidador", etc.
 );
 
@@ -176,7 +176,7 @@ CREATE TABLE Frequencia(
 	fre_tipo ENUM("Custom", "Intervalo", "Ciclo") not null,
 	fre_cicloAtivo INT,
 	fre_cicloRepouso INT,
-	fre_intervaloHoras int
+	fre_intervaloHoras INT
 
 );
 
