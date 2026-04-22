@@ -15,6 +15,7 @@ async function bootstrap() {
     .setTitle('Apotecário API')
     .setDescription('Documentação do sistema de gestão de medicamentos')
     .setVersion('1.0')
+    .addBearerAuth() // avisa ao swagger que usaremos autentição usando o Bearer
     .build();
 
   const document = SwaggerModule.createDocument(app, config);

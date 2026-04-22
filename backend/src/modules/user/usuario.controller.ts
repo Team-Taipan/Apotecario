@@ -1,9 +1,10 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards } from '@nestjs/common';
 import { UsuarioService } from './usuario.service';
 import { CriarContaDto } from './dto/criar-usuario.dto';
 import { AtualizarContaDto } from './dto/atualizar-usuario.dto';
-import { ApiTags, ApiOperation, ApiResponse } from '@nestjs/swagger'; // Importa o decorador ApiTags para organizar a documentação do Swagger por categorias
+import { ApiTags, ApiOperation, ApiResponse, ApiBearerAuth } from '@nestjs/swagger'; // Importa o decorador ApiTags para organizar a documentação do Swagger por categorias
 import { LoginDto } from './dto/fazer-login.dto';
+import { AuthGuard } from '../auth/auth.guard';
 
 
 @ApiTags('Contas') // Agrupa no Swagger
@@ -27,6 +28,9 @@ export class UsuarioController {
     return this.usuarioService.buscarTodosUsuarios();
   }
 
+  // Exemplo de uso do guard ( n esta verificando o id, isso vc precisa pegar do res, salvamos em um objeto user, la no AuthGuard)
+  // @UseGuards(AuthGuard)
+  // @ApiBearerAuth()
   @Get(':id')
   async buscarUsuario(@Param('id') id: string) {
     return this.usuarioService.buscarUsuarioPorID(+id);
@@ -49,6 +53,9 @@ export class UsuarioController {
     return this.usuarioService.validarLogin(loginDto);
   }
 
+  // AVISO para usar a validação de JWT coloque para usar o AuthGuard @UseGuards(AuthGuard) na rota 
+  // confira o arquivo para saber o que é um guard
+  // Swagger: adicione @ApiBearerAuth() para ele entender que essa rota usa o Bearer 
   // TODO: Função de recuperarSenha
   
 
