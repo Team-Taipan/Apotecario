@@ -1,6 +1,7 @@
 import { Tabs } from 'expo-router';
 import Toast from 'react-native-toast-message';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
+import Colors from '../../constants/Colors';
 
 // Tabs é a barra inferior de navegação da nossa aplicação
 export default function RootLayout() {
@@ -9,8 +10,8 @@ export default function RootLayout() {
       <Tabs screenOptions={{
         headerShown: false,
         animation: 'fade',
-        tabBarActiveTintColor: '#2D7A6E',
-        tabBarInactiveTintColor: '#2B3A32',
+        tabBarActiveTintColor: Colors.accent,
+        tabBarInactiveTintColor: Colors.primary_text,
         
       }}>
       
@@ -19,7 +20,7 @@ export default function RootLayout() {
           options={{
             title: 'Início',
             tabBarIcon: ({ color, size }) => (
-              <MaterialCommunityIcons name="home" size={size} color={color} />
+              <MaterialCommunityIcons name="home-outline" size={size} color={color} />
             ),
           }}
         />
@@ -31,7 +32,7 @@ export default function RootLayout() {
         options={{ 
             title: 'Agenda',
             tabBarIcon: ({ color, size }) => (
-              <MaterialCommunityIcons name="calendar" size={size} color={color} />
+              <MaterialCommunityIcons name="calendar-outline" size={size} color={color} />
             ),
           }}
       /> 
@@ -49,7 +50,7 @@ export default function RootLayout() {
       options={{ 
           title: 'Config.',
           tabBarIcon: ({ color, size }) => (
-              <MaterialCommunityIcons name="account-settings" size={size} color={color} />
+              <MaterialCommunityIcons name="account-settings-outline" size={size} color={color} />
             ),
 
         }}/> 
