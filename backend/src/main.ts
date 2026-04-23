@@ -8,6 +8,10 @@ import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   // Faz com que o NestJS valide automaticamente toda DTO que entrar no sistema, usando as regras definidas com class-validator e class-transformer nas DTOs. Isso garante que os dados estejam no formato esperado antes de chegar nos controllers ou serviços
+
+  // Habilita o CORS para que o frontend (Expo) consiga acessar a API
+  app.enableCors();
+
   app.useGlobalPipes(new ValidationPipe());
 
   // Configuração do Swagger
@@ -21,6 +25,8 @@ async function bootstrap() {
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api', app, document); // 'api' será o caminho da URL
   
-  await app.listen(3000); // O servidor vai rodar na porta 3000, e a documentação do Swagger estará disponível em http://localhost:3000/api
+  // Porta 4000 aberta para a rede local
+  await app.listen(4000, '0.0.0.0');
+  console.log(`API rodando em: ${await app.getUrl()}`);
 }
 bootstrap();

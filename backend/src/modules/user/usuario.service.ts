@@ -72,9 +72,12 @@ export class UsuarioService {
     conta.ultimoLogin = new Date();
     await this.em.flush();
 
-    const payload = { id: conta.id, email: conta.email,  exibirIntroducao: primeiroAcesso }
+    const payload = { sub: conta.id, email: conta.email,  exibirIntroducao: primeiroAcesso }
 
-    return { access_token: await this.jwtService.signAsync(payload)};
+    return { 
+      accessToken: await this.jwtService.signAsync(payload),
+      exibirIntroducao: primeiroAcesso // se for o primeiro acesso, o frontend pode usar essa informação para mostrar uma introdução ou tutorial para o usuário. Depois do primeiro acesso, isso pode ser ignorado.
+    };
   }
 
   async buscarTodosUsuarios() {
