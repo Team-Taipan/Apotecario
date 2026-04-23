@@ -35,7 +35,7 @@ function LayoutContent() {
     if (signed) {
       // Se está logado, vai para a área principal
       // O 'replace' impede que o usuário volte para o login pelo botão 'Voltar'
-      router.replace('/(main)');
+      router.replace('/(main)/main');
     } else {
       // Se não está logado, força a ida para a tela de autenticação
       router.replace('/(auth)');

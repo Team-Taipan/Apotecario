@@ -72,9 +72,9 @@ export default function LoginScreen() {
 
       // Usamos replace para o usuário não voltar para o login pelo botão físico do Android
       if (exibirIntroducao) {
-        router.replace('/(main)/perfil'); // Se for o primeiro login criamos um perfil para o usuário, mandando ele direto para a tela de perfil -- fazer a lógica de como vai funcionar isso
+        router.replace('/perfil'); // Se for o primeiro login criamos um perfil para o usuário, mandando ele direto para a tela de perfil -- fazer a lógica de como vai funcionar isso
       } else {
-        router.replace('/(main)/'); // Se já for usuário antigo
+        router.replace('/main'); // Se já for usuário antigo
       }
 
     } catch (error: any) {
@@ -147,6 +147,7 @@ export default function LoginScreen() {
               )}
             </LinearGradient>
           </TouchableOpacity>
+          
         </View>
         {/* Footer */}
         <View style={styles.footer}>

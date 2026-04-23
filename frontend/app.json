@@ -3,7 +3,7 @@
     "name": "frontend",
     "slug": "frontend",
     "version": "1.0.0",
-    "scheme": "meu-projeto-esquema",
+    "scheme": "frontend",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
@@ -22,7 +22,8 @@
         "backgroundColor": "#ffffff"
       },
       "edgeToEdgeEnabled": true,
-      "predictiveBackGestureEnabled": false
+      "predictiveBackGestureEnabled": false,
+      "package": "com.mao000.frontend"
     },
     "web": {
       "favicon": "metro"
