@@ -5,7 +5,7 @@ import Colors from "@/constants/Colors";
 export function CardMedicine() {
     return (
         <View>
-            <Text>09:00</Text>
+            <Text style={styles.hourMedication}>09:00</Text>
             <TouchableOpacity activeOpacity={0.9} style={styles.cardMedicine}>
             
                 <MaterialCommunityIcons style={styles.iconMedicine} name="pill-multiple" size={40} color={Colors.accent}  />
@@ -29,18 +29,23 @@ export function CardMedicine() {
 
 const styles = StyleSheet.create({
 
-        cardMedicine: {
+    cardMedicine: {
 
         flexDirection: "row",
         justifyContent: "flex-start",
         alignItems: "center",
-        width: "80%",
+        width: "100%",
         height: 60,
         backgroundColor: "#ffffff",
         borderRadius: 8,
+        marginTop:10,
         elevation: 4,
         gap: 20
     
+    },
+
+    hourMedication: {
+        fontWeight: 500,
     },
 
     infoMedicine: {
@@ -63,7 +68,7 @@ const styles = StyleSheet.create({
         borderRadius: 6,
         justifyContent: "center",
         alignItems: "center",
-        marginLeft: 50,
+        marginLeft: 70,
         backgroundColor: Colors.accent
     },
 
