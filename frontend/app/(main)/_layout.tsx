@@ -1,12 +1,17 @@
 import { Tabs } from 'expo-router';
-import { TouchableOpacity, View } from 'react-native';
 import Toast from 'react-native-toast-message';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import Colors from '../../constants/Colors';
 import ButtonTabAdd from '@/components/ButtonTabAdd';
+import { ModalOpcoes } from '@/components/ModalOpcoes';
+import { useState } from 'react';
 
 // Tabs é a barra inferior de navegação da nossa aplicação
 export default function RootLayout() {
+
+  // Estado do botão de adicionar registros
+  const [modalVisible, setModalVisible] = useState(false);
+
   return (
     
     <>
@@ -42,11 +47,22 @@ export default function RootLayout() {
       <Tabs.Screen 
         name="post"
         options={{
+          
           tabBarLabel: () => null,
           tabBarIcon: ({ color }) => (
             <MaterialCommunityIcons name="plus" size={30} color="white" />
           ),
-          tabBarButton: (props) => <ButtonTabAdd {...props} />,
+          tabBarButton: (props) => (
+              <ButtonTabAdd {...props} onPress={() => setModalVisible(true)} />
+          ),
+        }}
+        listeners={{
+          tabPress: (e) => {
+            // Impede a navegação padrão para a tela "post"
+            e.preventDefault(); 
+            // abre o modal
+            setModalVisible(true);
+          },
         }}
       />
 
@@ -69,6 +85,10 @@ export default function RootLayout() {
         }}/> 
 
       </Tabs>
+
+      <ModalOpcoes
+        visible={modalVisible} 
+        onClose={() => setModalVisible(false)} />
 
       {/* O Toast deve ficar fora do Stack para "flutuar" sobre as telas */}
       <Toast />
