@@ -1,18 +1,21 @@
 import { Tabs } from 'expo-router';
+import { TouchableOpacity, View } from 'react-native';
 import Toast from 'react-native-toast-message';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import Colors from '../../constants/Colors';
+import ButtonTabAdd from '@/components/ButtonTabAdd';
 
 // Tabs é a barra inferior de navegação da nossa aplicação
 export default function RootLayout() {
   return (
+    
     <>
       <Tabs screenOptions={{
         headerShown: false,
         animation: 'fade',
         tabBarActiveTintColor: Colors.accent,
         tabBarInactiveTintColor: Colors.primary_text,
-        
+
       }}>
       
         <Tabs.Screen 
@@ -25,8 +28,6 @@ export default function RootLayout() {
           }}
         />
         
-
-
       <Tabs.Screen 
         name="agenda" 
         options={{ 
@@ -36,6 +37,18 @@ export default function RootLayout() {
             ),
           }}
       /> 
+
+      {/* Botão do meio */}
+      <Tabs.Screen 
+        name="post"
+        options={{
+          tabBarLabel: () => null,
+          tabBarIcon: ({ color }) => (
+            <MaterialCommunityIcons name="plus" size={30} color="white" />
+          ),
+          tabBarButton: (props) => <ButtonTabAdd {...props} />,
+        }}
+      />
 
       <Tabs.Screen 
         name="progresso" 
