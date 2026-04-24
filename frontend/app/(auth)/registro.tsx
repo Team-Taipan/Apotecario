@@ -8,6 +8,9 @@ import { useRouter } from 'expo-router';
 import { InputText } from '../../components/InputText';
 import { InputPassword } from '../../components/InputPassword';
 import Toast from 'react-native-toast-message';
+import { authStorage } from '../../services/authStorage'; //Serviço de armazenamento seguro para salvar o token
+import { useAuth } from '../../contexts/AuthContext'; // Hook de autenticação para função de login do contexto
+import { authService } from '../../services/authService'; // Serviço de autenticação chamada de login
 
 export default function RegistroScreen() {
   // Hook de navegação do Expo Router
@@ -22,7 +25,7 @@ export default function RegistroScreen() {
   const [loading, setLoading] = useState(false);
 
   // Funções de Validação
-  const handleRegistro = () => {
+  const handleRegistro = async () => {
     // Validar se os campos estão vazios
     if (!email || !senha || !confirmarSenha) {
       Toast.show({
@@ -63,23 +66,36 @@ export default function RegistroScreen() {
       return;
     }
 
-    // Simulação de envio para o Back-end
     setLoading(true);
 
-    setTimeout(() => {
-      setLoading(false);
-      console.log("Dados enviados:", { email, senha });
+    try {
+      // Chama a service de registro passando os dados necessários
+      await authService.register(email, senha, confirmarSenha);
+
       Toast.show({
         type: 'success',
         text1: 'Sucesso!',
-        text2: 'Conta criada com sucesso!',
+        text2: 'Conta criada! Agora faça seu login.',
         position: 'bottom',
-        bottomOffset: 40,    // Distância do final da tela
+        bottomOffset: 40,
         visibilityTime: 3000,
       });
-      // Após o sucesso,replace para ir ao app principal ou login
-      // router.replace('/home'); 
-    }, 2000);
+
+      // Retorna para a tela de login
+      router.replace('/(auth)');
+
+    } catch (error: any) {
+      console.error("Erro no registro:", error.response?.data || error.message);
+
+      Toast.show({
+        type: 'error',
+        text1: 'Erro ao registrar',
+        text2: error.response?.data?.message || 'Tente novamente mais tarde.',
+        position: 'bottom',
+      });
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -108,7 +124,7 @@ export default function RegistroScreen() {
 
           {/* Campos de Input */}
           <View style={styles.inputContainer}>
-            <View style={styles.field}>
+            <View>
               <InputText
                 placeholder="Email"
                 keyboardType="email-address"
@@ -149,15 +165,15 @@ export default function RegistroScreen() {
           </View>
         </View>
         {/* Footer */}
-          <View style={styles.footer}>
-            <Text style={styles.footerText}>Já tem uma Conta? </Text>
-            <TouchableOpacity
-              onPress={() => router.back()}
-              activeOpacity={0.7} // Dá um feedback visual melhor ao clicar
-            >
-              <Text style={styles.footerLink}>Faça login!</Text>
-            </TouchableOpacity>
-          </View>
+        <View style={styles.footer}>
+          <Text style={styles.footerText}>Já tem uma Conta? </Text>
+          <TouchableOpacity
+            onPress={() => router.back()}
+            activeOpacity={0.7} // Dá um feedback visual melhor ao clicar
+          >
+            <Text style={styles.footerLink}>Faça login!</Text>
+          </TouchableOpacity>
+        </View>
       </BlurView>
     </View>
   );

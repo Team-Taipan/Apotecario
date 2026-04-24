@@ -6,7 +6,8 @@ const { width, height } = Dimensions.get('window');
 
 export const styles = StyleSheet.create({
   container: {
-    flex: 1
+    flex: 1,
+    fontFamily: 'Inter'
   },
   backgroundImage: {
     position: 'absolute',
@@ -18,7 +19,8 @@ export const styles = StyleSheet.create({
     flex: 1,
     paddingHorizontal: 24,
     justifyContent: 'space-between', 
-    paddingBottom: 20, // Espaço para o conteúdo não ficar colado no final da tela - Footer 
+    paddingBottom: 20, // Espaço para o conteúdo não ficar colado no final da tela - Footer
+    paddingTop: 30
   },
   content: {
     flex: 1,
@@ -51,32 +53,6 @@ export const styles = StyleSheet.create({
   inputContainer: {
     gap: 16,
     marginBottom: 32,
-  },
-  field: {
-    width: '100%',
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 4,
-    elevation: 3,
-  },
-  input: {
-    height: 58,
-    backgroundColor: Colors.background_text_input,
-    borderRadius: 12,
-    paddingHorizontal: 16,
-    fontSize: 16,
-    color: Colors.primary_text,
-    fontFamily: 'Inter',
-  },
-  inputRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    backgroundColor: Colors.background_text_input,
-    borderRadius: 12,
-  },
-  eyeIcon: {
-    paddingRight: 16,
   },
   buttonWrapper: {
     width: '100%',

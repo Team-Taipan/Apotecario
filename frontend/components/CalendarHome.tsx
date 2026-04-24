@@ -35,13 +35,13 @@ export function CalendarHome() {
     // ele foi usado no lugar do toString justamente por conta desse formato, o toString retornaria algo como: "Wed Oct 05 2011 16:48:00 GMT+0200 (CEST)"
     // ao invés de  "2011-10-05T14:48:00.000Z".
     const today = new Date().toISOString().split("T")[0]; // pegando a hora atual
-    
-    // Estados para pegar o mes e ano atuais
-    const [ currentMonth, setCurrentMonth ] = useState(""); ;
-    // Estados pata quando for mudar o dia selecionado
-    const [ selectedDay, setSelectedDay ] = useState("");
 
-    const updateCurrentMonth = (currentDate: String) =>{
+    // Estados para pegar o mes e ano atuais
+    const [currentMonth, setCurrentMonth] = useState("");;
+    // Estados pata quando for mudar o dia selecionado
+    const [selectedDay, setSelectedDay] = useState("");
+
+    const updateCurrentMonth = (currentDate: String) => {
         const date = new Date(currentDate + "T00:00:00") // O T00:00:00 força o horário local
         const monthName = LocaleConfig.locales['br'].monthNames[date.getMonth()];
         const year = date.getFullYear();
@@ -54,15 +54,15 @@ export function CalendarHome() {
     const updateCurrentDay = (selectedDate: String) => {
         const date = new Date(selectedDate + "T00:00:00");
 
-        const dayLabel = selectedDate === today 
-            ? "Hoje" 
+        const dayLabel = selectedDate === today
+            ? "Hoje"
             : LocaleConfig.locales['br'].dayNames[date.getDay()];
 
         const dayOfMonth = date.getDate();
         const monthName = LocaleConfig.locales['br'].monthNames[date.getMonth()];
 
         // atualizando o estado
-        setSelectedDay(`${dayLabel}, ${dayOfMonth} de  ${monthName}`)
+        setSelectedDay(`${dayLabel}, ${dayOfMonth} de ${monthName}`)
 
     }
     // chamando a função para popular o estado
@@ -70,25 +70,24 @@ export function CalendarHome() {
         updateCurrentMonth(today);
         updateCurrentDay(today);
     }, []);
-    
-    
+
+
     const availableWidth = screenWidth - 50;
 
-    return(
-
+    return (
 
         <View style={styles.calendarContainer}>
 
             <Text style={styles.calendarTitleMonthYear}>{currentMonth}</Text>
 
-            <CalendarProvider onDateChanged={(date) => {updateCurrentDay(date); updateCurrentMonth(date)}} style={styles.calendarProviderCustom} date={today} key={today}>
+            <CalendarProvider onDateChanged={(date) => { updateCurrentDay(date); updateCurrentMonth(date) }} style={styles.calendarProviderCustom} date={today} key={today}>
                 {/* firstDay = 0, pq a semana começa no Domingo,  */}
-                <WeekCalendar firstDay={1} calendarHeight={80} calendarWidth={availableWidth} theme={{ todayTextColor: Colors.accent, selectedDayBackgroundColor: Colors.accent, textDayFontFamily: "Inter", textDayFontWeight: "800"}} />
+                <WeekCalendar firstDay={1} calendarHeight={80} calendarWidth={availableWidth} theme={{ todayTextColor: Colors.accent, selectedDayBackgroundColor: Colors.accent, textDayFontFamily: "Inter", textDayFontWeight: "800" }} />
                 <Text style={styles.selectedDate}>{selectedDay}</Text>
             </CalendarProvider>
 
         </View>
-        
+
     )
 
 }
@@ -97,8 +96,8 @@ const styles = StyleSheet.create({
 
     calendarContainer: {
         marginTop: 20,
-        width: '100%'
-        
+        width: '100%',
+        flex: 1
     },
 
     calendarTitleMonthYear: {
@@ -113,12 +112,11 @@ const styles = StyleSheet.create({
 
     selectedDate: {
         fontFamily: "Inter",
-        marginTop: -35,
+        marginTop: -40,
         alignSelf: 'center',
         fontWeight: '700',
         fontSize: 17
     },
-
 
 })
 

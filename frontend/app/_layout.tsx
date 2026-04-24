@@ -2,10 +2,19 @@ import { Stack, useRouter } from 'expo-router';
 import Toast from 'react-native-toast-message';
 import { useEffect } from 'react';
 import { ActivityIndicator, View } from 'react-native';
+import { useFonts } from 'expo-font';
 
 import { AuthProvider, useAuth } from '../contexts/AuthContext';
 
 export default function RootLayout() {
+  const [fontsLoaded] = useFonts({
+    'Inter': require('../assets/fonts/Inter.ttf')
+  });
+
+  if (!fontsLoaded) {
+    return null;
+  }
+
   return (
     /* O Provider deve envolver tudo. 
       Isso garante que useAuth() funcione em qualquer lugar abaixo dele, incluindo o LayoutContent que é responsável por decidir para onde o usuário vai (Login ou Home) assim que o app abre.
@@ -38,7 +47,7 @@ function LayoutContent() {
       router.replace('/(main)/main');
     } else {
       // Se não está logado, força a ida para a tela de autenticação
-      router.replace('/(auth)');
+      router.replace('/(auth)/perfil');
     }
   }, [signed, loading]);
 

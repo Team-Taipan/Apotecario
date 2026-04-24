@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { BlurView } from 'expo-blur';
 import { Checkbox } from 'expo-checkbox';
 import { LinearGradient } from 'expo-linear-gradient';
@@ -8,15 +8,29 @@ import { InputText } from '../../components/InputText';
 import { useRouter } from 'expo-router';
 import { InputPassword } from '../../components/InputPassword';
 import Toast from 'react-native-toast-message';
-import { authStorage } from '../../services/authStorage';
-import { useAuth } from '../../contexts/AuthContext';
-import api from '../../services/api';
+import { authStorage } from '../../services/authStorage'; //Serviço de armazenamento seguro para salvar o token
+import { useAuth } from '../../contexts/AuthContext'; // Hook de autenticação para função de login do contexto
+import { authService } from '../../services/authService'; // Serviço de autenticação chamada de login
 
 export default function LoginScreen() {
+  
+  {/* Este useEffect é apenas para desenvolvimento, para garantir que o estado de autenticação esteja limpo para testar o fluxo de login e registro do zero. Ele chama a função signOut do contexto de autenticação, que limpa o token armazenado e define o usuário como null.
+
+  const { signOut } = useAuth();
+  // Dentro do LoginScreen()
+  useEffect(() => {
+    const resetAuth = async () => {
+      // Isso vai limpar o token do SecureStore e colocar o user como null
+      await signOut();
+    };
+    //resetAuth(); // Descomente esta linha, salve, espere o app recarregar e comente de novo.
+  }, []);
+  {*/}
+
   // Hook de navegação do Expo Router
   const router = useRouter();
   const { signIn } = useAuth(); // Importa a função de login do contexto de autenticação
-  
+
   // Estado para o checkbox "Lembrar-me"
   const [isChecked, setChecked] = useState(false);
 
@@ -29,7 +43,6 @@ export default function LoginScreen() {
 
   // Chamada de API
   const handleLogin = async () => {
-    // Validar se os campos estão vazios antes de qualquer coisa
     if (!email || !senha) {
       Toast.show({
         type: 'error',
@@ -40,27 +53,21 @@ export default function LoginScreen() {
       return;
     }
 
-    // Iniciar feedback de carregamento
     setLoading(true);
 
     try {
-      // Chamada de API para autenticação
-      const response = await api.post('/usuario/login', {
-        email: email,
-        senha: senha,
-      });
-
-      // Recebe o token de acesso do backend
-      const { accessToken, exibirIntroducao } = response.data;
+      // Chama a service e pega os dados desestruturados
+      const { accessToken, exibirIntroducao } = await authService.login(email, senha);
 
       console.log("Token recebido:", accessToken);
 
-      // Se o usuário marcou "Lembrar-me", salvamos no dispositivo
+      // Valida se o lembrar-me está marcado e salva o token
       if (isChecked) {
         await authStorage.saveToken(accessToken);
       }
 
-      // Atualiza o estado global e injeta o header no Axios
+      // Atualiza o estado global (Contexto)
+      // Passamos apenas o token conforme definido no AuthContext
       await signIn(accessToken);
 
       Toast.show({
@@ -70,15 +77,12 @@ export default function LoginScreen() {
         position: 'bottom',
       });
 
-      // Usamos replace para o usuário não voltar para o login pelo botão físico do Android
-      if (exibirIntroducao) {
-        router.replace('/perfil'); // Se for o primeiro login criamos um perfil para o usuário, mandando ele direto para a tela de perfil -- fazer a lógica de como vai funcionar isso
-      } else {
-        router.replace('/main'); // Se já for usuário antigo
-      }
+      // Decisão de Navegação Única
+      // replace impede que o usuário volte ao login pelo botão "voltar" do sistema
+      const rotaDestino = exibirIntroducao ? '/perfil' : '/(main)';
+      router.replace(rotaDestino);
 
     } catch (error: any) {
-      // Tratamento de Erro (E-mail ou senha errados, servidor offline, etc)
       console.error("Erro ao logar:", error.response?.data || error.message);
 
       Toast.show({
@@ -88,7 +92,6 @@ export default function LoginScreen() {
         position: 'bottom',
       });
     } finally {
-      // Finalizar o carregamento independentemente do resultado
       setLoading(false);
     }
   };
@@ -147,7 +150,7 @@ export default function LoginScreen() {
               )}
             </LinearGradient>
           </TouchableOpacity>
-          
+
         </View>
         {/* Footer */}
         <View style={styles.footer}>

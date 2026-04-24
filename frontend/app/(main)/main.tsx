@@ -3,52 +3,40 @@ import { CardMedicine } from "@/components/CardMedicine";
 import Colors from "@/constants/Colors";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import React from "react";
-import { View, ScrollView, StyleSheet, Text, Image} from "react-native";
-
+import { View, ScrollView, StyleSheet, Text, Image } from "react-native";
 
 export default function HomeScreen() {
     return (
         // ScrollView por conta dos cards de medicamentos
         <ScrollView style={{ flex: 1, backgroundColor: Colors.background }}>
-            <View  style={{ paddingHorizontal: 25 }}>
-            
+            <View style={{ paddingHorizontal: 24 }}>
+                
                 {/* Sessão do Header do Perfil*/}
-            <View style={styles.profileHeader}> 
-
+                <View style={styles.profileHeader}>
                     <Image
-                        source={require("@assets/avatars/brekibedi.png")} 
+                        source={require("@assets/avatars/brekibedi.png")}
                         style={styles.image}
                     />
-
                     <Text style={styles.title}>
-                        Olá, <Text style={styles.userName}>Otávio!</Text>
-                        </Text>
-
-                    <MaterialCommunityIcons name="chevron-down" size={30} color={Colors.accent}  />
-
+                        Olá, <Text style={styles.userName}>Otavio!</Text>
+                    </Text>
+                    <MaterialCommunityIcons name="chevron-down" size={30} color={Colors.accent} />
                 </View>
-
 
                 {/* Sessão de Calendário */}
                 <CalendarHome />
-
                 {/* Sessão de Cards*/}
                 <View style={styles.medicationSecton}>
                     <Text style={styles.titleSection}>Medicamentos</Text>
                     <Text style={styles.subTitleSection}>Remédios que você deve tomar</Text>
-
                     <View style={styles.containerCards} >
-
                         <CardMedicine />
                         <CardMedicine />
-
                     </View>
-                    </View>
+                </View>
             </View>
         </ScrollView>
     );
-
-    
 }
 
 const styles = StyleSheet.create({
@@ -57,7 +45,7 @@ const styles = StyleSheet.create({
     titleSection: {
         fontWeight: "bold",
         fontFamily: 'Inter',
-        fontSize:21,
+        fontSize: 21,
     },
 
     subTitleSection: {
@@ -77,11 +65,11 @@ const styles = StyleSheet.create({
         gap: 5
 
     },
-    
+
     image: {
         width: 50,
-        height:50,
-        resizeMode:"contain",
+        height: 50,
+        resizeMode: "contain",
         marginRight: 4
     },
 
@@ -94,7 +82,7 @@ const styles = StyleSheet.create({
     userName: {
         color: Colors.accent,
         fontFamily: 'Inter',
-        fontWeight: 'bold'
+        fontWeight: '800'
     },
 
     // Sessão do Calendário
@@ -108,9 +96,5 @@ const styles = StyleSheet.create({
         flexDirection: "column",
         gap: 10,
         marginTop: 15
-    },
-
-    
-
-
+    }
 })
