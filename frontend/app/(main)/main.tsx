@@ -1,7 +1,8 @@
+import { CardMedicine } from "@/components/CardMedicine";
 import Colors from "@/constants/Colors";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import React from "react";
-import { View, StyleSheet, Text, Image} from "react-native";
+import { View, StyleSheet, Text, Image, TouchableOpacity} from "react-native";
 
 export default function HomeScreen() {
     return (
@@ -32,20 +33,11 @@ export default function HomeScreen() {
             <Text style={styles.titleSection}>Medicamentos</Text>
             <Text style={styles.subTitleSection}>Remédios que você deve tomar</Text>
 
-            <Text>09:00</Text>
-            <View style={styles.cardMedicine}>
+            <View style={styles.containerCards} >
 
-                <MaterialCommunityIcons style={styles.iconMedicine} name="pill-multiple" size={40} color={Colors.accent}  />
-
-                <View style={styles.infoMedicine}>
-                    <Text style={styles.nameMedicine}>Losartana</Text>
-                    <Text>1 Comprimido</Text>
-                </View>
-                
-                
+                <CardMedicine />
 
             </View>
-            
 
         </View>
     );
@@ -100,29 +92,11 @@ const styles = StyleSheet.create({
     },
 
     // Sessão Medicamentos
-    cardMedicine: {
-
-        flexDirection: "row",
-        justifyContent: "flex-start",
-        alignItems: "center",
-        width: "80%",
-        height: 60,
-        backgroundColor: "#ffffff",
-        borderRadius: 8,
-        elevation: 4,
-        gap: 20
-    
+    containerCards: {
+        flexDirection: "column",
+        gap: 10,
+        marginTop: 15
     },
 
-    infoMedicine: {
-        flexDirection: "column"
-    },
 
-    nameMedicine: {
-        fontWeight: "bold",
-    },
-
-    iconMedicine: {
-        marginLeft: 10
-    }
 })

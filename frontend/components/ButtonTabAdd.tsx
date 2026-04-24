@@ -3,7 +3,7 @@ import React from 'react';
 import { BottomTabBarButtonProps } from '@react-navigation/bottom-tabs';
 import Colors from "@/constants/Colors";
 
-// children é o icone que ele recebe 
+// children é o icone que ele recebe do TabsBarIcon
 const ButtonTabAdd : React.FC<BottomTabBarButtonProps> = ({ children, onPress }) => {
 
   return (
