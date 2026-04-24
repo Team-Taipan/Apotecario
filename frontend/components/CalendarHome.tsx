@@ -81,7 +81,7 @@ export function CalendarHome() {
 
             <Text style={styles.calendarTitleMonthYear}>{currentMonth}</Text>
 
-            <CalendarProvider onDateChanged={(date) => {updateCurrentDay(date)}} style={styles.calendarProviderCustom} date={today} key={today}>
+            <CalendarProvider onDateChanged={(date) => {updateCurrentDay(date); updateCurrentMonth(date)}} style={styles.calendarProviderCustom} date={today} key={today}>
                 {/* firstDay = 0, pq a semana começa no Domingo,  */}
                 <WeekCalendar firstDay={1} calendarHeight={80} calendarWidth={availableWidth} theme={{ todayTextColor: Colors.accent, selectedDayBackgroundColor: Colors.accent, textDayFontFamily: "Inter", textDayFontWeight: "800"}} />
                 <Text style={styles.selectedDate}>{selectedDay}</Text>
