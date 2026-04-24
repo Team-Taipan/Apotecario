@@ -1,8 +1,10 @@
+import { CalendarHome } from "@/components/CalendarHome";
 import { CardMedicine } from "@/components/CardMedicine";
 import Colors from "@/constants/Colors";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import React from "react";
-import { View, ScrollView, StyleSheet, Text, Image, TouchableOpacity} from "react-native";
+import { View, ScrollView, StyleSheet, Text, Image} from "react-native";
+
 
 export default function HomeScreen() {
     return (
@@ -10,7 +12,7 @@ export default function HomeScreen() {
         <ScrollView style={{ flex: 1, backgroundColor: Colors.background }}>
             <View  style={{ paddingHorizontal: 25 }}>
             
-                {/* Componente do Header do Perfil*/}
+                {/* Sessão do Header do Perfil*/}
             <View style={styles.profileHeader}> 
 
                     <Image
@@ -27,10 +29,10 @@ export default function HomeScreen() {
                 </View>
 
 
-                {/* Componente do Calendário */}
+                {/* Sessão de Calendário */}
+                <CalendarHome />
 
-
-                {/* Componentes de Cards*/}
+                {/* Sessão de Cards*/}
                 <View style={styles.medicationSecton}>
                     <Text style={styles.titleSection}>Medicamentos</Text>
                     <Text style={styles.subTitleSection}>Remédios que você deve tomar</Text>
@@ -95,6 +97,8 @@ const styles = StyleSheet.create({
         fontWeight: 'bold'
     },
 
+    // Sessão do Calendário
+
     // Sessão Medicamentos
     medicationSecton: {
         marginTop: 30
@@ -105,6 +109,8 @@ const styles = StyleSheet.create({
         gap: 10,
         marginTop: 15
     },
+
+    
 
 
 })
