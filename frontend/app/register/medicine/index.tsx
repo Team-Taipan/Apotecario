@@ -1,12 +1,21 @@
-import { Text, View, StyleSheet } from "react-native"
+import InputSearch from "@/components/InputSearch"
+import Colors from "@/constants/Colors"
+import { MaterialCommunityIcons } from "@expo/vector-icons"
+import { Text, TextInput, View, StyleSheet } from "react-native"
 
 export default function listMedicamentos() {
     return(
 
-        <View style={{flex: 1, alignItems: 'center', justifyContent: "center"}} >
-            <Text> Medicamentos </Text>
+        <View style={{ justifyContent: "center", marginHorizontal: 20}} >
+            <InputSearch placeHolderText="Buscar Medicamentos..." />
         </View>
     )
 
 }
+
+const styles = StyleSheet.create({
+
+    
+
+})
 
