@@ -24,7 +24,7 @@ export default function RootLayout() {
       }}>
       
         <Tabs.Screen 
-          name="main" 
+          name="index" 
           options={{
             title: 'Início',
             tabBarIcon: ({ color, size }) => (

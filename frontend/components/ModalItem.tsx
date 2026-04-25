@@ -4,15 +4,17 @@ import Colors from "@/constants/Colors";
 
 interface ModalItemProps {
     iconName: keyof typeof MaterialCommunityIcons.glyphMap; // Garante que o nome do ícone exista
-    title: String,
-    subTitle: String
+    title: string,
+    subTitle: string,
+    functionRedirect: () => void; 
 }
 
-export function ModalItem({iconName, title, subTitle} : ModalItemProps) {
+export function ModalItem({iconName, title, subTitle, functionRedirect} : ModalItemProps) {
     return (
         <TouchableOpacity 
             style={styles.itemContainer}
             activeOpacity={0.7}
+            onPress={functionRedirect}
         >
             <MaterialCommunityIcons name={iconName} size={40} color={Colors.accent}  />
             <View style={styles.itemContent}>

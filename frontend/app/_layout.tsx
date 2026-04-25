@@ -54,7 +54,7 @@ function LayoutContent() {
 
         // Se está logado, vai para a área principal
         // O 'replace' impede que o usuário volte para o login pelo botão 'Voltar'
-        router.replace('/(main)/main');
+        router.replace('/(main)/');
 
       }
 
