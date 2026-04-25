@@ -37,7 +37,7 @@ export function CalendarHome() {
     const today = new Date().toISOString().split("T")[0]; // pegando a hora atual
 
     // Estados para pegar o mes e ano atuais
-    const [currentMonth, setCurrentMonth] = useState("");;
+    const [currentMonth, setCurrentMonth] = useState("");
     // Estados pata quando for mudar o dia selecionado
     const [selectedDay, setSelectedDay] = useState("");
 

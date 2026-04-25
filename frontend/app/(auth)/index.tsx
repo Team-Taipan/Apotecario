@@ -79,7 +79,7 @@ export default function LoginScreen() {
 
       // Decisão de Navegação Única
       // replace impede que o usuário volte ao login pelo botão "voltar" do sistema
-      const rotaDestino = exibirIntroducao ? '/perfil' : '/(main)';
+      const rotaDestino = exibirIntroducao ? '/perfil' : '/(main)/main';
       router.replace(rotaDestino);
 
     } catch (error: any) {

@@ -47,7 +47,7 @@ function LayoutContent() {
       router.replace('/(main)/main');
     } else {
       // Se não está logado, força a ida para a tela de autenticação
-      router.replace('/(auth)/perfil');
+      router.replace('/(auth)/');
     }
   }, [signed, loading]);
 
