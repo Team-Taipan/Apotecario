@@ -42,3 +42,16 @@ def finalizar_dados_medicamento(dataFrame):
     dataFrame["NO_PRODUTO"] = dataFrame["NO_PRODUTO"].str.upper()
 
     return dataFrame
+
+# função para remover duplicatas em uma tabela e gerar id
+def criar_dados_unicos_tabelas_e_gerar_id(dataFrame, nomeColunaDados, nomeColunaId):
+
+
+    # Remove registros duplicados na coluna fornecida da tabela
+    tabela = dataFrame[[nomeColunaDados]].drop_duplicates().reset_index(drop=True)
+
+    # Cria uma nova coluna ID com IDs incrementais (só será utilizado no Pandas pq no MySQL eu botei a PK pra ser auto generated)
+    tabela.insert(0, nomeColunaId, range(1, len(tabela ) + 1))
+
+    return tabela
+
