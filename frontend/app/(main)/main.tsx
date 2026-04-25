@@ -1,56 +1,42 @@
+import { CalendarHome } from "@/components/CalendarHome";
+import { CardMedicine } from "@/components/CardMedicine";
 import Colors from "@/constants/Colors";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import React from "react";
-import { View, StyleSheet, Text, Image} from "react-native";
+import { View, ScrollView, StyleSheet, Text, Image } from "react-native";
 
 export default function HomeScreen() {
     return (
-        <View style={{  flex: 1, justifyContent: 'flex-start', backgroundColor: Colors.background}}>
-           
-
-            {/* Componente do Header do Perfil*/}
-           <View style={styles.profileHeader}> 
-
-                <Image
-                    source={require("@assets/avatars/brekibedi.png")} 
-                    style={styles.image}
-                />
-
-                <Text style={styles.title}>
-                    Olá, <Text style={styles.userName}>Otávio!</Text>
+        // ScrollView por conta dos cards de medicamentos
+        <ScrollView style={{ flex: 1, backgroundColor: Colors.background }}>
+            <View style={{ paddingHorizontal: 24 }}>
+                
+                {/* Sessão do Header do Perfil*/}
+                <View style={styles.profileHeader}>
+                    <Image
+                        source={require("@assets/avatars/brekibedi.png")}
+                        style={styles.image}
+                    />
+                    <Text style={styles.title}>
+                        Olá, <Text style={styles.userName}>Otavio!</Text>
                     </Text>
-
-                <MaterialCommunityIcons name="chevron-down" size={30} color={Colors.accent}  />
-
-            </View>
-
-
-            {/* Componente do Calendário */}
-
-
-            {/* Componentes de Cards*/}
-            <Text style={styles.titleSection}>Medicamentos</Text>
-            <Text style={styles.subTitleSection}>Remédios que você deve tomar</Text>
-
-            <Text>09:00</Text>
-            <View style={styles.cardMedicine}>
-
-                <MaterialCommunityIcons style={styles.iconMedicine} name="pill-multiple" size={40} color={Colors.accent}  />
-
-                <View style={styles.infoMedicine}>
-                    <Text style={styles.nameMedicine}>Losartana</Text>
-                    <Text>1 Comprimido</Text>
+                    <MaterialCommunityIcons name="chevron-down" size={30} color={Colors.accent} />
                 </View>
-                
-                
 
+                {/* Sessão de Calendário */}
+                <CalendarHome />
+                {/* Sessão de Cards*/}
+                <View style={styles.medicationSecton}>
+                    <Text style={styles.titleSection}>Medicamentos</Text>
+                    <Text style={styles.subTitleSection}>Remédios que você deve tomar</Text>
+                    <View style={styles.containerCards} >
+                        <CardMedicine />
+                        <CardMedicine />
+                    </View>
+                </View>
             </View>
-            
-
-        </View>
+        </ScrollView>
     );
-
-    
 }
 
 const styles = StyleSheet.create({
@@ -59,7 +45,7 @@ const styles = StyleSheet.create({
     titleSection: {
         fontWeight: "bold",
         fontFamily: 'Inter',
-        fontSize:21,
+        fontSize: 21,
     },
 
     subTitleSection: {
@@ -75,54 +61,40 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         justifyContent: "flex-start",
         alignItems: "center",
-        marginLeft: 30,
         marginTop: 40,
         gap: 5
 
     },
-    
+
     image: {
         width: 50,
-        height:50,
-        resizeMode:"contain",
+        height: 50,
+        resizeMode: "contain",
         marginRight: 4
     },
 
     title: {
         fontSize: 25,
         fontFamily: 'Inter',
-        fontWeight: 'bold'
+        fontWeight: '600'
     },
 
     userName: {
         color: Colors.accent,
-        fontFamily: 'Inter'
+        fontFamily: 'Inter',
+        fontWeight: '800'
     },
+
+    // Sessão do Calendário
 
     // Sessão Medicamentos
-    cardMedicine: {
-
-        flexDirection: "row",
-        justifyContent: "flex-start",
-        alignItems: "center",
-        width: "80%",
-        height: 60,
-        backgroundColor: "#ffffff",
-        borderRadius: 8,
-        elevation: 4,
-        gap: 20
-    
+    medicationSecton: {
+        marginTop: 30
     },
-
-    infoMedicine: {
-        flexDirection: "column"
-    },
-
-    nameMedicine: {
-        fontWeight: "bold",
-    },
-
-    iconMedicine: {
-        marginLeft: 10
+    // Sessao dos Cards
+    containerCards: {
+        flexDirection: "column",
+        gap: 10,
+        marginTop: 15
     }
 })
