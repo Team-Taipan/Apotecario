@@ -8,7 +8,7 @@ const TOKEN_KEY = 'user_token';
  */
 export const authStorage = {
     // Salva o token
-    saveToken: async (token: any) => {
+    saveToken: async (token: string) => {
         try {
             // Garante que o valor seja string antes de salvar
             const valueToSave = typeof token === 'string' ? token : JSON.stringify(token);

@@ -57,7 +57,7 @@ export default function PerfilScreen() {
                         </Text>
                     </View>
 
-                    <TouchableOpacity style={{ width: '100%' }} activeOpacity={0.8} onPress={() => router.push('/(main)/main')}>
+                    <TouchableOpacity style={{ width: '100%' }} activeOpacity={0.8} onPress={() => router.replace('/(main)/main')}>
                         <LinearGradient
                             colors={['#3da696', '#2d7a6e']}
                             style={styles.button}

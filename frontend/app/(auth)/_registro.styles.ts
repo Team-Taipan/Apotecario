@@ -40,7 +40,7 @@ export const styles = StyleSheet.create({
   },
   title: {
     fontSize: 32,
-    fontFamily: 'Inter', // Nome da sua fonte carregada
+    fontFamily: 'Inter', 
     fontWeight: '700',
     color: Colors.primary_text,
   },

@@ -15,6 +15,8 @@ export default function RootLayout() {
     return null;
   }
 
+  
+
   return (
     /* O Provider deve envolver tudo. 
       Isso garante que useAuth() funcione em qualquer lugar abaixo dele, incluindo o LayoutContent que é responsável por decidir para onde o usuário vai (Login ou Home) assim que o app abre.
@@ -33,8 +35,9 @@ export default function RootLayout() {
  * no mesmo nível do AuthProvider (precisa estar "dentro").
  */
 function LayoutContent() {
-  const { signed, loading } = useAuth();
+  const { signed, loading, isNew } = useAuth();
   const router = useRouter();
+
 
   // Lógica de Redirecionamento Automático
   useEffect(() => {
@@ -42,14 +45,24 @@ function LayoutContent() {
     if (loading) return;
 
     if (signed) {
-      // Se está logado, vai para a área principal
-      // O 'replace' impede que o usuário volte para o login pelo botão 'Voltar'
-      router.replace('/(main)/main');
+
+      if(isNew) {
+
+        router.replace('/(auth)/perfil');
+
+      } else {
+
+        // Se está logado, vai para a área principal
+        // O 'replace' impede que o usuário volte para o login pelo botão 'Voltar'
+        router.replace('/(main)/main');
+
+      }
+
     } else {
       // Se não está logado, força a ida para a tela de autenticação
       router.replace('/(auth)/');
     }
-  }, [signed, loading]);
+  }, [signed, loading, isNew]);
 
   // Feedback visual enquanto o App verifica o login
   if (loading) {

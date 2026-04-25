@@ -6,7 +6,8 @@ interface AuthContextData {
     signed: boolean;
     user: object | null;
     loading: boolean;
-    signIn(token: string): Promise<void>;
+    isNew: boolean;
+    signIn(token: string, isNew: boolean): Promise<void>;
     signOut(): void;
 }
 
@@ -23,6 +24,7 @@ const AuthContext = createContext<AuthContextData>({} as AuthContextData);
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
     const [user, setUser] = useState<object | null>(null);
     const [loading, setLoading] = useState(true);
+    const [isNew, setIsNew] = useState(false);
 
     useEffect(() => {
         async function loadStorageData() {
@@ -41,8 +43,9 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         loadStorageData();
     }, []);
 
-    async function signIn(token: string) {
+    async function signIn(token: string, isNewUser: boolean) {
         setUser({ token });
+        setIsNew(isNewUser);
         // Injeta o token no cabeçalho do Axios logo após o login
         api.defaults.headers.Authorization = `Bearer ${token}`;
     }
@@ -53,7 +56,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     }
 
     return (
-        <AuthContext.Provider value={{ signed: !!user, user, loading, signIn, signOut }}>
+        <AuthContext.Provider value={{ signed: !!user, user, loading, isNew, signIn, signOut }}>
             {children}
         </AuthContext.Provider>
     );
