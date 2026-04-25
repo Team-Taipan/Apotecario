@@ -1,4 +1,5 @@
-import { Entity, PrimaryKey, Property, Enum } from '@mikro-orm/core';
+import { Entity, PrimaryKey, Property, Enum, OneToMany, Collection } from '@mikro-orm/core';
+import { Vinculo } from './vinculo.entity';
 
 @Entity({ tableName: 'Perfil' })
 export class Perfil {
@@ -15,4 +16,6 @@ export class Perfil {
   @Enum({ fieldName: 'per_tipo', items: ['Titular', 'Dependente'] })
   tipo!: string;
 
+  @OneToMany(() => Vinculo, vinculo => vinculo.perfil)
+  vinculoPerfis = new Collection<Vinculo>(this);
 }

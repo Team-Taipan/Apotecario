@@ -51,7 +51,9 @@ export class UsuarioService {
 
   async validarLogin(dto: LoginDto) {
 
-    const conta = await this.em.findOne(Conta, { email: dto.email });
+    // o populate serve para carregar relações de uma entidade (collections) no momento da consulta, semelhante a um JOIN 
+    // ref: https://mikro-orm.io/docs/populating-relations
+    const conta = await this.em.findOne(Conta, { email: dto.email }, {  populate: ["vinculoPerfis"] });
 
     // Verificando se a conta existe
     if(!conta) {
@@ -65,18 +67,18 @@ export class UsuarioService {
       throw new UnauthorizedException('E-mail ou senha incorretos');
     }
     
-    // guardando se é o primeiro acesso do usuário
-    const primeiroAcesso = conta.ultimoLogin === null;
-
+    // se uma conta não possui nenhum vinculo (logo, conta nova), fica pendente a criação de seu perfil
+    const perfilPendente = conta.vinculoPerfis.isEmpty(); 
+    // o isEmpty é pq estamos lidando com uma Collections ela sempre retorna um objeto do TipoCollection mesma que esteja vazia
     // atualizando o ultimo login do usuario
     conta.ultimoLogin = new Date();
     await this.em.flush();
 
-    const payload = { sub: conta.id, email: conta.email,  exibirIntroducao: primeiroAcesso }
+    const payload = { sub: conta.id, email: conta.email,  exibirIntroducao: perfilPendente }
 
     return { 
       accessToken: await this.jwtService.signAsync(payload),
-      exibirIntroducao: primeiroAcesso // se for o primeiro acesso, o frontend pode usar essa informação para mostrar uma introdução ou tutorial para o usuário. Depois do primeiro acesso, isso pode ser ignorado.
+      exibirIntroducao: perfilPendente // se for o primeiro acesso, o frontend pode usar essa informação para mostrar uma introdução ou tutorial para o usuário. Depois do primeiro acesso, isso pode ser ignorado.
     };
   }
 

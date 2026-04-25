@@ -26,3 +26,9 @@ export class Vinculo {
   papel!: string;
 
 }
+
+// Sobre ManyToOne: segunda a documentação do mikroORM, o ManyToOne é quando uma instância da entidade
+// atual (nesse caso, Vinculo) refere-se a uma instância da classe referencia(Conta e Perfil). Então esse é um registro que pertence a uma Conta e a um Perfil
+// Então -> Uma conta pode ter varios vinculos, e um Perfil pode ter vários vinculos (perfil compartilhado)
+// Esta é a entidade associativa que centraliza as regras de acesso, papéis e permissões.
+// Ref: https://mikro-orm.io/docs/relationships
