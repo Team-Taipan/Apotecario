@@ -7,7 +7,7 @@ export default function MedicineLayout() {
             animation: 'fade',
             animationDuration: 200,
             contentStyle: { backgroundColor: '#fff' },
-
+            
         }}
         >
             <Stack.Screen name="medicine/index" options={{ title: "" }} />
