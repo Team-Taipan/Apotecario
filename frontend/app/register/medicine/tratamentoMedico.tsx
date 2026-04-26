@@ -2,6 +2,7 @@ import { View, Text, StyleSheet, TouchableOpacity, TextInput } from "react-nativ
 import Colors from "@/constants/Colors"
 import InputDatePicker from "@/components/InputDatePicker"
 import ButtonGradient from "@/components/ButtonGradient"
+import InputNumericStepper from "@/components/InputNumericStepper"
 
 export default function tratamentoMedico() {
 
@@ -17,6 +18,10 @@ export default function tratamentoMedico() {
                     <Text style={styles.treatmentSubTitle}>Registre informações sobre seu tratamento para nos ajudar a personalizar seus lembretes</Text>
 
                     <View style={{ marginTop: 20 }}>
+
+                        {/* componente incremental */}   
+                        <Text style={styles.inputLabel}>Quantidade de Medicamento por Dose: </Text> 
+                        <InputNumericStepper />
 
                         <Text style={styles.inputLabel}>Data de Termino: </Text>
                         <InputDatePicker />
@@ -50,6 +55,7 @@ const styles = StyleSheet.create({
         lineHeight: 22,
     },
     inputLabel: {
+        marginTop: 10,
         fontSize: 16,
         fontWeight: "600",
         color: Colors.primary_text,

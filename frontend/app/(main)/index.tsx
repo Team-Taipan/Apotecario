@@ -1,10 +1,10 @@
 import { CalendarHome } from "@/components/CalendarHome";
-import CardList from "@/components/CardList";
 import { CardMedicine } from "@/components/CardMedicine";
 import Colors from "@/constants/Colors";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import React from "react";
-import { View, ScrollView, StyleSheet, Text, Image } from "react-native";
+import { View, ScrollView, StyleSheet, Text, Image, TouchableOpacity, TextInput } from "react-native";
+
 
 export default function HomeScreen() {
     return (
@@ -28,17 +28,21 @@ export default function HomeScreen() {
                 <CalendarHome />
                 {/* Sessão de Cards*/}
                 <View style={styles.medicationSecton}>
+
                     <Text style={styles.titleSection}>Medicamentos</Text>
                     <Text style={styles.subTitleSection}>Remédios que você deve tomar</Text>
                     <View style={styles.containerCards} >
 
                         <CardMedicine name="Dipirona" iconName="pill-multiple" qtMedicine={2} typeMedicine="comprimidos"/>
                         <CardMedicine name="Dipirona" iconName="water" qtMedicine={5} typeMedicine="gotas" />
-                        
+                       
 
                     </View>
+
                 </View>
+
             </View>
+            
         </ScrollView>
     );
 }
@@ -100,5 +104,6 @@ const styles = StyleSheet.create({
         flexDirection: "column",
         gap: 10,
         marginTop: 15
-    }
+    },
+
 })
