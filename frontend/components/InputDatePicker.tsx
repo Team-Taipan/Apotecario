@@ -2,7 +2,7 @@ import { StyleSheet, TouchableOpacity, TextInput, View } from "react-native"
 import Colors from "@/constants/Colors"
 import { MaterialCommunityIcons } from "@expo/vector-icons"
 import { useState } from "react";
-import DateTimePicker, { DateTimePickerChangeEvent } from "@react-native-community/datetimepicker";
+import DateTimePicker, { DateTimePickerEvent } from "@react-native-community/datetimepicker";
 
 export default function InputDatePicker() {
 
@@ -11,8 +11,13 @@ export default function InputDatePicker() {
     const [wasChanged, setWasChanged] = useState(false);
 
     // função para quando o usuario clicar 
-    const onChangeDate = (event: DateTimePickerChangeEvent, selectedDate?: Date) => {
+    const onChangeDate = (event: DateTimePickerEvent, selectedDate?: Date) => {
 
+        // se o tipo de evento foi dismissed, ou seja clicou fora ou cancelar
+        if (event.type === 'dismissed') { 
+            setShowPicker(false); // fecha o picker
+            return;
+        }
         // se passou um dia como parametro atualiza, se não mantém o valor antigo
         if(selectedDate) {
             setDate(selectedDate);
@@ -22,10 +27,6 @@ export default function InputDatePicker() {
         setShowPicker(false); // após ele escolher, escondemos o picker
     }
 
-    // função para caso o usuario clique fora do componente ou em "cancelar"
-    const onDismissDate = () => {
-        setShowPicker(false);
-    }    
 
     return(
         <View>
@@ -49,8 +50,8 @@ export default function InputDatePicker() {
                     display="spinner" 
                     locale="pt-BR"
                     minimumDate={new Date()}
-                    onValueChange={onChangeDate}
-                    onDismiss={onDismissDate}
+                    onChange={onChangeDate}
+                    
                 />
             )}
         </View>

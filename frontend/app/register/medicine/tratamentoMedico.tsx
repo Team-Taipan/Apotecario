@@ -16,7 +16,7 @@ export default function tratamentoMedico() {
                 <View style={{ marginTop: 20 }}>
                     <Text style={styles.inputLabel}>Data de Termino: </Text>
                     <InputDatePicker />
-                    
+                    <Text style={styles.helperText}> Deixe em branco caso não haja uma data de fim definida. </Text>
                 </View>
 
             </View>
@@ -44,6 +44,12 @@ const styles = StyleSheet.create({
         color: Colors.primary_text,
         marginBottom: 8,
         
+    },
+    helperText: {
+        fontSize: 12,
+        color: Colors.secondary_text,
+        marginTop: 4,
+        lineHeight: 16,
     }
 })
 
