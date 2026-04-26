@@ -2,17 +2,25 @@ import { View, Text, TouchableOpacity, StyleSheet } from "react-native"
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import Colors from "@/constants/Colors";
 
-export function CardMedicine() {
+
+interface CardMedicineProps {
+    name: string,
+    qtMedicine: number,
+    typeMedicine: string
+    iconName: keyof typeof MaterialCommunityIcons.glyphMap;
+}
+
+export function CardMedicine( { name, qtMedicine, typeMedicine, iconName } : CardMedicineProps) {
     return (
         <View>
             <Text style={styles.hourMedication}>09:00</Text>
             <TouchableOpacity activeOpacity={0.9} style={styles.cardMedicine}>
             
-                <MaterialCommunityIcons style={styles.iconMedicine} name="pill-multiple" size={40} color={Colors.accent}  />
+                <MaterialCommunityIcons style={styles.iconMedicine} name={iconName} size={40} color={Colors.accent}  />
                 
                 <View style={styles.infoMedicine}>
-                <Text style={styles.nameMedicine}>Losartana</Text>
-                <Text>1 Comprimido</Text>
+                    <Text style={styles.nameMedicine}>{name}</Text>
+                    <Text>{qtMedicine} {typeMedicine}</Text>
                 </View>
                                     
                 <TouchableOpacity activeOpacity={0.9} style={styles.buttonMedication}>
@@ -49,6 +57,7 @@ const styles = StyleSheet.create({
     },
 
     infoMedicine: {
+        flex: 1,
         flexDirection: "column"
     },
 
@@ -68,7 +77,7 @@ const styles = StyleSheet.create({
         borderRadius: 6,
         justifyContent: "center",
         alignItems: "center",
-        marginLeft: 70,
+        marginRight: 10,
         backgroundColor: Colors.accent
     },
 

@@ -30,8 +30,9 @@ export default function HomeScreen() {
                     <Text style={styles.titleSection}>Medicamentos</Text>
                     <Text style={styles.subTitleSection}>Remédios que você deve tomar</Text>
                     <View style={styles.containerCards} >
-                        <CardMedicine />
-                        <CardMedicine />
+                        <CardMedicine name="Dipirona" iconName="pill-multiple" qtMedicine={2} typeMedicine="comprimidos"/>
+                        <CardMedicine name="Dipirona" iconName="water" qtMedicine={5} typeMedicine="gotas" />
+                        
                     </View>
                 </View>
             </View>
