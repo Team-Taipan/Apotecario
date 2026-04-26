@@ -4,12 +4,14 @@ import { LinearGradient } from "expo-linear-gradient"
 import Colors from "@/constants/Colors";
 
 interface ButtonGradientProps {
-    text: string
+    text: string,
+    onPress: () => void 
 }
 
-export default function ButtonGradient({ text }: ButtonGradientProps) {
+export default function ButtonGradient({ text, onPress }: ButtonGradientProps) {
     return (
         <TouchableOpacity
+            onPress={onPress}
             style={{ width: '100%' }}
             activeOpacity={0.8}
         >

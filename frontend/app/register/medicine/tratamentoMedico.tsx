@@ -1,11 +1,13 @@
-import { View, Text, StyleSheet, TouchableOpacity, TextInput } from "react-native"
+import { View, Text, StyleSheet } from "react-native"
 import Colors from "@/constants/Colors"
 import InputDatePicker from "@/components/InputDatePicker"
 import ButtonGradient from "@/components/ButtonGradient"
 import InputNumericStepper from "@/components/InputNumericStepper"
+import { useRouter } from "expo-router"
 
 export default function tratamentoMedico() {
 
+    const router = useRouter();
 
     return (
         <View style={{ flex: 1 , backgroundColor: Colors.background}}>
@@ -32,7 +34,7 @@ export default function tratamentoMedico() {
                 </View>
 
                 <View style={styles.footer}>
-                        <ButtonGradient text="Próximo" />
+                        <ButtonGradient onPress={()=> router.push("/register/medicine/estoqueMedicamento")} text="Próximo" />
                 </View>
 
             </View>
@@ -46,9 +48,11 @@ const styles = StyleSheet.create({
     treatmentTitle: {
         fontSize: 20,
         fontWeight: "bold",
+        textAlign: "center",
         color: Colors.accent
     },
     treatmentSubTitle: {
+        marginTop: 5,
         fontSize: 13,
         color: Colors.secondary_text,
         textAlign: "center",
@@ -58,6 +62,7 @@ const styles = StyleSheet.create({
         marginTop: 10,
         fontSize: 16,
         fontWeight: "600",
+        textAlign: "center",        
         color: Colors.primary_text,
         marginBottom: 8,
         
