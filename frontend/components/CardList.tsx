@@ -2,17 +2,19 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { Text, View, StyleSheet, TouchableOpacity } from "react-native";
 import Colors from "@/constants/Colors";
 
+
 interface CardListProps {
     
     name: string,
     icon: keyof typeof MaterialCommunityIcons.glyphMap,
+    functionRedirectOnPress: () => void;
 
 }
 
-export default function CardList({ name, icon } : CardListProps) {
+export default function CardList({ name, icon, functionRedirectOnPress } : CardListProps) {
     return(
     
-        <TouchableOpacity activeOpacity={0.7} style={styles.cardListContainer}>
+        <TouchableOpacity onPress={functionRedirectOnPress} activeOpacity={0.7} style={styles.cardListContainer}>
 
             <View style={styles.cardListContent}>
                 <MaterialCommunityIcons style={styles.cardListIcon} name={icon} size={40} color={Colors.accent}  />

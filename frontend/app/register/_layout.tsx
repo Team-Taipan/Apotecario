@@ -11,6 +11,7 @@ export default function MedicineLayout() {
         }}
         >
             <Stack.Screen name="medicine/index" options={{ title: "" }} />
+            <Stack.Screen name="medicine/tratamentoMedico" options={{ title: "" }} />
             <Stack.Screen name="symptoms/index" options={{ title: "" }} />
             <Stack.Screen name="measurements/index" options={{ title: "" }} />
             <Stack.Screen name="appointment/index" options={{ title: "" }} />

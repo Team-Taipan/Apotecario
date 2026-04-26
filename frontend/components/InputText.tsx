@@ -2,6 +2,7 @@ import React from 'react';
 import { TextInput, StyleSheet, TextInputProps, View, ViewStyle, StyleProp } from 'react-native';
 import Colors from '../constants/Colors';
 
+// verifique se não é melhor interface dps
 type AuthInputProps = TextInputProps & {
   containerStyle?: StyleProp<ViewStyle>; // Melhor tipagem para estilos de View
 };

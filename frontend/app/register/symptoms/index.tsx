@@ -3,6 +3,7 @@ import { View, FlatList } from "react-native"
 import { MaterialCommunityIcons } from "@expo/vector-icons"
 import CardList from "@/components/CardList"
 import { useState } from "react"
+import { useRouter } from "expo-router";
 
 interface SintomasItem {
     
@@ -12,6 +13,7 @@ interface SintomasItem {
 
 }
 
+const router = useRouter();
 
 const Sintomas: SintomasItem [] = [
     { id: 1, name: "Dor de Cabeça", icon: "head-alert-outline" },
@@ -38,7 +40,7 @@ export default function listSintomas() {
             <FlatList 
                 data={filteredSintomas}
                 keyExtractor={(item) => item.id.toString()} // FlatList precisa o ID saber para identificar o item como unico
-                renderItem={({item}) => <CardList name={item.name} icon={item.icon} />}
+                renderItem={({item}) => <CardList name={item.name} icon={item.icon} functionRedirectOnPress={()=> router.push("/medicine/tratamentoMedico")} />}
             />
 
         </View>

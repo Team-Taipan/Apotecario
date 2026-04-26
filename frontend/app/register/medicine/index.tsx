@@ -2,8 +2,10 @@ import CardList from "@/components/CardList";
 import InputSearch from "@/components/InputSearch"
 import Colors from "@/constants/Colors"
 import { MaterialCommunityIcons } from "@expo/vector-icons"
-import { Text, TextInput, View, StyleSheet, FlatList } from "react-native"
-import { useState, useMemo } from "react";
+import { View, StyleSheet, FlatList } from "react-native"
+import { useState} from "react";
+import { useRouter } from "expo-router";
+
 interface MedicamentoItem {
     
     id: number,
@@ -18,7 +20,7 @@ const Medicamentos: MedicamentoItem[] = [
     { id: 3, name: "Insulina", icon: "needle"},
 ] ;
 
-
+const router = useRouter();
 
 export default function listMedicamentos() {
         
@@ -32,19 +34,17 @@ export default function listMedicamentos() {
 
     return(
 
-        <View style={{ justifyContent: "center", marginHorizontal: 20}} >
+        <View style={{ justifyContent: "center", marginHorizontal: 20, backgroundColor: Colors.background}} >
 
             <InputSearch functionText={(typedText: string) => setSearchQuery(typedText)} placeHolderText="Buscar Medicamentos..." />
 
             { /* Sessão com a Lista de Cards */ }
-            
             <FlatList 
                 data={filteredMedicamentos}
                 keyExtractor={(item) => item.id.toString()}
-                renderItem={({item}) => <CardList name={item.name} icon={item.icon} />}
+                renderItem={({item}) => <CardList name={item.name} icon={item.icon} functionRedirectOnPress={()=> router.push("/register/medicine/tratamentoMedico")}/>}
             />
             
-
 
         </View>
 
