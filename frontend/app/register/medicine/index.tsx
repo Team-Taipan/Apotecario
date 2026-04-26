@@ -20,10 +20,12 @@ const Medicamentos: MedicamentoItem[] = [
     { id: 3, name: "Insulina", icon: "needle"},
 ] ;
 
-const router = useRouter();
+
 
 export default function listMedicamentos() {
         
+    const router = useRouter();
+    
     // Estado para pegar o texto digitado no campo de input
     const [ searchQuery, setSearchQuery ] = useState("");
 
@@ -34,17 +36,18 @@ export default function listMedicamentos() {
 
     return(
 
-        <View style={{ justifyContent: "center", marginHorizontal: 20, backgroundColor: Colors.background}} >
+        <View style={{ flex: 1, backgroundColor: Colors.background}} >
+          
+            <View style={{ marginHorizontal: 20, marginTop: 20 }}>
+                <InputSearch functionText={(typedText: string) => setSearchQuery(typedText)} placeHolderText="Buscar Medicamentos..." />
 
-            <InputSearch functionText={(typedText: string) => setSearchQuery(typedText)} placeHolderText="Buscar Medicamentos..." />
-
-            { /* Sessão com a Lista de Cards */ }
-            <FlatList 
-                data={filteredMedicamentos}
-                keyExtractor={(item) => item.id.toString()}
-                renderItem={({item}) => <CardList name={item.name} icon={item.icon} functionRedirectOnPress={()=> router.push("/register/medicine/tratamentoMedico")}/>}
-            />
-            
+                { /* Sessão com a Lista de Cards */ }
+                <FlatList 
+                    data={filteredMedicamentos}
+                    keyExtractor={(item) => item.id.toString()}
+                    renderItem={({item}) => <CardList name={item.name} icon={item.icon} functionRedirectOnPress={()=> router.push("/register/medicine/tratamentoMedico")}/>}
+                />
+            </View>
 
         </View>
 
