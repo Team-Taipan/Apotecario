@@ -34,7 +34,7 @@ export default function HomeScreen() {
 
                         <CardMedicine name="Dipirona" iconName="pill-multiple" qtMedicine={2} typeMedicine="comprimidos"/>
                         <CardMedicine name="Dipirona" iconName="water" qtMedicine={5} typeMedicine="gotas" />
-                        <CardList />
+                        
 
                     </View>
                 </View>
