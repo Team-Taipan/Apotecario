@@ -8,8 +8,6 @@ import { HashService } from '../auth/hashing/hash.services';
 import { LoginDto } from './dto/fazer-login.dto';
 import { JwtService } from '@nestjs/jwt';
 
-
-
 @Injectable()
 export class UsuarioService {
   
@@ -34,7 +32,6 @@ export class UsuarioService {
       throw new BadRequestException('As senhas não conferem');
     }
 
-  
     const senhaHasheada = await this.hashService.hash(dto.senha);
 
     // Usando o 'create' do EntityManager (ele já lida melhor com a tipagem)

@@ -30,11 +30,13 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         async function loadStorageData() {
             // Verifica se existe um token armazenado
             const storagedToken = await authStorage.getToken();
+            const storagedIsNew = await authStorage.getIsNew();
             
             if (storagedToken) {
                 // Configura o token nas requisições futuras do Axios automaticamente
                 api.defaults.headers.Authorization = `Bearer ${storagedToken}`;
                 setUser({ token: storagedToken });
+                setIsNew(storagedIsNew);
             }
 
             setLoading(false);
@@ -46,6 +48,8 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     async function signIn(token: string, isNewUser: boolean) {
         setUser({ token });
         setIsNew(isNewUser);
+        // Persiste o isNew para manter entre sessões
+        await authStorage.saveIsNew(isNewUser);
         // Injeta o token no cabeçalho do Axios logo após o login
         api.defaults.headers.Authorization = `Bearer ${token}`;
     }
@@ -53,6 +57,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     function signOut() {
         authStorage.removeToken();
         setUser(null);
+        setIsNew(false);
     }
 
     return (

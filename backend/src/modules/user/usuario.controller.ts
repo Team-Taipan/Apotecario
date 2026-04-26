@@ -18,9 +18,7 @@ export class UsuarioController {
   @ApiOperation({ summary: 'Cria uma nova conta de usuário' })
   @ApiResponse({ status: 201, description: 'Conta criada com sucesso.' })
   async criar(@Body() criarContaDto: CriarContaDto) {
-
     return this.usuarioService.criarUsuario(criarContaDto);
-
   }
 
   @Get("all")
