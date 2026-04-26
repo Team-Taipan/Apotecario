@@ -1,6 +1,7 @@
 import { View, Text, StyleSheet, TouchableOpacity, TextInput } from "react-native"
 import Colors from "@/constants/Colors"
 import InputDatePicker from "@/components/InputDatePicker"
+import ButtonGradient from "@/components/ButtonGradient"
 
 export default function tratamentoMedico() {
 
@@ -8,15 +9,25 @@ export default function tratamentoMedico() {
     return (
         <View style={{ flex: 1 , backgroundColor: Colors.background}}>
 
-            <View style={{ marginHorizontal: 20, marginTop: 20 }}>
+            <View style={styles.contentContainer}>
 
-                <Text style={styles.treatmentTitle}>Informações sobre seu Tratamento</Text>
-                <Text style={styles.treatmentSubTitle}>Registre informações sobre seu tratamento para nos ajudar a personalizar seus lembretes</Text>
+                <View style={styles.topContent}>
 
-                <View style={{ marginTop: 20 }}>
-                    <Text style={styles.inputLabel}>Data de Termino: </Text>
-                    <InputDatePicker />
-                    <Text style={styles.helperText}> Deixe em branco caso não haja uma data de fim definida. </Text>
+                    <Text style={styles.treatmentTitle}>Informações sobre seu Tratamento</Text>
+                    <Text style={styles.treatmentSubTitle}>Registre informações sobre seu tratamento para nos ajudar a personalizar seus lembretes</Text>
+
+                    <View style={{ marginTop: 20 }}>
+
+                        <Text style={styles.inputLabel}>Data de Termino: </Text>
+                        <InputDatePicker />
+                        <Text style={styles.helperText}> Deixe em branco caso não haja uma data de fim definida. </Text>
+
+                    </View>
+
+                </View>
+
+                <View style={styles.footer}>
+                        <ButtonGradient text="Próximo" />
                 </View>
 
             </View>
@@ -50,7 +61,20 @@ const styles = StyleSheet.create({
         color: Colors.secondary_text,
         marginTop: 4,
         lineHeight: 16,
-    }
+    },
+    topContent: {
+
+    },
+    contentContainer: {
+        flex: 1,
+        paddingHorizontal: 20,
+        paddingTop: 20,
+        paddingBottom: 30,
+        justifyContent: 'space-between',
+    },
+    footer: {
+        marginBottom: 30,
+    },
 })
 
 
