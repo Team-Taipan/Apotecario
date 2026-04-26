@@ -1,11 +1,12 @@
 import React, { useState } from "react";
-import { View, Text, TouchableOpacity, Image, Modal, FlatList } from "react-native";
+import { View, Text, TouchableOpacity, Image, Modal, FlatList, ActivityIndicator } from "react-native";
 import { BlurView } from 'expo-blur';
 import { styles } from "./_perfil.styles";
 import { LinearGradient } from 'expo-linear-gradient';
 import { useRouter } from 'expo-router';
 import { InputText } from '../../components/InputText';
 import { Ionicons } from '@expo/vector-icons';
+import Toast from "react-native-toast-message";
 
 // Lista de Avatares (Manter fora do componente para não recriar na memória)
 const AVATARES = [
@@ -23,6 +24,29 @@ export default function PerfilScreen() {
     const [avatarSelecionado, setAvatarSelecionado] = useState(AVATARES[0]); // Começa com o primeiro
     const [nome, setNome] = useState('');
 
+    // Estado para controlar o carregamento (feedback visual)
+    const [loading, setLoading] = useState(false);
+
+    //Chamada da API
+    const handlePerfil = async () => {
+        if (!nome || avatarSelecionado.id === '') {
+            Toast.show({
+                type: 'error',
+                text1: 'Ops!',
+                text2: 'Preencha seu nome e escolha um avatar.',
+                position: 'bottom',
+            });
+            return;
+        }
+
+        setLoading(true);
+
+        try {
+
+        } catch (error: any) {
+
+        }
+    }
     return (
         <View style={styles.container}>
             <View style={styles.content}>
@@ -60,9 +84,13 @@ export default function PerfilScreen() {
                     <TouchableOpacity style={{ width: '100%' }} activeOpacity={0.8} onPress={() => router.replace('/(main)/main')}>
                         <LinearGradient
                             colors={['#3da696', '#2d7a6e']}
-                            style={styles.button}
+                            style={[styles.button, loading && { opacity: 0.7 }]}
                         >
-                            <Text style={styles.buttonText}>Criar Perfil!</Text>
+                            {loading ? (
+                                <ActivityIndicator color="#fff" />
+                            ) : (
+                                <Text style={styles.buttonText}>Criar Perfil!</Text>
+                            )}
                         </LinearGradient>
                     </TouchableOpacity>
                 </View>
