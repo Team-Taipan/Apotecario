@@ -3,15 +3,17 @@ import { View, TextInput, StyleSheet } from "react-native"
 import { MaterialCommunityIcons } from "@expo/vector-icons"
 
 interface InputSearchProps {
-    placeHolderText: string
+    placeHolderText: string,
+    functionText: (typedText: string) => void;  // função recebia para setar o estado da query
 }
 
 
-export default function InputSearch({ placeHolderText } : InputSearchProps) {
+export default function InputSearch({ placeHolderText, functionText } : InputSearchProps) {
     return(
          <View style={styles.containerSearchInput}>
             <MaterialCommunityIcons style={styles.iconSearchInput} name="magnify" size={30} color={Colors.accent}  />
-            <TextInput  style={styles.inputSearch} placeholder={placeHolderText} placeholderTextColor={Colors.secondary_text}></TextInput>
+            { /* quando ocorre uma mudança no campo de texto, chama a função passada como parametro passando o texto digitado */}
+            <TextInput onChangeText={(text) => functionText(text)} style={styles.inputSearch} placeholder={placeHolderText} placeholderTextColor={Colors.secondary_text}></TextInput>
         </View>
     )
 }
