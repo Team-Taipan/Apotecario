@@ -4,10 +4,9 @@ import { MaterialCommunityIcons } from "@expo/vector-icons"
 import { Text, TextInput, View, StyleSheet, FlatList } from "react-native"
 
 const Medicamentos = [
-    { id: '1', name: "Tylenol", principio: "Paracetamol" },
-    { id: '2', name: "Dipirona", principio: "Dipirona" },
-    { id: '3', name: "Tylenol", principio: "Paracetamol" },
-    { id: '4', name: "Tylenol", principio: "Paracetamol" },
+    { id: '1', name: "Pressão Arterial" },
+    { id: '2', name: "Glicemia" },
+    { id: '3', name: "Peso" },
 ];
 
 

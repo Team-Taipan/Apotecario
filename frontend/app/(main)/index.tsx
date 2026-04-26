@@ -1,4 +1,5 @@
 import { CalendarHome } from "@/components/CalendarHome";
+import CardList from "@/components/CardList";
 import { CardMedicine } from "@/components/CardMedicine";
 import Colors from "@/constants/Colors";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
@@ -30,9 +31,11 @@ export default function HomeScreen() {
                     <Text style={styles.titleSection}>Medicamentos</Text>
                     <Text style={styles.subTitleSection}>Remédios que você deve tomar</Text>
                     <View style={styles.containerCards} >
+
                         <CardMedicine name="Dipirona" iconName="pill-multiple" qtMedicine={2} typeMedicine="comprimidos"/>
                         <CardMedicine name="Dipirona" iconName="water" qtMedicine={5} typeMedicine="gotas" />
-                        
+                        <CardList />
+
                     </View>
                 </View>
             </View>
