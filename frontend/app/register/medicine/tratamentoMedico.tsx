@@ -30,7 +30,7 @@ export default function tratamentoMedico() {
 
                     <View>
                         <Text style={styles.inputLabel}>Data de Termino</Text>
-                        <InputDatePicker />
+                        <InputDatePicker mode="date" />
                         <Text style={styles.helperText}> Deixe em branco caso não haja uma data de fim definida. </Text>
                     </View>
 

@@ -11,7 +11,7 @@ interface CardAgendaProps {
     localization: string
 }
 
-export default function CardAgenda( { dateDay, dateMonth, dateHour, title, doctorName, localization} : CardAgendaProps) {
+export default function CardAgenda( { dateDay, dateMonth, dateHour, title, doctorName, localization } : CardAgendaProps) {
     return(
         <View style={styles.cardContainer}>
 
