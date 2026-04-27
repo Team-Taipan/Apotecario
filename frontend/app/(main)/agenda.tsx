@@ -2,6 +2,8 @@ import React from "react";
 import { View, Text, StyleSheet, ScrollView } from "react-native";
 import Colors from "@/constants/Colors";
 import CalendarAgenda from "@/components/CalendarAgenda";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
+import CardAgenda from "@/components/CardAgenda";
 
 export default function AgendaScreen() {
 
@@ -18,6 +20,11 @@ export default function AgendaScreen() {
 
                     <Text style={styles.agendaSubTitle}>PRÓXIMAS CONSULTAS</Text>
 
+                    <CardAgenda dateDay="29" dateMonth="Abr" dateHour="10:30" title="Consulta Cardíca" doctorName="Dr. João Almeida" localization="Hospital Santa Heloísa" />
+                    <CardAgenda dateDay="16" dateMonth="Jun" dateHour="15:50" title="Consulta De Rotina" doctorName="Dra. Fernanda Costa" localization="Hospital Santa Heloísa" />
+
+
+
                 </View>
             </View>
         </ScrollView>
@@ -27,6 +34,7 @@ export default function AgendaScreen() {
 const styles = StyleSheet.create({
     
     agendaTitle: {
+        fontFamily: "Inter",
         marginTop: 50,
         fontSize: 20,
         fontWeight: "bold",
@@ -34,11 +42,14 @@ const styles = StyleSheet.create({
 
     },
     agendaSubTitle: {
-        marginTop: 15,
+        fontFamily: "Inter",
+        marginTop: 20,
         color: Colors.secondary_text,
         fontWeight: "600",
         alignSelf: "flex-start",
 
     },
+
+
 
 })

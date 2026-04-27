@@ -3,6 +3,7 @@ import { Calendar } from "react-native-calendars";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import Colors from "@/constants/Colors";
 
+
 export default function CalendarAgenda() {
 
     const today = new Date().toISOString().split("T")[0]; // pegando a hora atual
