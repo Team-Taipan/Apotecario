@@ -38,6 +38,7 @@ export default function InputDatePicker({defaultDate} : InputDatePickerProps) {
 
                 <MaterialCommunityIcons style={styles.datePickerContainerIcon} name="calendar" size={30} color={Colors.accent}/>
                 <TextInput 
+                    placeholderTextColor="#999"
                     editable={false} // Evita abrir o teclado
                     value={wasChanged || defaultDate != null ? date.toLocaleDateString("pt-BR") : "Clique para selecionar a data"} 
                     style={styles.datePickerValue}

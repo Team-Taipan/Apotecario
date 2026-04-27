@@ -22,13 +22,13 @@ export default function EstoqueMedicamento() {
                     </View>
 
                     <View>
-                        <Text style={styles.inputLabel}>Seu estoque atual: </Text> 
+                        <Text style={styles.inputLabel}>Seu estoque atual</Text> 
                         <InputNumericStepper />
                     </View>
               
                     <View>
                         <Text style={styles.subTitle}> Deseja ser avisado quando o estoque estiver baixo? </Text>
-                        <Text style={styles.inputLabel}> Quantidade Mínima: </Text> 
+                        <Text style={styles.inputLabel}> Quantidade Mínima</Text> 
                         <InputNumericStepper />
                     </View>
                 </View>

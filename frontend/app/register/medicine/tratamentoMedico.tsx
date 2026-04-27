@@ -24,12 +24,12 @@ export default function tratamentoMedico() {
 
                     {/* componente incremental */}   
                     <View>
-                        <Text style={styles.inputLabel}>Quantidade de Medicamento por Dose: </Text> 
+                        <Text style={styles.inputLabel}>Quantidade de Medicamento por Dose</Text> 
                         <InputNumericStepper />
                     </View>
 
                     <View>
-                        <Text style={styles.inputLabel}>Data de Termino: </Text>
+                        <Text style={styles.inputLabel}>Data de Termino</Text>
                         <InputDatePicker />
                         <Text style={styles.helperText}> Deixe em branco caso não haja uma data de fim definida. </Text>
                     </View>

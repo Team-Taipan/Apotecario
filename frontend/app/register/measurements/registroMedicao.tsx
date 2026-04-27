@@ -1,9 +1,11 @@
 import { styles } from "../_forms_styles";
-import { View, Text } from "react-native";
+import { View, Text, TextInput } from "react-native";
 import Colors from "@/constants/Colors";
 import ButtonGradient from "@/components/ButtonGradient";
 import { useRouter } from "expo-router";
 import InputDatePicker from "@/components/InputDatePicker";
+import { InputText } from "@/components/InputText";
+import InputTextNotes from "@/components/InputTextNotes";
 
 export default function registroMedicao() {
 
@@ -17,22 +19,27 @@ export default function registroMedicao() {
                 <View style={styles.formsContainer}>
 
                     <View>
-                        <Text style={styles.title}>Registro de Medições</Text>
-                        <Text style={styles.subTitle}>Registre informações sobre suas medições de sinais vitais</Text>
+                        <Text style={styles.title}>Nova Medição</Text>
+                        <Text style={styles.subTitle}>Mantenha seus dados atualizados para um melhor acompanhamento médico</Text>
                     </View>
 
-                    {/* componente incremental */}   
+                    {/* futuramente mudar desse InputText para um WheelPicker talvez */}   
                     <View>
-                        <Text style={styles.inputLabel}>Quantidade de Medicamento por Dose: </Text> 
-                        
+                        <Text style={styles.inputLabel}>Resultado da Medição </Text> 
+                        <InputText keyboardType="numeric" placeholder="Insira o valor (ex: 120/80, 95...)" />
                     </View>
 
                     <View>
-                        <Text style={styles.inputLabel}>Data da Medição: </Text>
+                        <Text style={styles.inputLabel}>Data do Registro </Text>
                         <InputDatePicker defaultDate={new Date()} />
-                        <Text style={styles.helperText}> Por padrão, pegamos o dia de hoje. </Text>
+                        <Text style={styles.helperText}> Registrando com o horário atual. </Text>
                     </View>
 
+                    <View>
+                    <Text style={styles.inputLabel}>Notas Adicionais: </Text>
+                        <InputTextNotes placeholder="Ex: Medido em repouso, após medicação..." numberOfLines={4} />
+                        <Text style={styles.helperText}> Informações extras ajudam na análise do seu histórico. </Text>
+                    </View>
                     
                 </View>
 
@@ -44,3 +51,4 @@ export default function registroMedicao() {
         </View>
     )
 }
+

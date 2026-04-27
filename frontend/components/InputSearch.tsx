@@ -13,7 +13,7 @@ export default function InputSearch({ placeHolderText, functionText } : InputSea
          <View style={styles.containerSearchInput}>
             <MaterialCommunityIcons style={styles.iconSearchInput} name="magnify" size={30} color={Colors.accent}  />
             { /* quando ocorre uma mudança no campo de texto, chama a função passada como parametro passando o texto digitado */}
-            <TextInput onChangeText={(text) => functionText(text)} style={styles.inputSearch} placeholder={placeHolderText} placeholderTextColor={Colors.secondary_text}></TextInput>
+            <TextInput placeholderTextColor="#999" onChangeText={(text) => functionText(text)} style={styles.inputSearch} placeholder={placeHolderText} ></TextInput>
         </View>
     )
 }
@@ -22,7 +22,7 @@ const styles = StyleSheet.create({
 
     
     containerSearchInput: {
-        backgroundColor: "#FFFFFF",
+        backgroundColor: Colors.background_text_input,
         borderColor: Colors.accent,
         borderWidth: 1.5,
         flexDirection: "row",

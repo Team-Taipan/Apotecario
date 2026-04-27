@@ -3,7 +3,7 @@ import { CardMedicine } from "@/components/CardMedicine";
 import Colors from "@/constants/Colors";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import React from "react";
-import { View, ScrollView, StyleSheet, Text, Image } from "react-native";
+import { View, ScrollView, StyleSheet, Text, Image, TouchableOpacity, TextInput } from "react-native";
 
 
 export default function HomeScreen() {
@@ -42,7 +42,7 @@ export default function HomeScreen() {
                 </View>
 
             </View>
-
+            
         </ScrollView>
     );
 }
