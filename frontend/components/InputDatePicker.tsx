@@ -4,7 +4,11 @@ import { MaterialCommunityIcons } from "@expo/vector-icons"
 import { useState } from "react";
 import DateTimePicker, { DateTimePickerEvent } from "@react-native-community/datetimepicker";
 
-export default function InputDatePicker() {
+interface InputDatePickerProps {
+    defaultDate?: Date
+}
+
+export default function InputDatePicker({defaultDate} : InputDatePickerProps) {
 
     const [date, setDate] = useState(new Date());
     const [showPicker, setShowPicker] = useState(false);
@@ -34,8 +38,9 @@ export default function InputDatePicker() {
 
                 <MaterialCommunityIcons style={styles.datePickerContainerIcon} name="calendar" size={30} color={Colors.accent}/>
                 <TextInput 
+                    placeholderTextColor="#999"
                     editable={false} // Evita abrir o teclado
-                    value={wasChanged ? date.toLocaleDateString("pt-BR") : "Clique para selecionar a data"} 
+                    value={wasChanged || defaultDate != null ? date.toLocaleDateString("pt-BR") : "Clique para selecionar a data"} 
                     style={styles.datePickerValue}
                 ></TextInput>
 

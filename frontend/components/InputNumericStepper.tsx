@@ -13,7 +13,7 @@ export default function InputNumericStepper() {
 
              
             <TouchableOpacity onPress={()=> setCount(count + 1)} activeOpacity={0.7} style={styles.button}><MaterialCommunityIcons  name="plus" size={30} color={Colors.background_text_input} /></TouchableOpacity>
-            <TextInput editable={false} style={styles.inputTextStepper} value={String(count)}></TextInput>
+            <TextInput placeholderTextColor="#999" editable={false} style={styles.inputTextStepper} value={String(count)}></TextInput>
             {/* máximo permitido decrementar é até 1 */}
             <TouchableOpacity onPress={()=> count > 1 ? setCount(count - 1) : setCount(count)} activeOpacity={0.7} style={styles.button}><MaterialCommunityIcons  name="minus" size={30} color={Colors.background_text_input} /></TouchableOpacity>
 

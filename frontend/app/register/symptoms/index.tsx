@@ -13,7 +13,7 @@ interface SintomasItem {
 
 }
 
-const router = useRouter();
+
 
 const Sintomas: SintomasItem [] = [
     { id: 1, name: "Dor de Cabeça", icon: "head-alert-outline" },
@@ -22,6 +22,8 @@ const Sintomas: SintomasItem [] = [
 ] ;
 
 export default function listSintomas() {
+
+    const router = useRouter();
 
     // Estado para pegar o texto digitado no campo de input
     const [ searchQuery, setSearchQuery ] = useState("");
@@ -40,7 +42,7 @@ export default function listSintomas() {
             <FlatList 
                 data={filteredSintomas}
                 keyExtractor={(item) => item.id.toString()} // FlatList precisa o ID saber para identificar o item como unico
-                renderItem={({item}) => <CardList name={item.name} icon={item.icon} functionRedirectOnPress={()=> router.push("/medicine/tratamentoMedico")} />}
+                renderItem={({item}) => <CardList name={item.name} icon={item.icon} functionRedirectOnPress={()=> router.push("/register/symptoms/registroSintomas")} />}
             />
 
         </View>

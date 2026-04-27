@@ -5,6 +5,7 @@ import CardList from "@/components/CardList"
 import { useState } from "react"
 import { useRouter } from "expo-router";
 
+
 interface MedicoesItem {
     
     id: number,
@@ -20,10 +21,12 @@ const Medicoes: MedicoesItem [] = [
     { id: 3, name: "Peso", icon: "scale-bathroom"},
 ] ;
 
-const router = useRouter();
+
 
 export default function listMedicoes() {
 
+    const router = useRouter();
+    
     // Estado para pegar o texto digitado no campo de input
     const [ searchQuery, setSearchQuery ] = useState("");
     
@@ -42,7 +45,7 @@ export default function listMedicoes() {
             <FlatList 
                 data={filteredMedicoes}
                 keyExtractor={(item) => item.id.toString()} // FlatList precisa o ID saber para identificar o item como unico
-                renderItem={({item}) => <CardList name={item.name} icon={item.icon} functionRedirectOnPress={()=> router.push("/medicine/tratamentoMedico")} />}
+                renderItem={({item}) => <CardList name={item.name} icon={item.icon} functionRedirectOnPress={()=> router.push("/register/measurements/registroMedicao")} />}
             />
                         
         </View>
