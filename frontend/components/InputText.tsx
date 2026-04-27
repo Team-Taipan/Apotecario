@@ -35,7 +35,7 @@ const styles = StyleSheet.create({
   },
   input: {
     flex: 1,
-    height: 58,
+    minHeight: 58,
     paddingHorizontal: 16,
     fontSize: 16,
     color: Colors.primary_text,
