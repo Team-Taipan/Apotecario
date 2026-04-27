@@ -2,11 +2,12 @@ import { useState } from "react";
 import { CalendarHome } from "@/components/CalendarHome";
 import { CardMedicine } from "@/components/CardMedicine";
 import Colors from "@/constants/Colors";
-import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { MaterialCommunityIcons, Octicons } from "@expo/vector-icons";
 import { Ionicons } from '@expo/vector-icons';
 import React from "react";
-import { View, ScrollView, StyleSheet, Text, Image, TouchableOpacity, Modal, FlatList } from "react-native";
+import { View, ScrollView, StyleSheet, Text, Image, TouchableOpacity, Modal, FlatList, Dimensions } from "react-native";
 import { BlurView } from 'expo-blur';
+import { router } from "expo-router";
 
 // Lista de Avatares (Manter fora do componente para não recriar na memória)
 const AVATARES = [
@@ -52,7 +53,7 @@ export default function HomeScreen() {
                 {/* Sessão de Calendário */}
                 <CalendarHome />
                 {/* Sessão de Cards*/}
-                <View style={styles.medicationSecton}>
+                <View style={styles.medicationSection}>
 
                     <Text style={styles.titleSection}>Medicamentos</Text>
                     <Text style={styles.subTitleSection}>Remédios que você deve tomar</Text>
@@ -87,7 +88,7 @@ export default function HomeScreen() {
 
                         <View style={styles.modalContent}>
                             <View style={styles.modalHeader}>
-                                <Text style={styles.modalTitle}>Escolha seu Avatar</Text>
+                                <Text style={styles.modalTitle}>Escolha seu Perfil</Text>
                                 <TouchableOpacity onPress={() => setModalVisible(false)}>
                                     <Ionicons name="close" size={24} color="#333" />
                                 </TouchableOpacity>
@@ -114,9 +115,16 @@ export default function HomeScreen() {
                                         <Image source={item.res} style={styles.avatarImage} />
                                         <Text style={styles.avatarName}>{item.name}</Text>
                                     </TouchableOpacity>
-
                                 )}
+
                             />
+                            <TouchableOpacity style={styles.footerTitle} onPress={() => {
+                                setModalVisible(false);
+                                router.push('/(perfil)/perfil');
+                            }}>
+                                <Octicons name="pencil" size={24} color={Colors.primary_text} />
+                                <Text style={styles.footerText}>Gerenciar Perfil</Text>
+                            </TouchableOpacity>
                         </View>
                     </BlurView>
                 </Modal>
@@ -126,7 +134,6 @@ export default function HomeScreen() {
 }
 
 const styles = StyleSheet.create({
-
     // Gerais
     titleSection: {
         fontWeight: "bold",
@@ -169,7 +176,7 @@ const styles = StyleSheet.create({
     // Sessão do Calendário
 
     // Sessão Medicamentos
-    medicationSecton: {
+    medicationSection: {
         marginTop: 30
     },
     // Sessao dos Cards
@@ -189,7 +196,7 @@ const styles = StyleSheet.create({
         borderTopLeftRadius: 20,
         borderTopRightRadius: 20,
         padding: 20,
-        maxHeight: '50%',
+        maxHeight: '60%',
     },
     modalHeader: {
         flexDirection: 'row',
@@ -204,6 +211,8 @@ const styles = StyleSheet.create({
     },
     gridContainer: {
         alignItems: 'center',
+        borderBottomWidth: 2,
+        borderBottomColor: '#ccc',
     },
     avatarOption: {
         alignItems: 'center',
@@ -223,6 +232,19 @@ const styles = StyleSheet.create({
     },
     avatarName: {
         marginTop: 15
+    },
+    footerTitle: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'center',
+        marginBottom: 5,
+        paddingTop: 15,
+        gap: 10
+    },
+    footerText: {
+        fontWeight: '700',
+        color: Colors.primary_text,
+        fontSize: 15
     },
     editIconBadge: {
         position: 'absolute',

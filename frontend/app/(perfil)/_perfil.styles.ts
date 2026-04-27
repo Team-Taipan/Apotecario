@@ -9,12 +9,11 @@ export const styles = StyleSheet.create({
         flex: 1,
         fontFamily: 'Inter',
         paddingHorizontal: 24,
-        backgroundColor: Colors.background,
-        paddingTop: 30,
+        backgroundColor: Colors.background
     },
     content: {
         flex: 1,
-        paddingTop: 30
+        marginBottom: 40
     },
     backButton: {
         marginBottom: 20,
@@ -53,7 +52,6 @@ export const styles = StyleSheet.create({
         fontWeight: 'bold',
     },
     inputContainer: {
-        gap: 16,
         marginBottom: 24,
     },
     avatarButton: {
