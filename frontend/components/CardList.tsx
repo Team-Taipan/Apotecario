@@ -57,6 +57,7 @@ const styles = StyleSheet.create({
     },
 
     cardListName: {
+        fontFamily: 'Inter',
         fontWeight: "bold",
     },
 

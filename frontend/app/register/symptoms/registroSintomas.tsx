@@ -32,7 +32,7 @@ export default function RegistroSintomas() {
 
                     <View>
                         <Text style={styles.inputLabel}>Data da ocorrência </Text>
-                        <InputDatePicker defaultDate={new Date()} />
+                        <InputDatePicker mode="date" defaultDate={new Date()} />
                         <Text style={styles.helperText}> Marcado para hoje. Toque se precisar alterar o dia. </Text>
                     </View>
 

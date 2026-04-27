@@ -168,6 +168,7 @@ const styles = StyleSheet.create({
     },
 
     userName: {
+        
         color: Colors.accent,
         fontFamily: 'Inter',
         fontWeight: '800'

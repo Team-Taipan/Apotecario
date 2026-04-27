@@ -22,12 +22,14 @@ export const styles = StyleSheet.create({
                
     },
     title: {
+        fontFamily: 'Inter',
         fontSize: 20,
         fontWeight: "bold",
         textAlign: "center",
         color: Colors.accent
     },
     subTitle: {
+        fontFamily: 'Inter',
         marginTop: 5,
         fontSize: 13,
         color: Colors.secondary_text,
@@ -35,9 +37,10 @@ export const styles = StyleSheet.create({
         lineHeight: 22,
     },
     formsContainer: {
-        gap: 20,
+        gap: 2,
     },
     helperText: {
+        fontFamily: 'Inter',
         fontSize: 12,
         color: Colors.secondary_text,
         marginTop: 4,

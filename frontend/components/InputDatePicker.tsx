@@ -5,12 +5,14 @@ import { useState } from "react";
 import DateTimePicker, { DateTimePickerEvent } from "@react-native-community/datetimepicker";
 
 interface InputDatePickerProps {
-    defaultDate?: Date
+    defaultDate?: Date;
+    mode?: "date" | "time";
+    onValueChange?: (date: Date) => void;
 }
 
-export default function InputDatePicker({defaultDate} : InputDatePickerProps) {
+export default function InputDatePicker({defaultDate, mode, onValueChange} : InputDatePickerProps) {
 
-    const [date, setDate] = useState(new Date());
+    const [date, setDate] = useState(defaultDate || new Date());
     const [showPicker, setShowPicker] = useState(false);
     const [wasChanged, setWasChanged] = useState(false);
 
@@ -26,21 +28,36 @@ export default function InputDatePicker({defaultDate} : InputDatePickerProps) {
         if(selectedDate) {
             setDate(selectedDate);
             setWasChanged(true);
+            
+            if (onValueChange) {
+                onValueChange(selectedDate);
+            }
         }
 
         setShowPicker(false); // após ele escolher, escondemos o picker
     }
+
+    // Função para mudar a formatacação dependendo se é hora ou date
+    const getFormattedValue = () => {
+        if (!wasChanged && !defaultDate) {
+            return mode === "date" ? "Selecionar data" : "Selecionar hora";
+        }
+        
+        return mode === "date" 
+            ? date.toLocaleDateString("pt-BR") 
+            : date.toLocaleTimeString("pt-BR", { hour: '2-digit', minute: '2-digit' });
+    };    
 
 
     return(
         <View>
             <TouchableOpacity style={styles.datePickerContainer} onPress={() => setShowPicker(true)}>
 
-                <MaterialCommunityIcons style={styles.datePickerContainerIcon} name="calendar" size={30} color={Colors.accent}/>
+                <MaterialCommunityIcons style={styles.datePickerContainerIcon} name={mode === "date" ? "calendar" : "clock-outline"} size={30} color={Colors.accent}/>
                 <TextInput 
                     placeholderTextColor="#999"
                     editable={false} // Evita abrir o teclado
-                    value={wasChanged || defaultDate != null ? date.toLocaleDateString("pt-BR") : "Clique para selecionar a data"} 
+                    value={getFormattedValue()} 
                     style={styles.datePickerValue}
                 ></TextInput>
 
@@ -51,10 +68,11 @@ export default function InputDatePicker({defaultDate} : InputDatePickerProps) {
             {showPicker && (
                 <DateTimePicker
                     value={date}
-                    mode="date"
+                    mode={mode}
                     display="spinner" 
                     locale="pt-BR"
-                    minimumDate={new Date()}
+                    is24Hour={true}
+                    minimumDate={mode === "date" ? new Date() : undefined}
                     onChange={onChangeDate}
                     
                 />
@@ -72,9 +90,9 @@ const styles = StyleSheet.create({
         height: 60,
         backgroundColor: Colors.background_text_input,
         borderRadius: 8,
-        marginTop:10,
+        marginTop:1,
         elevation: 4,
-        gap: 20,
+        gap: 10,
         
     },
     datePickerContainerIcon: {
