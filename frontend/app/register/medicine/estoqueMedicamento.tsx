@@ -3,7 +3,7 @@ import ButtonGradient from "@/components/ButtonGradient";
 import Colors from "@/constants/Colors";
 import { useRouter } from "expo-router";
 import InputNumericStepper from "@/components/InputNumericStepper";
-import { styles } from "./_forms_styles";
+import { styles } from "../_forms_styles";
 
 export default function EstoqueMedicamento() {
 

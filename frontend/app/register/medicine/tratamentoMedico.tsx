@@ -4,7 +4,7 @@ import InputDatePicker from "@/components/InputDatePicker";
 import ButtonGradient from "@/components/ButtonGradient";
 import InputNumericStepper from "@/components/InputNumericStepper";
 import { useRouter } from "expo-router";
-import { styles } from "./_forms_styles";
+import { styles } from "../_forms_styles";
 
 export default function tratamentoMedico() {
 
