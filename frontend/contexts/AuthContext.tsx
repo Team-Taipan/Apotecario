@@ -8,6 +8,7 @@ interface AuthContextData {
     loading: boolean;
     isNew: boolean;
     signIn(token: string, isNew: boolean): Promise<void>;
+    completeIntroduction(): Promise<void>; 
     signOut(): void;
 }
 
@@ -54,14 +55,21 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         api.defaults.headers.Authorization = `Bearer ${token}`;
     }
 
+    // Realizar a transição de estado do usuário 
+    async function completeIntroduction() {
+        setIsNew(false);
+        await authStorage.saveIsNew(false);
+    }
+
     function signOut() {
         authStorage.removeToken();
+        authStorage.removeIsNew();
         setUser(null);
         setIsNew(false);
     }
 
     return (
-        <AuthContext.Provider value={{ signed: !!user, user, loading, isNew, signIn, signOut }}>
+        <AuthContext.Provider value={{ signed: !!user, user, loading, isNew, signIn, completeIntroduction, signOut }}>
             {children}
         </AuthContext.Provider>
     );

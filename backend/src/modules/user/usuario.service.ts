@@ -3,10 +3,14 @@ import { EntityManager } from '@mikro-orm/mysql';
 import { CriarContaDto } from './dto/criar-usuario.dto';
 import { AtualizarContaDto } from './dto/atualizar-usuario.dto';
 import { Conta } from './entities/conta.entity';
+import { Perfil } from './entities/perfil.entity';
+import { Vinculo } from './entities/vinculo.entity';
+import { Parentesco } from './entities/parentesco.entity';
 import { NotFoundException, UnauthorizedException } from '@nestjs/common';
 import { HashService } from '../auth/hashing/hash.services';
 import { LoginDto } from './dto/fazer-login.dto';
 import { JwtService } from '@nestjs/jwt';
+import { CriarPerfilDto } from './dto/criar-perfil.dto';
 
 @Injectable()
 export class UsuarioService {
@@ -77,6 +81,37 @@ export class UsuarioService {
       accessToken: await this.jwtService.signAsync(payload),
       exibirIntroducao: perfilPendente // se for o primeiro acesso, o frontend pode usar essa informação para mostrar uma introdução ou tutorial para o usuário. Depois do primeiro acesso, isso pode ser ignorado.
     };
+  }
+
+  async vincularPerfil(usuarioId: number, dto: CriarPerfilDto) {
+    // Busca a conta logada
+    const conta = await this.em.findOneOrFail(Conta, { id: usuarioId });
+
+    // Busca o parentesco apenas se ele for enviado (ex: perfis dependentes)
+    const parentesco = dto.parentescoId 
+      ? await this.em.findOneOrFail(Parentesco, { id: dto.parentescoId }) 
+      : undefined;
+
+    const perfil = this.em.create(Perfil, {
+      nome: dto.nome,
+      avatar: dto.avatar,
+      tipo: dto.tipo,
+    });
+
+    // Cria o Vínculo (relação Muitos-para-Muitos com atributos)
+    const vinculo = this.em.create(Vinculo, {
+      conta,
+      perfil,
+      parentesco,
+      papel: dto.papel,
+      dataInicio: new Date(),
+    });
+    
+    // Salva as novas entidades e atualiza a conta em uma transação
+    this.em.persist([perfil, vinculo]);
+    await this.em.flush();
+
+    return { message: 'Perfil criado com sucesso' };
   }
 
   async buscarTodosUsuarios() {

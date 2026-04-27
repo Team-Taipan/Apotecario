@@ -32,7 +32,7 @@ CREATE TABLE Vinculo(
 	vin_dataInicio DATE not null,
 	vin_dataFim DATE,
 	vin_papel ENUM("Admin", "Cuidador", "Convidado") not null,
-	par_codigo INT not null,
+	par_codigo INT,
 	
 	PRIMARY KEY (cot_codigo, per_codigo), -- Chave primária composta 
 	

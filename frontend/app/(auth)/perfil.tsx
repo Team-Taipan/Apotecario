@@ -7,6 +7,8 @@ import { useRouter } from 'expo-router';
 import { InputText } from '../../components/InputText';
 import { Ionicons } from '@expo/vector-icons';
 import Toast from "react-native-toast-message";
+import { authService } from "../../services/authService";
+import { useAuth } from "../../contexts/AuthContext";
 
 // Lista de Avatares (Manter fora do componente para não recriar na memória)
 const AVATARES = [
@@ -18,6 +20,7 @@ const AVATARES = [
 
 export default function PerfilScreen() {
     const router = useRouter();
+    const { completeIntroduction } = useAuth();
 
     // Estados
     const [modalVisible, setModalVisible] = useState(false);
@@ -42,9 +45,31 @@ export default function PerfilScreen() {
         setLoading(true);
 
         try {
+            // Enviando para o backend
+            await authService.createProfile(nome, avatarSelecionado.id);
+
+            // Atualiza o estado global para que o Layout redirecione para a Main
+            await completeIntroduction();
+
+            Toast.show({
+                type: 'success',
+                text1: 'Perfil criado!',
+                text2: 'Aproveite o Apotecário.',
+            });
+
+            router.replace('/(main)');
 
         } catch (error: any) {
+            console.error("Erro ao criar perfil:", error.response?.data || error.message);
 
+            Toast.show({
+                type: 'error',
+                text1: 'Erro ao criar perfil',
+                text2: error.response?.data?.message || 'Tente novamente mais tarde.',
+                position: 'bottom',
+            });
+        } finally {
+            setLoading(false);
         }
     }
     return (
@@ -81,7 +106,7 @@ export default function PerfilScreen() {
                         </Text>
                     </View>
 
-                    <TouchableOpacity style={{ width: '100%' }} activeOpacity={0.8} onPress={() => router.replace('/(main)/main')}>
+                    <TouchableOpacity style={{ width: '100%' }} activeOpacity={0.8} onPress={handlePerfil} disabled={loading}>
                         <LinearGradient
                             colors={['#3da696', '#2d7a6e']}
                             style={[styles.button, loading && { opacity: 0.7 }]}

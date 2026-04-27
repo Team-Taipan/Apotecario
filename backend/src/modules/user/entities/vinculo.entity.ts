@@ -13,8 +13,8 @@ export class Vinculo {
   @ManyToOne({ entity: () => Perfil, primary: true, fieldName: 'per_codigo' })
   perfil!: Perfil;
 
-  @ManyToOne({ entity: () => Parentesco, fieldName: "par_codigo" })
-  parentesco!: Parentesco;
+  @ManyToOne({ entity: () => Parentesco, fieldName: "par_codigo", nullable: true })
+  parentesco?: Parentesco; // Opcional caso seja o Titular (como no first login)
 
   @Property({ fieldName: 'vin_dataInicio' })
   dataInicio!: Date;

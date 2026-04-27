@@ -17,8 +17,9 @@ export class CriarPerfilDto {
   tipo!: string;
 
   @ApiProperty({ example: 1, description: 'ID do Parentesco' })
-  @IsNumber({ }, { message: 'O parentescoId deve ser um número' })
-  parentescoId!: number; // O ID do parentesco para o vínculo (referência à tabela Parentesco)
+  @IsOptional()
+  @IsNumber({}, { message: 'O parentescoId deve ser um número' })
+  parentescoId?: number; // O ID do parentesco para o vínculo (referência à tabela Parentesco), podendo ser null para o perfil do titular
 
   @ApiProperty({ enum: ['Admin', 'Cuidador', 'Convidado'], default: 'Admin' })
   @IsEnum(['Admin', 'Cuidador', 'Convidado'], { message: 'O papel deve ser "Admin", "Cuidador" ou "Convidado"' })

@@ -1,10 +1,11 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards, Request } from '@nestjs/common';
 import { UsuarioService } from './usuario.service';
 import { CriarContaDto } from './dto/criar-usuario.dto';
 import { AtualizarContaDto } from './dto/atualizar-usuario.dto';
 import { ApiTags, ApiOperation, ApiResponse, ApiBearerAuth } from '@nestjs/swagger'; // Importa o decorador ApiTags para organizar a documentação do Swagger por categorias
 import { LoginDto } from './dto/fazer-login.dto';
 import { AuthGuard } from '../auth/auth.guard';
+import { CriarPerfilDto } from './dto/criar-perfil.dto';
 
 
 @ApiTags('Contas') // Agrupa no Swagger
@@ -19,6 +20,15 @@ export class UsuarioController {
   @ApiResponse({ status: 201, description: 'Conta criada com sucesso.' })
   async criar(@Body() criarContaDto: CriarContaDto) {
     return this.usuarioService.criarUsuario(criarContaDto);
+  }
+
+  // Novo endpoint para criar o perfil vinculado à conta logada
+  @UseGuards(AuthGuard)
+  @ApiBearerAuth()
+  @Post('perfil')
+  @ApiOperation({ summary: 'Cria o perfil inicial do usuário logado' })
+  async criarPerfil(@Request() req: any, @Body() dadosPerfil: CriarPerfilDto) {
+    return this.usuarioService.vincularPerfil(req.user.sub, dadosPerfil);
   }
 
   @Get("all")

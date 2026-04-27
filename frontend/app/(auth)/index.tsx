@@ -77,16 +77,6 @@ export default function LoginScreen() {
         position: 'bottom',
       });
 
-      
-      // Essa lógica ta sendo sobreescrita pelo da _layout decide ai fio
-      // Decisão de Navegação Única
-      // replace impede que o usuário volte ao login pelo botão "voltar" do sistema
-      // const rotaDestino = exibirIntroducao ? '/(auth)/perfil'  : '/(main)/main';
-      // router.replace(rotaDestino);
-
-    
-      await signIn(accessToken, exibirIntroducao);
-
     } catch (error: any) {
       console.error("Erro ao logar:", error.response?.data || error.message);
 

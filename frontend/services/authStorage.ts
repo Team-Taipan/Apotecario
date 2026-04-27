@@ -39,8 +39,7 @@ export const authStorage = {
         }
     },
 
-    // Salva o flag isNew para indicar se o usuário é novo ou não
-    // Isso é para decidir se o usuário deve ser redirecionado para a tela de perfil ou para a home após o login.
+    // Salva o flag isNew para indicar se o usuário é novo ou não para decidir se o usuário deve ser redirecionado para a tela de perfil ou para a home após o login.
     saveIsNew: async (isNew: boolean) => {
         try {
             await SecureStore.setItemAsync(IS_NEW_KEY, isNew ? 'true' : 'false');
@@ -57,6 +56,15 @@ export const authStorage = {
         } catch (error) {
             console.error("Erro ao recuperar isNew:", error);
             return false;
+        }
+    },
+
+    // Remove a flag
+    removeIsNew: async () => {
+        try {
+            await SecureStore.deleteItemAsync(IS_NEW_KEY);
+        } catch (error) {
+            console.error("Erro ao remover isNew:", error);
         }
     }
 };

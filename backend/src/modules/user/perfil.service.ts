@@ -13,7 +13,11 @@ export class PerfilService {
   async criarPerfil(contaId: number, dto: CriarPerfilDto) {
     // Busca a conta e o parentesco (referências)
     const conta = await this.em.findOneOrFail(Conta, { id: contaId });
-    const parentesco = await this.em.findOneOrFail(Parentesco, { id: dto.parentescoId });
+    
+    // Busca o parentesco apenas se o ID for fornecido no DTO
+    const parentesco = dto.parentescoId 
+      ? await this.em.findOneOrFail(Parentesco, { id: dto.parentescoId }) 
+      : undefined;
 
     // Cria a entidade Perfil com os dados do DTO
     const perfil = this.em.create(Perfil, {
@@ -48,7 +52,7 @@ export class PerfilService {
     return vinculos.map(v => ({
       ...v.perfil,
       papel: v.papel,
-      parentesco: v.parentesco.descricao
+      parentesco: v.parentesco ? v.parentesco.descricao : null 
     }));
   }
 }

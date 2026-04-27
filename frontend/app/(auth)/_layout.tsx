@@ -14,6 +14,9 @@ export default function AuthLayout() {
        {/* O arquivo se chama registro.tsx, então o nome da rota é 'registro' */}
       <Stack.Screen name="registro" options={{ title: 'Registro' }}/>
       
+       {/* O arquivo se chama perfil.tsx, então o nome da rota é 'perfil' */}
+      <Stack.Screen name="perfil" options={{ title: 'Perfil' }}/>
+      
     </Stack>
   );
 }
