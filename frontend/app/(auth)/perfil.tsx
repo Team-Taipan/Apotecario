@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import { View, Text, TouchableOpacity, Image, Modal, FlatList, ActivityIndicator } from "react-native";
 import { BlurView } from 'expo-blur';
+import { View, Text, TouchableOpacity, Image, Modal, FlatList, ActivityIndicator, KeyboardAvoidingView, Platform } from "react-native";
 import { styles } from "./_perfil.styles";
 import { LinearGradient } from 'expo-linear-gradient';
 import { useRouter } from 'expo-router';
@@ -9,6 +9,7 @@ import { Ionicons } from '@expo/vector-icons';
 import Toast from "react-native-toast-message";
 import { authService } from "../../services/authService";
 import { useAuth } from "../../contexts/AuthContext";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 // Lista de Avatares (Manter fora do componente para não recriar na memória)
 const AVATARES = [
@@ -73,109 +74,117 @@ export default function PerfilScreen() {
         }
     }
     return (
-        <View style={styles.container}>
-            <View style={styles.content}>
-                <View>
-                    <Text style={styles.title}>Crie seu Perfil!</Text>
-
-                    <View style={styles.inputContainer}>
-                        {/* Imagem que abre o Modal ao ser clicada */}
-                        <TouchableOpacity
-                            onPress={() => setModalVisible(true)}
-                            activeOpacity={0.7}
-                            style={styles.avatarButton}
-                        >
-                            <Image
-                                source={avatarSelecionado.res}
-                                style={styles.image}
-                            />
-                            <View style={styles.editIconBadge}>
-                                <Ionicons name="camera" size={18} color="#fff" />
-                            </View>
-                        </TouchableOpacity>
+        <KeyboardAvoidingView
+            style={{ flex: 1 }}
+            behavior={Platform.OS === 'ios' ? 'padding' : undefined}
+            keyboardVerticalOffset={Platform.OS === 'ios' ? 64 : 0} // Ajuste conforme a altura do seu header, se houver
+        >
+            <SafeAreaView style={styles.container} edges={['top', 'left', 'right']}>
+                    <View style={styles.content}>
                         <View>
-                            <InputText
-                                placeholder="Nome Completo"
-                                value={nome}
-                                onChangeText={setNome}
-                                autoCapitalize="words"
-                            />
-                        </View>
-                        <Text style={styles.disclame}>
-                            No primeiro acesso ao aplicativo, é necessário criar seu perfil, com avatar e nome, para  personalizar sua experiência.
-                        </Text>
-                    </View>
+                            <Text style={styles.title}>Crie seu Perfil!</Text>
 
-                    <TouchableOpacity style={{ width: '100%' }} activeOpacity={0.8} onPress={handlePerfil} disabled={loading}>
-                        <LinearGradient
-                            colors={['#3da696', '#2d7a6e']}
-                            style={[styles.button, loading && { opacity: 0.7 }]}
-                        >
-                            {loading ? (
-                                <ActivityIndicator color="#fff" />
-                            ) : (
-                                <Text style={styles.buttonText}>Criar Perfil!</Text>
-                            )}
-                        </LinearGradient>
-                    </TouchableOpacity>
-                </View>
-            </View>
+                            <View style={styles.inputContainer}>
 
-            {/* Estrutura do Modal de Seleção */}
-            <Modal
-                animationType="fade"
-                transparent={true}
-                visible={modalVisible}
-                onRequestClose={() => setModalVisible(false)}
-            >
-                {/* Fundo com efeito de blur */}
-                <BlurView
-                    intensity={40}
-                    tint="dark"
-                    experimentalBlurMethod="dimezisBlurView"
-                    style={styles.modalOverlay}
-                >
-                    <TouchableOpacity
-                        style={{ flex: 1, width: '100%' }}
-                        activeOpacity={1}
-                        onPress={() => setModalVisible(false)}
-                    >
-                        {/* TouchableOpacity vazio aqui serve para fechar ao clicar fora */}
-                    </TouchableOpacity>
+                                {/* Imagem que abre o Modal ao ser clicada */}
+                                <TouchableOpacity
+                                    onPress={() => setModalVisible(true)}
+                                    activeOpacity={0.7}
+                                    style={styles.avatarButton}
+                                >
+                                    <Image
+                                        source={avatarSelecionado.res}
+                                        style={styles.image}
+                                    />
+                                    <View style={styles.editIconBadge}>
+                                        <Ionicons name="camera" size={18} color="#fff" />
+                                    </View>
+                                </TouchableOpacity>
+                                <View>
+                                    <InputText
+                                        placeholder="Nome Completo"
+                                        value={nome}
+                                        onChangeText={setNome}
+                                        autoCapitalize="words"
+                                    />
+                                </View>
+                                <Text style={styles.disclame}>
+                                    No primeiro acesso ao aplicativo, é necessário criar seu perfil, com avatar e nome, para  personalizar sua experiência.
+                                </Text>
 
-                    <View style={styles.modalContent}>
-                        <View style={styles.modalHeader}>
-                            <Text style={styles.modalTitle}>Escolha seu Avatar</Text>
-                            <TouchableOpacity onPress={() => setModalVisible(false)}>
-                                <Ionicons name="close" size={24} color="#333" />
+                            </View>
+
+                            <TouchableOpacity style={{ width: '100%' }} activeOpacity={0.8} onPress={handlePerfil} disabled={loading}>
+                                <LinearGradient
+                                    colors={['#3da696', '#2d7a6e']}
+                                    style={[styles.button, loading && { opacity: 0.7 }]}
+                                >
+                                    {loading ? (
+                                        <ActivityIndicator color="#fff" />
+                                    ) : (
+                                        <Text style={styles.buttonText}>Criar Perfil!</Text>
+                                    )}
+                                </LinearGradient>
                             </TouchableOpacity>
                         </View>
-
-                        {/* Lista de Avatares em Grid, usando o FlatList, para fazer a exibição em grade */}
-                        <FlatList
-                            data={AVATARES}
-                            numColumns={3}
-                            keyExtractor={(item) => item.id}
-                            contentContainerStyle={styles.gridContainer}
-                            renderItem={({ item }) => (
-                                // Cada avatar é um TouchableOpacity para seleção e tem um destaque se for o selecionado
-                                <TouchableOpacity
-                                    style={[
-                                        styles.avatarOption,
-                                        avatarSelecionado.id === item.id && styles.avatarSelected
-                                    ]}
-                                    onPress={() => {
-                                        setAvatarSelecionado(item);
-                                        setModalVisible(false);
-                                    }}
-                                >
-                                    <Image source={item.res} style={styles.avatarImage} />
-                                </TouchableOpacity>
-                            )}
-                        />
                     </View>
-                </BlurView>
-            </Modal>
-        </View>
+
+                    {/* Estrutura do Modal de Seleção */}
+                    <Modal
+                        animationType="fade"
+                        transparent={true}
+                        visible={modalVisible}
+                        onRequestClose={() => setModalVisible(false)}
+                    >
+                        {/* Fundo com efeito de blur */}
+                        <BlurView
+                            intensity={40}
+                            tint="dark"
+                            experimentalBlurMethod="dimezisBlurView"
+                            style={styles.modalOverlay}
+                        >
+                            <TouchableOpacity
+                                style={{ flex: 1, width: '100%' }}
+                                activeOpacity={1}
+                                onPress={() => setModalVisible(false)}
+                            >
+                                {/* TouchableOpacity vazio aqui serve para fechar ao clicar fora */}
+                            </TouchableOpacity>
+
+                            <View style={styles.modalContent}>
+                                <View style={styles.modalHeader}>
+                                    <Text style={styles.modalTitle}>Escolha seu Avatar</Text>
+                                    <TouchableOpacity onPress={() => setModalVisible(false)}>
+                                        <Ionicons name="close" size={24} color="#333" />
+                                    </TouchableOpacity>
+                                </View>
+
+                                {/* Lista de Avatares em Grid, usando o FlatList, para fazer a exibição em grade */}
+                                <FlatList
+                                    data={AVATARES}
+                                    numColumns={3}
+                                    keyExtractor={(item) => item.id}
+                                    contentContainerStyle={styles.gridContainer}
+                                    renderItem={({ item }) => (
+                                        // Cada avatar é um TouchableOpacity para seleção e tem um destaque se for o selecionado
+                                        <TouchableOpacity
+                                            style={[
+                                                styles.avatarOption,
+                                                avatarSelecionado.id === item.id && styles.avatarSelected
+                                            ]}
+                                            onPress={() => {
+                                                setAvatarSelecionado(item);
+                                                setModalVisible(false);
+                                            }}
+                                        >
+                                            <Image source={item.res} style={styles.avatarImage} />
+                                        </TouchableOpacity>
+                                    )}
+                                />
+                            </View>
+                        </BlurView>
+                    </Modal>
+            </SafeAreaView>
+        </KeyboardAvoidingView>
     );
 }

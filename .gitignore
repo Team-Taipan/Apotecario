@@ -13,4 +13,3 @@ __pycache__/
 
 # Variáveis de ambiente (senhas, chaves de API)
 .env
-node_modules

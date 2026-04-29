@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { View, Text, TouchableOpacity, Image, ActivityIndicator } from 'react-native';
 import { BlurView } from 'expo-blur';
+import { View, Text, TouchableOpacity, Image, ActivityIndicator, KeyboardAvoidingView, Platform } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { Ionicons } from '@expo/vector-icons';
 import { styles } from './_registro.styles';
@@ -98,82 +98,88 @@ export default function RegistroScreen() {
   };
 
   return (
-    <SafeAreaView style={styles.container} edges={['left', 'right']}>
-      {/* Imagem de Fundo */}
-      <Image
-        source={require('../../assets/login-image.png')}
-        style={styles.backgroundImage}
-      />
+    <KeyboardAvoidingView
+      style={{ flex: 1 }}
+      behavior={Platform.OS === 'ios' ? 'padding' : undefined}
+      keyboardVerticalOffset={Platform.OS === 'ios' ? 64 : 0} // Ajuste conforme a altura do seu header, se houver
+    >
+      <SafeAreaView style={styles.container} edges={['left', 'right']}>
+        {/* Imagem de Fundo */}
+        <Image
+          source={require('../../assets/login-image.png')}
+          style={styles.backgroundImage}
+        />
 
-      <BlurView intensity={80}
-        tint="light" experimentalBlurMethod="dimezisBlurView" style={styles.registroSheet}>
-        <View style={styles.content}>
+        <BlurView intensity={80}
+          tint="light" experimentalBlurMethod="dimezisBlurView" style={styles.registroSheet}>
+          <View style={styles.content}>
 
-          {/* Headline com Botão Voltar */}
-          <View style={styles.headline}>
-            <TouchableOpacity onPress={() => router.back()} style={styles.backButton}>
-              <Ionicons name="arrow-back" size={24} color="#2b3a32" />
-            </TouchableOpacity>
+            {/* Headline com Botão Voltar */}
+            <View style={styles.headline}>
+              <TouchableOpacity onPress={() => router.back()} style={styles.backButton}>
+                <Ionicons name="arrow-back" size={24} color="#2b3a32" />
+              </TouchableOpacity>
 
-            <View style={styles.textGroup}>
-              <Text style={styles.title}>Registre-se.</Text>
-              <Text style={styles.subtitle}>Crie uma nova conta para continuar!</Text>
-            </View>
-          </View>
-
-          {/* Campos de Input */}
-          <View style={styles.inputContainer}>
-            <View>
-              <InputText
-                placeholder="Email"
-                keyboardType="email-address"
-                value={email}
-                onChangeText={setEmail} // Conecta ao estado
-                autoCapitalize="none" // Evita capitalização automática para e-mails, como letras maiúsculas automaticamente
-              />
-              <InputPassword
-                placeholder="Senha"
-                value={senha}
-                onChangeText={setSenha}
-              />
-              <InputPassword
-                placeholder="Confirmar Senha"
-                value={confirmarSenha}
-                onChangeText={setConfirmarSenha}
-              />
+              <View style={styles.textGroup}>
+                <Text style={styles.title}>Registre-se.</Text>
+                <Text style={styles.subtitle}>Crie uma nova conta para continuar!</Text>
+              </View>
             </View>
 
-            {/* Botão Registrar */}
-            <TouchableOpacity
-              style={{ width: '100%' }}
-              onPress={handleRegistro}
-              disabled={loading}
-              activeOpacity={0.8}
-            >
-              <LinearGradient
-                colors={['#3da696', '#2d7a6e']}
-                style={[styles.button, loading && { opacity: 0.7 }]}
+            {/* Campos de Input */}
+            <View style={styles.inputContainer}>
+              <View>
+                <InputText
+                  placeholder="Email"
+                  keyboardType="email-address"
+                  value={email}
+                  onChangeText={setEmail} // Conecta ao estado
+                  autoCapitalize="none" // Evita capitalização automática para e-mails, como letras maiúsculas automaticamente
+                />
+                <InputPassword
+                  placeholder="Senha"
+                  value={senha}
+                  onChangeText={setSenha}
+                />
+                <InputPassword
+                  placeholder="Confirmar Senha"
+                  value={confirmarSenha}
+                  onChangeText={setConfirmarSenha}
+                />
+              </View>
+
+              {/* Botão Registrar */}
+              <TouchableOpacity
+                style={{ width: '100%' }}
+                onPress={handleRegistro}
+                disabled={loading}
+                activeOpacity={0.8}
               >
-                {loading ? (
-                  <ActivityIndicator color="#fff" />
-                ) : (
-                  <Text style={styles.buttonText}>Registrar-se</Text>
-                )}
-              </LinearGradient>
+                <LinearGradient
+                  colors={['#3da696', '#2d7a6e']}
+                  style={[styles.button, loading && { opacity: 0.7 }]}
+                >
+                  {loading ? (
+                    <ActivityIndicator color="#fff" />
+                  ) : (
+                    <Text style={styles.buttonText}>Registrar-se</Text>
+                  )}
+                </LinearGradient>
+              </TouchableOpacity>
+            </View>
+          </View>
+          {/* Footer */}
+          <View style={styles.footer}>
+            <Text style={styles.footerText}>Já tem uma Conta? </Text>
+            <TouchableOpacity
+              onPress={() => router.back()}
+              activeOpacity={0.7} // Dá um feedback visual melhor ao clicar
+            >
+              <Text style={styles.footerLink}>Faça login!</Text>
             </TouchableOpacity>
           </View>
-        </View>
-        {/* Footer */}
-        <View style={styles.footer}>
-          <Text style={styles.footerText}>Já tem uma Conta? </Text>
-          <TouchableOpacity
-            onPress={() => router.back()}
-            activeOpacity={0.7} // Dá um feedback visual melhor ao clicar
-          >
-            <Text style={styles.footerLink}>Faça login!</Text>
-          </TouchableOpacity>
-        </View>
-      </BlurView>
-    </SafeAreaView>
+        </BlurView>
+      </SafeAreaView>
+    </KeyboardAvoidingView>
   );
 }

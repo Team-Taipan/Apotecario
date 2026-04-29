@@ -14,7 +14,6 @@ export const styles = StyleSheet.create({
     },
     content: {
         flex: 1,
-        paddingTop: 30
     },
     backButton: {
         marginBottom: 20,

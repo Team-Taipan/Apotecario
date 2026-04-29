@@ -95,7 +95,7 @@ export default function LoginScreen() {
     <KeyboardAvoidingView
       style={{ flex: 1 }}
       behavior={Platform.OS === 'ios' ? 'padding' : undefined}
-      keyboardVerticalOffset={100}
+      keyboardVerticalOffset={Platform.OS === 'ios' ? 64 : 0} // Exemplo de ajuste por plataforma
     >
       <SafeAreaView style={styles.container} edges={['top', 'left', 'right']}>
 
