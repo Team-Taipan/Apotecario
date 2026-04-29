@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { BlurView } from 'expo-blur';
 import { Checkbox } from 'expo-checkbox';
 import { LinearGradient } from 'expo-linear-gradient';
-import { Image, Text, TouchableOpacity, View, ActivityIndicator } from 'react-native';
+import { Image, Text, TouchableOpacity, View, ActivityIndicator, KeyboardAvoidingView, Platform } from 'react-native';
 import { styles } from './_index.styles';
 import { InputText } from '../../components/InputText';
 import { useRouter } from 'expo-router';
@@ -11,9 +11,9 @@ import Toast from 'react-native-toast-message';
 import { authStorage } from '../../services/authStorage'; //Serviço de armazenamento seguro para salvar o token
 import { useAuth } from '../../contexts/AuthContext'; // Hook de autenticação para função de login do contexto
 import { authService } from '../../services/authService'; // Serviço de autenticação chamada de login
-
+import { SafeAreaView } from 'react-native-safe-area-context';
 export default function LoginScreen() {
-  
+
   {/* Este useEffect é apenas para desenvolvimento, para garantir que o estado de autenticação esteja limpo para testar o fluxo de login e registro do zero. Ele chama a função signOut do contexto de autenticação, que limpa o token armazenado e define o usuário como null.
 
   const { signOut } = useAuth();
@@ -92,71 +92,88 @@ export default function LoginScreen() {
   };
 
   return (
-    <View style={styles.container}>
-      <Image
-        source={require('../../assets/login-image.png')}
-        style={styles.backgroundImage}
-      />
+    <KeyboardAvoidingView
+      style={{ flex: 1 }}
+      behavior={Platform.OS === 'ios' ? 'padding' : undefined}
+      keyboardVerticalOffset={100}
+    >
+      <SafeAreaView style={styles.container} edges={['top', 'left', 'right']}>
 
-      <BlurView intensity={80}
-        tint="light" experimentalBlurMethod="dimezisBlurView" style={styles.loginSheet}>
-        <View style={styles.content}>
-          <Text style={styles.title}>Apotecário, sempre cuidando de você!</Text>
-          <Text style={styles.subtitle}>Entre utilizando seu email e senha.</Text>
+        <Image
+          source={require('../../assets/login-image.png')}
+          style={styles.backgroundImage}
+        />
 
-          {/* Inputs */}
-          <InputText
-            placeholder="Email"
-            keyboardType="email-address"
-            value={email}
-            onChangeText={setEmail} // Conecta ao estado
-            autoCapitalize="none" // Evita capitalização automática para e-mails, como letras maiúsculas automaticamente
-          />
-          <InputPassword
-            placeholder="Senha"
-            value={senha}
-            onChangeText={setSenha}
-          />
+        <BlurView
+          intensity={80}
+          tint="light"
+          experimentalBlurMethod="dimezisBlurView"
+          style={styles.loginSheet}
+        >
+          <View style={styles.content}>
+            <Text style={styles.title}>
+              Apotecário, sempre cuidando de você!
+            </Text>
 
-          {/* Links Auxiliares */}
-          <View style={styles.linkRow}>
-            <Checkbox value={isChecked} onValueChange={setChecked} />
-            <Text style={styles.linkText}>Lembrar-me</Text>
-            <TouchableOpacity>
-              <Text style={styles.forgotPassword}>Perdeu a senha?</Text>
+            <Text style={styles.subtitle}>
+              Entre utilizando seu email e senha.
+            </Text>
+
+            <InputText
+              placeholder="Email"
+              keyboardType="email-address"
+              value={email}
+              onChangeText={setEmail}
+              autoCapitalize="none"
+            />
+
+            <InputPassword
+              placeholder="Senha"
+              value={senha}
+              onChangeText={setSenha}
+            />
+
+            <View style={styles.linkRow}>
+              <Checkbox value={isChecked} onValueChange={setChecked} />
+              <Text style={styles.linkText}>Lembrar-me</Text>
+
+              <TouchableOpacity>
+                <Text style={styles.forgotPassword}>
+                  Perdeu a senha?
+                </Text>
+              </TouchableOpacity>
+            </View>
+
+            <TouchableOpacity
+              style={{ width: '100%' }}
+              onPress={handleLogin}
+              disabled={loading}
+            >
+              <LinearGradient
+                colors={['#3da696', '#2d7a6e']}
+                style={[styles.button, loading && { opacity: 0.7 }]}
+              >
+                {loading ? (
+                  <ActivityIndicator color="#fff" />
+                ) : (
+                  <Text style={styles.buttonText}>Entrar</Text>
+                )}
+              </LinearGradient>
             </TouchableOpacity>
           </View>
 
-          {/* Botão com Gradiente */}
-          <TouchableOpacity
-            style={{ width: '100%' }}
-            onPress={handleLogin}
-            disabled={loading}
-            activeOpacity={0.8}
-          >
-            <LinearGradient
-              colors={['#3da696', '#2d7a6e']}
-              style={[styles.button, loading && { opacity: 0.7 }]}
-            >
-              {loading ? (
-                <ActivityIndicator color="#fff" />
-              ) : (
-                <Text style={styles.buttonText}>Entrar</Text>
-              )}
-            </LinearGradient>
-          </TouchableOpacity>
+          <View style={styles.footer}>
+            <Text style={styles.footerText}>
+              Não tem uma Conta?
+            </Text>
 
-        </View>
-        {/* Footer */}
-        <View style={styles.footer}>
-          <Text style={styles.footerText}>Não tem uma Conta?</Text>
-          <TouchableOpacity onPress={() => router.push('/registro')}
-            activeOpacity={0.7} // Dá um feedback visual melhor ao clicar
-          >
-            <Text style={styles.footerLink}>Registre-se.</Text>
-          </TouchableOpacity>
-        </View>
-      </BlurView>
-    </View>
+            <TouchableOpacity onPress={() => router.push('/registro')}>
+              <Text style={styles.footerLink}>Registre-se.</Text>
+            </TouchableOpacity>
+          </View>
+
+        </BlurView>
+      </SafeAreaView>
+    </KeyboardAvoidingView>
   );
 }

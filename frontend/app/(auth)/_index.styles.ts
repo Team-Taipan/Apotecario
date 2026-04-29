@@ -16,12 +16,12 @@ export const styles = StyleSheet.create({
   },
   loginSheet: {
     flex: 1,
-    marginTop: height * 0.3, // Onde a "folha" de login começa a subir
+    marginTop: '60%', // Onde a "folha" de login começa a subir
     borderTopLeftRadius: 45,
     borderTopRightRadius: 45,
     overflow: 'hidden', // Garante que o blur respeite os cantos arredondados
     paddingHorizontal: 24,
-    justifyContent: 'space-between', 
+    justifyContent: 'space-between',
     paddingBottom: 20, // Espaço para o conteúdo não ficar colado no final da tela - Footer 
     // Sombra para o efeito de profundidade, bem sútil
     shadowColor: '#000',
@@ -33,7 +33,7 @@ export const styles = StyleSheet.create({
   content: {
     flex: 1,
     paddingTop: 30,
-    alignItems: 'center',
+    alignItems: 'center'
   },
   title: {
     color: Colors.primary_text,
@@ -68,17 +68,17 @@ export const styles = StyleSheet.create({
     fontWeight: '600',
   },
   button: {
-     height: 52,
-     borderRadius: 12,
-     justifyContent: 'center',
-     alignItems: 'center',
-   },
-   buttonText: {
-     color: Colors.background_text_input,
-     fontSize: 16,
-     fontFamily: 'Inter',
-     fontWeight: 'bold',
-   },
+    height: 52,
+    borderRadius: 12,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  buttonText: {
+    color: Colors.background_text_input,
+    fontSize: 16,
+    fontFamily: 'Inter',
+    fontWeight: 'bold',
+  },
   footer: {
     flexDirection: 'row',
     padding: 20,

@@ -8,9 +8,8 @@ import { useRouter } from 'expo-router';
 import { InputText } from '../../components/InputText';
 import { InputPassword } from '../../components/InputPassword';
 import Toast from 'react-native-toast-message';
-import { authStorage } from '../../services/authStorage'; //Serviço de armazenamento seguro para salvar o token
-import { useAuth } from '../../contexts/AuthContext'; // Hook de autenticação para função de login do contexto
 import { authService } from '../../services/authService'; // Serviço de autenticação chamada de login
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 export default function RegistroScreen() {
   // Hook de navegação do Expo Router
@@ -99,7 +98,7 @@ export default function RegistroScreen() {
   };
 
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container} edges={['left', 'right']}>
       {/* Imagem de Fundo */}
       <Image
         source={require('../../assets/login-image.png')}
@@ -175,6 +174,6 @@ export default function RegistroScreen() {
           </TouchableOpacity>
         </View>
       </BlurView>
-    </View>
+    </SafeAreaView>
   );
 }
