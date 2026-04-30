@@ -7,7 +7,6 @@ import CardAgenda from "@/components/CardAgenda";
 
 export default function AgendaScreen() {
 
-
     return (
         <ScrollView style={{ flex: 1, backgroundColor: Colors.background }}>
             <View style={{ paddingHorizontal: 24 }}>
@@ -23,8 +22,6 @@ export default function AgendaScreen() {
                     <CardAgenda dateDay="29" dateMonth="Abr" dateHour="10:30" title="Consulta Cardíca" doctorName="Dr. João Almeida" localization="Hospital Santa Heloísa" />
                     <CardAgenda dateDay="16" dateMonth="Jun" dateHour="15:50" title="Consulta De Rotina" doctorName="Dra. Fernanda Costa" localization="Hospital Santa Heloísa" />
 
-
-
                 </View>
             </View>
         </ScrollView>
@@ -32,7 +29,6 @@ export default function AgendaScreen() {
 }
 
 const styles = StyleSheet.create({
-    
     agendaTitle: {
         fontFamily: "Inter",
         marginTop: 50,
@@ -49,7 +45,4 @@ const styles = StyleSheet.create({
         alignSelf: "flex-start",
 
     },
-
-
-
 })
