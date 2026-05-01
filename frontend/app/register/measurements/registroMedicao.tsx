@@ -1,17 +1,21 @@
 import { styles } from "../_forms_styles";
-import { View, Text, TextInput } from "react-native";
+import { View, Text } from "react-native";
 import Colors from "@/constants/Colors";
 import ButtonGradient from "@/components/ButtonGradient";
 import { useRouter } from "expo-router";
 import InputDatePicker from "@/components/InputDatePicker";
 import { InputText } from "@/components/InputText";
 import InputTextNotes from "@/components/InputTextNotes";
+import InputWheelPickerNumber from "@/components/InputWheelPickerNumber";
+
+
+
 
 export default function registroMedicao() {
 
     const router = useRouter();
-
     return(
+        
         <View style={{ flex: 1 , backgroundColor: Colors.background}}>
 
             <View style={styles.contentContainer}>
@@ -24,9 +28,9 @@ export default function registroMedicao() {
                     </View>
 
                     {/* futuramente mudar desse InputText para um WheelPicker talvez */}   
-                    <View>
+                    <View style={{alignItems: "center"}}>
                         <Text style={styles.inputLabel}>Resultado da Medição </Text> 
-                        <InputText keyboardType="numeric" placeholder="Insira o valor (ex: 120/80, 95...)" />
+                        <InputWheelPickerNumber format="Integer" unit="KG" />
                     </View>
 
                     <View>
