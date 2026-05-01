@@ -69,8 +69,8 @@ export default function InputDatePicker({defaultDate, mode, onValueChange} : Inp
                 <DateTimePicker
                     value={date}
                     mode={mode}
-                    display="spinner" 
-                    locale="pt-BR"
+                    design="material" 
+                    display={mode === "date" ? "calendar": "clock"}
                     is24Hour={true}
                     minimumDate={mode === "date" ? new Date() : undefined}
                     onChange={onChangeDate}
