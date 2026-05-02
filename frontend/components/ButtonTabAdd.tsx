@@ -28,11 +28,13 @@ const styles = StyleSheet.create({
   button: {
     width: 60,
     height: 60,
+    borderWidth: 3,
+    borderColor: '#FFF',
     borderRadius: 30,
     backgroundColor: Colors.accent,
     justifyContent: 'center',
     alignItems: 'center',
-    elevation: 5, // Sombra Android
+    elevation: 2, // Sombra Android
     shadowColor: '#000', // Sombra iOS
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.2,

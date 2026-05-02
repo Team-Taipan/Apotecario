@@ -14,19 +14,6 @@ import { authService } from '../../services/authService'; // Serviço de autenti
 import { SafeAreaView } from 'react-native-safe-area-context';
 export default function LoginScreen() {
 
-  {/* Este useEffect é apenas para desenvolvimento, para garantir que o estado de autenticação esteja limpo para testar o fluxo de login e registro do zero. Ele chama a função signOut do contexto de autenticação, que limpa o token armazenado e define o usuário como null.
-
-  const { signOut } = useAuth();
-  // Dentro do LoginScreen()
-  useEffect(() => {
-    const resetAuth = async () => {
-      // Isso vai limpar o token do SecureStore e colocar o user como null
-      await signOut();
-    };
-    //resetAuth(); // Descomente esta linha, salve, espere o app recarregar e comente de novo.
-  }, []);
-  {*/}
-
   // Hook de navegação do Expo Router
   const router = useRouter();
   const { signIn } = useAuth(); // Importa a função de login do contexto de autenticação

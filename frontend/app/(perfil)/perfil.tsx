@@ -43,7 +43,7 @@ export default function PerfilScreen() {
     }
 
     return (
-        <SafeAreaView edges={['bottom', 'left', 'right']} style={{ flex: 1 }}>
+        <SafeAreaView edges={['left', 'right']} style={{ flex: 1 }}>
             <ScrollView contentContainerStyle={{ flexGrow: 1 }} style={{ backgroundColor: Colors.background }}>
                 <View style={styles.container}>
                     <View style={styles.content}>

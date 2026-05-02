@@ -1,16 +1,22 @@
 import { Tabs } from 'expo-router';
 import Toast from 'react-native-toast-message';
+import { Feather } from '@expo/vector-icons';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
+import Octicons from '@expo/vector-icons/Octicons';
 import Colors from '../../constants/Colors';
 import ButtonTabAdd from '@/components/ButtonTabAdd';
 import { ModalOpcoes } from '@/components/ModalOpcoes';
 import { useState } from 'react';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 // Tabs é a barra inferior de navegação da nossa aplicação
 export default function RootLayout() {
 
   // Estado do botão de adicionar registros
   const [modalVisible, setModalVisible] = useState(false);
+  
+  // Retorna os espaços seguros da tela
+  const insets = useSafeAreaInsets();
 
   return (
     
@@ -20,6 +26,21 @@ export default function RootLayout() {
         animation: 'fade',
         tabBarActiveTintColor: Colors.accent,
         tabBarInactiveTintColor: Colors.primary_text,
+        tabBarHideOnKeyboard: true, // Evita que a barra suba com o teclado
+        tabBarStyle: {
+          // Altura base de 80 (padrão Android moderno) + insets se houver navegação por gestos, para que o tabs não fique colado na barra
+          height: insets.bottom > 0 ? 70 + insets.bottom : 80,
+          paddingBottom: insets.bottom > 0 ? insets.bottom : 15,
+          paddingTop: 8,
+          justifyContent: 'center',
+          alignItems: 'center'
+        },
+        tabBarLabelStyle: {
+          fontFamily: 'Inter',
+          fontSize: 12,
+          fontWeight: '600',
+          marginTop: 2,
+        },
 
       }}>
       
@@ -28,7 +49,7 @@ export default function RootLayout() {
           options={{
             title: 'Início',
             tabBarIcon: ({ color, size }) => (
-              <MaterialCommunityIcons name="home-outline" size={size} color={color} />
+              <Feather name="home" size={size} color={color} />
             ),
           }}
         />
@@ -38,7 +59,7 @@ export default function RootLayout() {
         options={{ 
             title: 'Agenda',
             tabBarIcon: ({ color, size }) => (
-              <MaterialCommunityIcons name="calendar-outline" size={size} color={color} />
+              <Feather name="calendar" size={size} color={color} />
             ),
           }}
       /> 
@@ -71,15 +92,15 @@ export default function RootLayout() {
         options={{ 
             title: 'Progresso',
             tabBarIcon: ({ color, size }) => (
-              <MaterialCommunityIcons name="progress-clock" size={size} color={color} />
+              <Feather name="clock" size={size} color={color} />
             ),
          }}
       /> 
-      <Tabs.Screen name="config" 
+      <Tabs.Screen name="(config)/config"
       options={{ 
-          title: 'Config.',
+          title: 'Configurações',
           tabBarIcon: ({ color, size }) => (
-              <MaterialCommunityIcons name="account-settings-outline" size={size} color={color} />
+              <Octicons name="gear" size={size} color={color} />
             ),
 
         }}/> 

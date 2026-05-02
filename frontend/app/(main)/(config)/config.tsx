@@ -3,16 +3,29 @@ import { View, Text, ScrollView } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons, MaterialIcons } from '@expo/vector-icons';
 import { styles } from './_config.styles';
-
 import { ConfigCard } from '@/components/ConfigCard';
 import { ConfigItem } from '@/components/ConfigItem';
 import { AccountCard } from '@/components/AccountCard';
-
+import { useAuth } from '@/contexts/AuthContext';
+import { useEffect } from 'react';
+import { ConfirmModal } from '@/components/ConfirmModal';
+import Toast from 'react-native-toast-message';
 
 export default function ConfigScreen() {
     const [pushEnabled, setPushEnabled] = useState(true);
     const [consultEnabled, setConsultEnabled] = useState(true);
     const [disturbEnabled, setDisturbEnabled] = useState(false);
+
+    // Função de Logout
+    const { signOut } = useAuth();
+    useEffect(() => {
+        const resetAuth = async () => {
+            await signOut();
+        };
+    }, []);
+
+    // Modal de Confirmação
+    const [logoutModalVisible, setLogoutModalVisible] = useState(false);
 
     return (
         <SafeAreaView style={styles.container} edges={['top', 'left', 'right']}>
@@ -97,7 +110,7 @@ export default function ConfigScreen() {
                             iconBg="#DC3C3C40"
                             title="Sair da Conta"
                             subtitle="usuario@gmail.com" // pegar o email depois
-                            onPress={() => console.log('Email')}
+                            onPress={() => (setLogoutModalVisible(true))}
                         />
                         <ConfigItem
                             icon={<Ionicons name="trash-outline" size={20} color="#DC3C3C" />}
@@ -110,6 +123,27 @@ export default function ConfigScreen() {
                     </ConfigCard>
                 </View>
             </ScrollView>
+
+            {/* Render condicional, caso o contrário, o modal continua montado, só invisível, acarretando em bloqueio de toques, como uma camada fantasma */}
+            {logoutModalVisible && (
+                <ConfirmModal
+                    visible={logoutModalVisible}
+                    title="Sair da conta"
+                    message="Tem certeza que deseja sair da sua conta?"
+                    confirmText="Sair"
+                    cancelText="Cancelar"
+                    onCancel={() => setLogoutModalVisible(false)}
+                    onConfirm={() => {
+                        setLogoutModalVisible(false);
+                        Toast.show({
+                            type: 'info',
+                            text1: 'Você saiu de sua conta!',
+                            visibilityTime: 3000
+                        });
+                        signOut();
+                    }}
+                />
+            )}
         </SafeAreaView>
     );
 }

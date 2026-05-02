@@ -1,8 +1,6 @@
 //O _ diz ao Expo: "Ei, isso é apenas um arquivo de suporte, não crie uma tela para ele".
 import Colors from '../../constants/Colors';
-import { StyleSheet, Dimensions } from 'react-native';
-
-const { width, height } = Dimensions.get('window');
+import { StyleSheet} from 'react-native';
 
 export const styles = StyleSheet.create({
     container: {
@@ -85,7 +83,7 @@ export const styles = StyleSheet.create({
         justifyContent: 'flex-end',
     },
     modalContent: {
-        backgroundColor: '#fff',
+        backgroundColor: '#f5f6f7',
         borderTopLeftRadius: 20,
         borderTopRightRadius: 20,
         padding: 20,
