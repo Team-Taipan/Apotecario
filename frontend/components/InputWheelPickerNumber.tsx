@@ -35,7 +35,7 @@ export default function InputWheelPickerNumber( { format, unit } : InputWheelPic
                     itemTextStyle={styles.itemText}
                 />
 
-                {/* Operador '&&' ele renderiza um componente ou NADA se uma condição for atingida */}
+                {/* o Operador '&&' renderiza um componente ou NADA se uma condição for atingida */}
                 { format === "Decimal" && (
                     <>
                     <Text style={styles.comma}>,</Text>
