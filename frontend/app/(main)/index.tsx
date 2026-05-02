@@ -19,7 +19,7 @@ const AVATARES = [
 
 export default function HomeScreen() {
 
-    const [nome, setNome] = useState('Otavio');
+    const [nome, setNome] = useState();
 
     // Estados
     const [modalVisible, setModalVisible] = useState(false);

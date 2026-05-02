@@ -76,6 +76,7 @@ export const styles = StyleSheet.create({
         borderWidth: 2,
         borderColor: '#fff',
     },
+<<<<<<< HEAD
     // Estilo para o modal de seleção de avatar
     modalOverlay: {
         flex: 1,
@@ -118,4 +119,8 @@ export const styles = StyleSheet.create({
         height: 70,
         borderRadius: 35,
     }
+=======
+
+
+>>>>>>> dev
 })
