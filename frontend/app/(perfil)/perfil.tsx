@@ -1,17 +1,16 @@
 import React, { useState } from "react";
-import { View, Text, TouchableOpacity, Image, Modal, ImageSourcePropType, ActivityIndicator, ScrollView } from "react-native";
+import { View, Text, TouchableOpacity, Image,  ImageSourcePropType, ActivityIndicator, ScrollView } from "react-native";
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { BlurView } from 'expo-blur';
 import { styles } from "./_perfil.styles";
 import { LinearGradient } from 'expo-linear-gradient';
 import { useRouter } from 'expo-router';
 import { InputText } from '../../components/InputText';
 import { Ionicons } from '@expo/vector-icons';
 import RoleDropdown from "@/components/RoleDropdown";
-import Toast from "react-native-toast-message";
 import Colors from "@/constants/Colors";
 import { useHeaderHeight } from '@react-navigation/elements';
-import ListaAvatares from "@/components/ListaAvatares";
+import ModalPerfil from "@/components/ModalPerfil";
+
 
 // Lista de Avatares (Manter fora do componente para não recriar na memória)
 const AVATARES = [
@@ -38,8 +37,6 @@ export default function PerfilScreen() {
     const [nome, setNome] = useState('');
     const [parentesco, setParentesco] = useState('');
 
-
-
     // Estado para controlar o carregamento (feedback visual)
     const [loading, setLoading] = useState(false);
 
@@ -53,6 +50,12 @@ export default function PerfilScreen() {
         setModalVisible(false);
         
     };
+
+    // função para chamar o modal
+    const closeModal = () => {
+        setModalVisible(false);
+    }
+
 
     return (
         <SafeAreaView edges={['bottom', 'left', 'right']} style={{ flex: 1 }}>
@@ -115,42 +118,10 @@ export default function PerfilScreen() {
                             </TouchableOpacity>
                         </View>
                     </View>
+
                     {/* Estrutura do Modal de Seleção */}
-                    <Modal
-                        animationType="fade"
-                        transparent={true}
-                        visible={modalVisible}
-                        onRequestClose={() => setModalVisible(false)}
-                    >
-                        {/* Fundo com efeito de blur */}
-                        <BlurView
-                            intensity={40}
-                            tint="dark"
-                            experimentalBlurMethod="dimezisBlurView"
-                            style={styles.modalOverlay}
-                        >
-                            <TouchableOpacity
-                                style={{ flex: 1, width: '100%' }}
-                                activeOpacity={1}
-                                onPress={() => setModalVisible(false)}
-                            >
-                                {/* TouchableOpacity vazio aqui serve para fechar ao clicar fora */}
-                            </TouchableOpacity>
+                    <ModalPerfil modalVisible={modalVisible} closeModal={closeModal} AVATARES={AVATARES} avatarSelecionado={avatarSelecionado} onSelectAvatar={selectAvatar}/>
 
-                            <View style={styles.modalContent}>
-                                <View style={styles.modalHeader}>
-                                    <Text style={styles.modalTitle}>Escolha seu Avatar</Text>
-                                    <TouchableOpacity onPress={() => setModalVisible(false)}>
-                                        <Ionicons name="close" size={24} color={Colors.primary_text} />
-                                    </TouchableOpacity>
-                                </View>
-
-                                {/* Lista de Avatares em Grid, usando o FlatList, para fazer a exibição em grade */}
-                                <ListaAvatares AVATARES={AVATARES} avatarSelecionado={avatarSelecionado} onPress={selectAvatar} />
-
-                            </View>
-                        </BlurView>
-                    </Modal>
                 </View>
             </ScrollView>
         </SafeAreaView>

@@ -2,18 +2,15 @@ import { StyleSheet, TouchableOpacity, FlatList, View, Image, ImageSourcePropTyp
 import Colors from "@/constants/Colors"
 
 
-
-
 interface ListaAvataresProps {
 
     AVATARES: {id: string, res: ImageSourcePropType}[],
     avatarSelecionado: {id: string, res: ImageSourcePropType}
-    onPress: (item: {id: string, res: ImageSourcePropType}) => void
+    onSelectAvatar: (item: {id: string, res: ImageSourcePropType}) => void
 }
 
 
-export default function ListaAvatares( { AVATARES, avatarSelecionado, onPress } : ListaAvataresProps) {
-
+export default function ListaAvatares( { AVATARES, avatarSelecionado, onSelectAvatar } : ListaAvataresProps) {
 
     return(
         <View>
@@ -31,7 +28,7 @@ export default function ListaAvatares( { AVATARES, avatarSelecionado, onPress } 
                             styles.avatarOption,
                             avatarSelecionado.id === item.id && styles.avatarSelected
                         ]}
-                        onPress={() =>  onPress(item) }
+                        onPress={() =>  onSelectAvatar(item) }
                     >
                         <Image source={item.res} style={styles.avatarImage} />
 
