@@ -102,22 +102,5 @@ export const styles = StyleSheet.create({
         fontWeight: 'bold',
         color: Colors.primary_text,
     },
-    gridContainer: {
-        alignItems: 'center',
-    },
-    avatarOption: {
-        padding: 10,
-        borderRadius: 50,
-        borderWidth: 2,
-        borderColor: 'transparent',
-        margin: 5,
-    },
-    avatarSelected: {
-        borderColor: Colors.accent,
-    },
-    avatarImage: {
-        width: 70,
-        height: 70,
-        borderRadius: 35,
-    }
+
 })

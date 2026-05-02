@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, Text, TouchableOpacity, Image, Modal, FlatList, ActivityIndicator, ScrollView } from "react-native";
+import { View, Text, TouchableOpacity, Image, Modal, ImageSourcePropType, ActivityIndicator, ScrollView } from "react-native";
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { BlurView } from 'expo-blur';
 import { styles } from "./_perfil.styles";
@@ -11,6 +11,7 @@ import RoleDropdown from "@/components/RoleDropdown";
 import Toast from "react-native-toast-message";
 import Colors from "@/constants/Colors";
 import { useHeaderHeight } from '@react-navigation/elements';
+import ListaAvatares from "@/components/ListaAvatares";
 
 // Lista de Avatares (Manter fora do componente para não recriar na memória)
 const AVATARES = [
@@ -32,15 +33,26 @@ export default function PerfilScreen() {
 
     // Estados
     const [modalVisible, setModalVisible] = useState(false);
+
     const [avatarSelecionado, setAvatarSelecionado] = useState(AVATARES[0]); // Começa com o primeiro
     const [nome, setNome] = useState('');
     const [parentesco, setParentesco] = useState('');
+
+
 
     // Estado para controlar o carregamento (feedback visual)
     const [loading, setLoading] = useState(false);
 
     const handleSelectRole = (roleId: string | null) => {
     }
+
+    // função para selecionar o avatar
+    const selectAvatar = (item: {id: string, res: ImageSourcePropType}) => {
+        
+        setAvatarSelecionado(item);
+        setModalVisible(false);
+        
+    };
 
     return (
         <SafeAreaView edges={['bottom', 'left', 'right']} style={{ flex: 1 }}>
@@ -134,27 +146,8 @@ export default function PerfilScreen() {
                                 </View>
 
                                 {/* Lista de Avatares em Grid, usando o FlatList, para fazer a exibição em grade */}
-                                <FlatList
-                                    data={AVATARES}
-                                    numColumns={3}
-                                    keyExtractor={(item) => item.id}
-                                    contentContainerStyle={styles.gridContainer}
-                                    renderItem={({ item }) => (
-                                        // Cada avatar é um TouchableOpacity para seleção e tem um destaque se for o selecionado
-                                        <TouchableOpacity
-                                            style={[
-                                                styles.avatarOption,
-                                                avatarSelecionado.id === item.id && styles.avatarSelected
-                                            ]}
-                                            onPress={() => {
-                                                setAvatarSelecionado(item);
-                                                setModalVisible(false);
-                                            }}
-                                        >
-                                            <Image source={item.res} style={styles.avatarImage} />
-                                        </TouchableOpacity>
-                                    )}
-                                />
+                                <ListaAvatares AVATARES={AVATARES} avatarSelecionado={avatarSelecionado} onPress={selectAvatar} />
+
                             </View>
                         </BlurView>
                     </Modal>
