@@ -76,51 +76,5 @@ export const styles = StyleSheet.create({
         borderWidth: 2,
         borderColor: '#fff',
     },
-<<<<<<< HEAD
-    // Estilo para o modal de seleção de avatar
-    modalOverlay: {
-        flex: 1,
-        backgroundColor: 'rgba(0,0,0,0.5)',
-        justifyContent: 'flex-end',
-    },
-    modalContent: {
-        backgroundColor: '#f5f6f7',
-        borderTopLeftRadius: 20,
-        borderTopRightRadius: 20,
-        padding: 20,
-        maxHeight: '50%',
-    },
-    modalHeader: {
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        marginBottom: 20,
-    },
-    modalTitle: {
-        fontSize: 18,
-        fontWeight: 'bold',
-        color: Colors.primary_text,
-    },
-    gridContainer: {
-        alignItems: 'center',
-    },
-    avatarOption: {
-        padding: 10,
-        borderRadius: 50,
-        borderWidth: 2,
-        borderColor: 'transparent',
-        margin: 5,
-    },
-    avatarSelected: {
-        borderColor: Colors.accent,
-    },
-    avatarImage: {
-        width: 70,
-        height: 70,
-        borderRadius: 35,
-    }
-=======
 
-
->>>>>>> dev
 })
