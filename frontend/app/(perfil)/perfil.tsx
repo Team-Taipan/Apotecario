@@ -80,6 +80,7 @@ export default function PerfilScreen() {
                                         <Ionicons name="camera" size={18} color="#fff" />
                                     </View>
                                 </TouchableOpacity>
+                                
                                 <View>
                                     <InputText
                                         placeholder="Nome Completo"
@@ -88,6 +89,7 @@ export default function PerfilScreen() {
                                         autoCapitalize="words"
                                     />
                                 </View>
+
                                 <View>
                                     <InputText
                                         placeholder="Parentesco: 'Pai', 'Mãe', 'Cônjuge', etc."
@@ -96,12 +98,11 @@ export default function PerfilScreen() {
                                         autoCapitalize="words"
                                     />
                                 </View>
-                                <View>
-                                    <RoleDropdown roles={ROLES} onSelect={handleSelectRole} />
-                                </View>
+
                                 <Text style={styles.disclame}>
                                     Ao clicar em confirmar, toda a alteração feita será salva.
                                 </Text>
+
                             </View>
 
                             <TouchableOpacity style={{ width: '100%' }} activeOpacity={0.8} disabled={loading}>
