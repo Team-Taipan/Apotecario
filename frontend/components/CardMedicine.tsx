@@ -10,26 +10,26 @@ interface CardMedicineProps {
     iconName: keyof typeof MaterialCommunityIcons.glyphMap;
 }
 
-export function CardMedicine( { name, qtMedicine, typeMedicine, iconName } : CardMedicineProps) {
+export function CardMedicine({ name, qtMedicine, typeMedicine, iconName }: CardMedicineProps) {
     return (
         <View>
             <Text style={styles.hourMedication}>09:00</Text>
             <TouchableOpacity activeOpacity={0.9} style={styles.cardMedicine}>
-            
-                <MaterialCommunityIcons style={styles.iconMedicine} name={iconName} size={40} color={Colors.accent}  />
-                
+
+                <MaterialCommunityIcons style={styles.iconMedicine} name={iconName} size={40} color={Colors.accent} />
+
                 <View style={styles.infoMedicine}>
                     <Text style={styles.nameMedicine}>{name}</Text>
-                    <Text>{qtMedicine} {typeMedicine}</Text>
+                    <Text style={styles.qtMedicine}>{qtMedicine} {typeMedicine}</Text>
                 </View>
-                                    
+
                 <TouchableOpacity activeOpacity={0.9} style={styles.buttonMedication}>
-                
+
                     <Text style={styles.nameButtonMedication}>Tomar</Text>
-                
+
                 </TouchableOpacity>
-                                
-            
+
+
             </TouchableOpacity>
         </View>
     )
@@ -38,22 +38,28 @@ export function CardMedicine( { name, qtMedicine, typeMedicine, iconName } : Car
 const styles = StyleSheet.create({
 
     cardMedicine: {
-
         flexDirection: "row",
         justifyContent: "flex-start",
         alignItems: "center",
         width: "100%",
-        height: 60,
+        padding: 10,
         backgroundColor: "#ffffff",
-        borderRadius: 8,
-        marginTop:10,
-        elevation: 4,
-        gap: 20
-    
+        borderRadius: 14,
+        marginTop: 10,
+        elevation: 3, // Sombra para Android
+        gap: 20,
+        // Propriedades de sombra para iOS
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.1,
+        shadowRadius: 4,
     },
 
     hourMedication: {
         fontWeight: 500,
+        fontFamily: "Inter",
+        fontSize: 13,
+        color: Colors.primary_text
     },
 
     infoMedicine: {
@@ -63,21 +69,30 @@ const styles = StyleSheet.create({
 
     nameMedicine: {
         fontWeight: "bold",
+        fontSize: 15,
+        color: Colors.primary_text
+    },
+
+    qtMedicine: {
+        fontWeight: 500,
+        fontFamily: "Inter",
+        fontSize: 13,
+        color: Colors.secondary_text
     },
 
     iconMedicine: {
-        marginLeft: 10,
+        marginLeft: 5,
         backgroundColor: "#d9ebe8a2",
-        borderRadius: 20
+        borderRadius: 25,
+        padding: 3
     },
 
     buttonMedication: {
-        width: 50,
-        height: 40,
-        borderRadius: 6,
+        padding: 10,
+        borderRadius: 10,
         justifyContent: "center",
         alignItems: "center",
-        marginRight: 10,
+        marginRight: 5,
         backgroundColor: Colors.accent
     },
 

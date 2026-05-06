@@ -5,31 +5,31 @@ import React, { useState, useEffect } from "react";
 
 const { width: screenWidth } = Dimensions.get('window'); // pega a largura total da tela
 
+// Configuração do Calendário
+LocaleConfig.locales['br'] = {
+    monthNames: [
+        "Janeiro",
+        "Fevereiro",
+        "Março",
+        "Abril",
+        "Maio",
+        "Junho",
+        "Julho",
+        "Agosto",
+        "Setembro",
+        "Outubro",
+        "Novembro",
+        "Dezembro"
+    ],
+    monthNamesShort: ["Jan.", "Fev.", "Mar.", "Abr.", "Maio", "Jun.", "Jul.", "Ago.", "Set.", "Out.", "Nov.", "Dez."],
+    dayNames: ["Domingo", "Segunda", "Terça", "Quarta", "Quinta", "Sexta", "Sábado"],
+    dayNamesShort: ["Dom", "Seg", "Ter", "Qua", "Qui", "Sex", "Sab"],
+    today: ["Hoje"]
+};
+
+LocaleConfig.defaultLocale = 'br';
+
 export function CalendarHome() {
-
-    // Configuração do Calendário
-    LocaleConfig.locales['br'] = {
-        monthNames: [
-            "Janeiro",
-            "Fevereiro",
-            "Março",
-            "Abril",
-            "Maio",
-            "Junho",
-            "Julho",
-            "Agosto",
-            "Setembro",
-            "Outubro",
-            "Novembro",
-            "Dezembro"
-        ],
-        monthNamesShort: ["Jan.", "Fev.", "Mar.", "Abr.", "Maio", "Jun.", "Jul.", "Ago.", "Set.", "Out.", "Nov.", "Dez."],
-        dayNames: ["Domingo", "Segunda", "Terça", "Quarta", "Quinta", "Sexta", "Sábado"],
-        dayNamesShort: ["Dom", "Seg", "Ter", "Qua", "Qui", "Sex", "Sab"],
-        today: ["Hoje"]
-    };
-
-    LocaleConfig.defaultLocale = 'br';
 
     // o metodo toISOString pega a data no formato YYYY-MM-DDTHH:mm:ss.sssZ, onde Z representa a timezone, por padrão sempre é UTC
     // ele foi usado no lugar do toString justamente por conta desse formato, o toString retornaria algo como: "Wed Oct 05 2011 16:48:00 GMT+0200 (CEST)"
@@ -103,19 +103,29 @@ const styles = StyleSheet.create({
     calendarTitleMonthYear: {
         fontFamily: "Inter",
         fontSize: 17,
-        fontWeight: "700"
+        fontWeight: "700",
+        color: Colors.primary_text
     },
 
     calendarProviderCustom: {
-        marginTop: 15
+        marginTop: 15,
+        borderRadius: 14,
+        elevation: 4,
+        overflow: 'hidden', // Força o calendário interno a respeitar o arredondamento
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.1,
+        shadowRadius: 4,
     },
 
     selectedDate: {
         fontFamily: "Inter",
         marginTop: -40,
+        padding: 5,
         alignSelf: 'center',
         fontWeight: '700',
-        fontSize: 17
+        fontSize: 17,
+        color: Colors.primary_text
     },
 
 })

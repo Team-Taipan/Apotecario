@@ -49,7 +49,7 @@ const styles = StyleSheet.create({
         width: "100%",
     },
     calendar: {
-        borderRadius: 12,
+        borderRadius: 14,
         elevation: 6,
         paddingBottom: 12
     }

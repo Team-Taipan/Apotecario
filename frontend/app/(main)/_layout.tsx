@@ -107,12 +107,12 @@ export default function RootLayout() {
 
       </Tabs>
 
-      <ModalOpcoes
-        visible={modalVisible} 
-        onClose={() => setModalVisible(false)} />
-
-      {/* O Toast deve ficar fora do Stack para "flutuar" sobre as telas */}
-      <Toast />
+      {/* Renderização condicional para evitar que camadas invisíveis bloqueiem o toque */}
+      {modalVisible && (
+        <ModalOpcoes
+          visible={modalVisible} 
+          onClose={() => setModalVisible(false)} />
+      )}
     </>
   );
 }

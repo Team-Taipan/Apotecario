@@ -4,14 +4,14 @@ import Colors from "@/constants/Colors"
 export const styles = StyleSheet.create({
     contentContainer: {
         flex: 1,
-        paddingHorizontal: 20,
-        paddingTop: 20,
+        paddingHorizontal: 24,
         paddingBottom: 30,
         justifyContent: 'space-between'
-        
+
     },
     footer: {
-        marginBottom: 60,
+        flex: 1,
+        justifyContent: "flex-end",
     },
     inputLabel: {
         marginTop: 10,
@@ -20,7 +20,7 @@ export const styles = StyleSheet.create({
         textAlign: "center",
         color: Colors.primary_text,
         marginBottom: 8,
-               
+
     },
     title: {
         fontFamily: 'Inter',
@@ -46,5 +46,5 @@ export const styles = StyleSheet.create({
         color: Colors.secondary_text,
         marginTop: 4,
         lineHeight: 16,
-    }, 
+    },
 })

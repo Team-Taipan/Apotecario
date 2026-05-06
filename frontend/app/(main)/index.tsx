@@ -55,8 +55,8 @@ export default function HomeScreen() {
                 {/* Sessão de Cards*/}
                 <View style={styles.medicationSection}>
 
-                    <Text style={styles.titleSection}>Medicamentos</Text>
-                    <Text style={styles.subTitleSection}>Remédios que você deve tomar</Text>
+                    <Text style={styles.titleSection}>Medicamentos Ativos</Text>
+                    <Text style={styles.subTitleSection}>Remédios que você deve tomar:</Text>
                     <View style={styles.containerCards} >
 
                         <CardMedicine name="Dipirona" iconName="pill-multiple" qtMedicine={2} typeMedicine="comprimidos" />
@@ -139,6 +139,7 @@ const styles = StyleSheet.create({
         fontWeight: "bold",
         fontFamily: 'Inter',
         fontSize: 21,
+        color: Colors.primary_text
     },
 
     subTitleSection: {
@@ -178,7 +179,7 @@ const styles = StyleSheet.create({
 
     // Sessão Medicamentos
     medicationSection: {
-        marginTop: 30
+        marginTop: 20
     },
     // Sessao dos Cards
     containerCards: {

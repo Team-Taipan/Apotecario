@@ -7,7 +7,6 @@ import { ConfigCard } from '@/components/ConfigCard';
 import { ConfigItem } from '@/components/ConfigItem';
 import { AccountCard } from '@/components/AccountCard';
 import { useAuth } from '@/contexts/AuthContext';
-import { useEffect } from 'react';
 import { ConfirmModal } from '@/components/ConfirmModal';
 import Toast from 'react-native-toast-message';
 
@@ -18,12 +17,6 @@ export default function ConfigScreen() {
 
     // Função de Logout
     const { signOut } = useAuth();
-    useEffect(() => {
-        const resetAuth = async () => {
-            await signOut();
-        };
-    }, []);
-
     // Modal de Confirmação
     const [logoutModalVisible, setLogoutModalVisible] = useState(false);
 
@@ -124,7 +117,7 @@ export default function ConfigScreen() {
                 </View>
             </ScrollView>
 
-            {/* Render condicional, caso o contrário, o modal continua montado, só invisível, acarretando em bloqueio de toques, como uma camada fantasma */}
+            {/* Render condicional, caso o contrário, o modal continua montado, só que invisível, acarretando em bloqueio de toques, como uma camada fantasma */}
             {logoutModalVisible && (
                 <ConfirmModal
                     visible={logoutModalVisible}

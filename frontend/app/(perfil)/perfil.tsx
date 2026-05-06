@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, Text, TouchableOpacity, Image,  ImageSourcePropType, ActivityIndicator, ScrollView } from "react-native";
+import { View, Text, TouchableOpacity, Image, ImageSourcePropType, ActivityIndicator, ScrollView } from "react-native";
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { styles } from "./_perfil.styles";
 import { LinearGradient } from 'expo-linear-gradient';
@@ -44,11 +44,11 @@ export default function PerfilScreen() {
     }
 
     // função para selecionar o avatar
-    const selectAvatar = (item: {id: string, res: ImageSourcePropType}) => {
-        
+    const selectAvatar = (item: { id: string, res: ImageSourcePropType }) => {
+
         setAvatarSelecionado(item);
         setModalVisible(false);
-        
+
     };
 
     // função para chamar o modal
@@ -80,7 +80,7 @@ export default function PerfilScreen() {
                                         <Ionicons name="camera" size={18} color="#fff" />
                                     </View>
                                 </TouchableOpacity>
-                                
+
                                 <View>
                                     <InputText
                                         placeholder="Nome Completo"
@@ -121,7 +121,7 @@ export default function PerfilScreen() {
                     </View>
 
                     {/* Estrutura do Modal de Seleção */}
-                    <ModalPerfil modalVisible={modalVisible} closeModal={closeModal} AVATARES={AVATARES} avatarSelecionado={avatarSelecionado} onSelectAvatar={selectAvatar}/>
+                    <ModalPerfil modalVisible={modalVisible} closeModal={closeModal} AVATARES={AVATARES} avatarSelecionado={avatarSelecionado} onSelectAvatar={selectAvatar} />
 
                 </View>
             </ScrollView>
