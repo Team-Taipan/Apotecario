@@ -32,14 +32,14 @@ const styles = StyleSheet.create({
     agendaTitle: {
         fontFamily: "Inter",
         marginTop: 50,
-        fontSize: 20,
+        fontSize: 24,
         fontWeight: "bold",
         alignSelf: "flex-start",
 
     },
     agendaSubTitle: {
         fontFamily: "Inter",
-        marginTop: 20,
+        marginTop: 15,
         color: Colors.secondary_text,
         fontWeight: "600",
         alignSelf: "flex-start",
