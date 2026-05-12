@@ -21,13 +21,13 @@ export default function ListaAvatares( { AVATARES, avatarSelecionado, onSelectAv
                 data={AVATARES}
                 numColumns={3}
                 keyExtractor={(item) => item.id}
-                contentContainerStyle={styles.gridContainer}
+                contentContainerStyle={showNames ? styles.gridContainer : styles.gridContainerNoName}
                 renderItem={({ item }) => (
 
                     // Cada avatar é um TouchableOpacity para seleção e tem um destaque se for o selecionado
                     <TouchableOpacity
                         style={[
-                            styles.avatarOption,
+                            showNames ? styles.avatarOption : styles.avatarOptionNoName,
                             avatarSelecionado.id === item.id && (showNames ? styles.avatarSelected : styles.avatarSelectedNoName)
                         ]}
                         onPress={() =>  onSelectAvatar(item) }
@@ -59,11 +59,6 @@ const styles = StyleSheet.create({
         borderColor: Colors.accent,
         color: Colors.accent,
     },
-    avatarSelectedNoName: {
-        borderBottomWidth: 3,
-        borderColor: Colors.accent,
-        color: Colors.accent,
-    },
     avatarImage: {
         width: 70,
         height: 70,
@@ -72,5 +67,21 @@ const styles = StyleSheet.create({
     },
     avatarName: {
         marginTop: 15
+    },
+
+    // Estilos da lista no Perfil
+    gridContainerNoName: {
+        alignItems: 'center',
+    },
+    avatarOptionNoName: {
+        padding: 10,
+        borderRadius: 50,
+        borderWidth: 2,
+        borderColor: 'transparent',
+        margin: 5,
+    },
+
+    avatarSelectedNoName: {
+        borderColor: Colors.accent,
     },
 })
