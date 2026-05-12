@@ -28,10 +28,16 @@
     "react-native": "0.81.5",
     "react-native-calendars": "^1.1314.0",
     "react-native-dropdown-picker": "^5.4.6",
+    "react-native-gifted-charts": "^1.4.76",
     "react-native-safe-area-context": "~5.6.0",
     "react-native-screens": "~4.16.0",
+<<<<<<< HEAD
     "react-native-toast-message": "^2.3.3",
     "zustand": "^5.0.13"
+=======
+    "react-native-svg": "15.12.1",
+    "react-native-toast-message": "^2.3.3"
+>>>>>>> feat/tela-progresso
   },
   "devDependencies": {
     "@types/react": "~19.1.0",
