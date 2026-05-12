@@ -17,9 +17,9 @@ interface PerfilStore {
     setAvatarSelecionado: (avatar: Avatar) => void;
 }
 
-export const usePerfilStore = create<PerfilStore>(() => ({
+export const usePerfilStore = create<PerfilStore>((set) => ({ 
     AVATARES,
     avatarSelecionado: AVATARES[0],
     setAvatarSelecionado: (avatar) =>
-        usePerfilStore.setState({ avatarSelecionado: avatar }),
+        set({ avatarSelecionado: avatar }),
 }));

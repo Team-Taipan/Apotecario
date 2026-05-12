@@ -7,10 +7,12 @@ import ModalPerfil from "@/components/ModalPerfil";
 
 export default function PerfilHeader() {
 
-    const { AVATARES, avatarSelecionado, setAvatarSelecionado } = usePerfilStore();
+    const avatarSelecionado = usePerfilStore((state) => state.avatarSelecionado);
+    const setAvatarSelecionado = usePerfilStore((state) => state.setAvatarSelecionado);
+    const AVATARES = usePerfilStore((state) => state.AVATARES);
     // Estados
     const [modalVisible, setModalVisible] = useState(false);
-
+    
     return(
         <View style={styles.profileHeader}>
             <Image

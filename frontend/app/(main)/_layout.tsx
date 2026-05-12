@@ -23,7 +23,6 @@ export default function RootLayout() {
     <>
       <Tabs screenOptions={{
         headerShown: false,
-        animation: 'fade',
         tabBarActiveTintColor: Colors.accent,
         tabBarInactiveTintColor: Colors.primary_text,
         tabBarHideOnKeyboard: true, // Evita que a barra suba com o teclado

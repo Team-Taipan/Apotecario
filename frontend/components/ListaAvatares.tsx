@@ -21,6 +21,7 @@ export default function ListaAvatares( { AVATARES, avatarSelecionado, onSelectAv
                 data={AVATARES}
                 numColumns={3}
                 keyExtractor={(item) => item.id}
+                extraData={avatarSelecionado}
                 contentContainerStyle={showNames ? styles.gridContainer : styles.gridContainerNoName}
                 renderItem={({ item }) => (
 

@@ -6,11 +6,9 @@ import React from "react";
 import { View, ScrollView, StyleSheet, Text} from "react-native";
 import { router } from "expo-router";
 import PerfilHeader from "@/components/PerfilHeader";
-
+import { usePerfilStore } from "@/store/perfilStore";
 
 export default function HomeScreen() {
-
-    const [nome, setNome] = useState();
 
 
     return (
