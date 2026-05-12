@@ -1,19 +1,25 @@
 import { Modal, TouchableOpacity, View, Text, StyleSheet, ImageSourcePropType } from "react-native";
 import { BlurView } from "expo-blur";
-import { Ionicons } from "@expo/vector-icons";
+import { Ionicons, Octicons } from "@expo/vector-icons";
 import ListaAvatares from "./ListaAvatares";
 import Colors from "@/constants/Colors";
+import { useRouter } from "expo-router";
+
+type Avatar = { id: string; res: ImageSourcePropType; name: string };
 
 interface ModalPerfilsProps {
-    modalVisible: boolean,
-    closeModal: () => void,
+    modalVisible: boolean;
+    closeModal: () => void;
     // isso sera repassado para o componente de lista
-    AVATARES: {id: string, res: ImageSourcePropType}[],
-    avatarSelecionado: {id: string, res: ImageSourcePropType}
-    onSelectAvatar: (item: {id: string, res: ImageSourcePropType}) => void    
+    AVATARES: Avatar[];
+    avatarSelecionado: Avatar;
+    onSelectAvatar: (item: Avatar) => void;
+    showNames?: boolean;
+    showFooter?: boolean;     
 }
 
-export default function ModalPerfil( {modalVisible, closeModal,  AVATARES, avatarSelecionado, onSelectAvatar} : ModalPerfilsProps) {
+export default function ModalPerfil( {modalVisible, closeModal,  AVATARES, avatarSelecionado, onSelectAvatar, showNames, showFooter} : ModalPerfilsProps) {
+    const router = useRouter();
     return (
         <Modal
             animationType="fade"
@@ -48,10 +54,26 @@ export default function ModalPerfil( {modalVisible, closeModal,  AVATARES, avata
                     </View>
         
                     {/* Lista de Avatares em Grid, usando o FlatList, para fazer a exibição em grade */}
-                    <ListaAvatares AVATARES={AVATARES} avatarSelecionado={avatarSelecionado} onSelectAvatar={onSelectAvatar} />
+                    <ListaAvatares                        
+                        AVATARES={AVATARES}
+                        avatarSelecionado={avatarSelecionado}
+                        onSelectAvatar={onSelectAvatar}
+                        showNames={showNames} />
             
-                </View>
+                    {showFooter && (
+                        <TouchableOpacity
+                            style={styles.footerTitle}
+                            onPress={() => {
+                                closeModal();
+                                router.push('/(perfil)/perfil');
+                            }}
+                        >
+                            <Octicons name="pencil" size={24} color={Colors.primary_text} />
+                            <Text style={styles.footerText}>Gerenciar Perfil</Text>
+                        </TouchableOpacity>
+                    )}
 
+                </View>
             </BlurView>
         </Modal>
     )
@@ -83,4 +105,16 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         color: Colors.primary_text,
     },
+    footerTitle: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'center',
+        paddingTop: 15,
+        gap: 10,
+    },
+    footerText: {
+        fontWeight: '700',
+        color: Colors.primary_text,
+        fontSize: 15,
+    },    
 })

@@ -1,16 +1,18 @@
-import { StyleSheet, TouchableOpacity, FlatList, View, Image, ImageSourcePropType} from "react-native"
+import { StyleSheet, TouchableOpacity, FlatList, View, Image, ImageSourcePropType, Text} from "react-native"
 import Colors from "@/constants/Colors"
 
+type Avatar = { id: string; res: ImageSourcePropType; name: string };
 
 interface ListaAvataresProps {
 
-    AVATARES: {id: string, res: ImageSourcePropType}[],
-    avatarSelecionado: {id: string, res: ImageSourcePropType}
-    onSelectAvatar: (item: {id: string, res: ImageSourcePropType}) => void
+    AVATARES: Avatar[];
+    avatarSelecionado: Avatar;
+    onSelectAvatar: (item: Avatar) => void;
+    showNames?: boolean;
 }
 
 
-export default function ListaAvatares( { AVATARES, avatarSelecionado, onSelectAvatar } : ListaAvataresProps) {
+export default function ListaAvatares( { AVATARES, avatarSelecionado, onSelectAvatar, showNames} : ListaAvataresProps) {
 
     return(
         <View>
@@ -26,12 +28,12 @@ export default function ListaAvatares( { AVATARES, avatarSelecionado, onSelectAv
                     <TouchableOpacity
                         style={[
                             styles.avatarOption,
-                            avatarSelecionado.id === item.id && styles.avatarSelected
+                            avatarSelecionado.id === item.id && (showNames ? styles.avatarSelected : styles.avatarSelectedNoName)
                         ]}
                         onPress={() =>  onSelectAvatar(item) }
                     >
                         <Image source={item.res} style={styles.avatarImage} />
-
+                        {showNames && <Text style={styles.avatarName}>{item.name}</Text>}
                     </TouchableOpacity>
 
                 )}
@@ -43,20 +45,32 @@ export default function ListaAvatares( { AVATARES, avatarSelecionado, onSelectAv
 const styles = StyleSheet.create({
     gridContainer: {
         alignItems: 'center',
+        borderBottomWidth: 2,
+        borderBottomColor: '#ccc',
     },
     avatarOption: {
+        alignItems: 'center',
+        justifyContent: 'center',
         padding: 10,
-        borderRadius: 50,
-        borderWidth: 2,
-        borderColor: 'transparent',
         margin: 5,
     },
     avatarSelected: {
+        borderBottomWidth: 3,
         borderColor: Colors.accent,
+        color: Colors.accent,
+    },
+    avatarSelectedNoName: {
+        borderBottomWidth: 3,
+        borderColor: Colors.accent,
+        color: Colors.accent,
     },
     avatarImage: {
         width: 70,
         height: 70,
         borderRadius: 35,
-    }
+        
+    },
+    avatarName: {
+        marginTop: 15
+    },
 })

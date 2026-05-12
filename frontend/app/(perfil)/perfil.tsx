@@ -14,10 +14,10 @@ import ModalPerfil from "@/components/ModalPerfil";
 
 // Lista de Avatares (Manter fora do componente para não recriar na memória)
 const AVATARES = [
-    { id: '1', res: require("@assets/avatars/brekibedi.png") },
-    { id: '2', res: require("@assets/avatars/afro.png") },
-    { id: '3', res: require("@assets/avatars/dorock.png") },
-    { id: '4', res: require("@assets/avatars/habibi.png") },
+    { id: '1', res: require("@assets/avatars/brekibedi.png"), name: 'Avatar 1' },
+    { id: '2', res: require("@assets/avatars/afro.png"), name: 'Avatar 2' },
+    { id: '3', res: require("@assets/avatars/dorock.png"), name: 'Avatar 3' },
+    { id: '4', res: require("@assets/avatars/habibi.png"), name: 'Avatar 4' },
 ];
 
 const ROLES = [
@@ -40,11 +40,10 @@ export default function PerfilScreen() {
     // Estado para controlar o carregamento (feedback visual)
     const [loading, setLoading] = useState(false);
 
-    const handleSelectRole = (roleId: string | null) => {
-    }
+
 
     // função para selecionar o avatar
-    const selectAvatar = (item: { id: string, res: ImageSourcePropType }) => {
+    const selectAvatar = (item: { id: string, res: ImageSourcePropType, name: string }) => {
 
         setAvatarSelecionado(item);
         setModalVisible(false);
