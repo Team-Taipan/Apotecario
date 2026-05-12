@@ -2,7 +2,7 @@ import React from "react";
 import { View, Text, StyleSheet, ScrollView } from "react-native";
 import Colors from "@/constants/Colors";
 import CalendarAgenda from "@/components/CalendarAgenda";
-import { MaterialCommunityIcons } from "@expo/vector-icons";
+import PerfilHeader from "@/components/PerfilHeader";
 import CardAgenda from "@/components/CardAgenda";
 
 export default function AgendaScreen() {
@@ -10,6 +10,9 @@ export default function AgendaScreen() {
     return (
         <ScrollView style={{ flex: 1, backgroundColor: Colors.background }}>
             <View style={{ paddingHorizontal: 24 }}>
+
+                {/* Sessão do Header do Perfil*/}
+                <PerfilHeader  />
 
                 <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
 
@@ -31,7 +34,7 @@ export default function AgendaScreen() {
 const styles = StyleSheet.create({
     agendaTitle: {
         fontFamily: "Inter",
-        marginTop: 50,
+        marginTop: 10,
         fontSize: 20,
         fontWeight: "bold",
         alignSelf: "flex-start",
