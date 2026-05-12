@@ -34,13 +34,8 @@ export default function AgendaScreen() {
 const styles = StyleSheet.create({
     agendaTitle: {
         fontFamily: "Inter",
-<<<<<<< HEAD
         marginTop: 10,
         fontSize: 20,
-=======
-        marginTop: 50,
-        fontSize: 24,
->>>>>>> feat/tela-progresso
         fontWeight: "bold",
         alignSelf: "flex-start",
 
