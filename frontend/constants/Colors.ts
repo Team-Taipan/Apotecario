@@ -5,7 +5,8 @@ export const Colors = {
   accent: '#2d7a6e', // Verde acentuado para botões e destaques
   background: '#2d7a6e0d', // Verde claro para fundos telas
   text: '#2B3A32', // Cor de texto padrão
-  background_text_input: '#f5f6f7'
+  background_text_input: '#f5f6f7',
+  orange: '#FF8A7A'
 };
 
 export default Colors;

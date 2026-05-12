@@ -38,6 +38,9 @@ const CircularProgress = ({
         innerRadius={innerRadius} // Tamanho do furo interno
         innerCircleColor={centerColor} 
         data={data} // Os dados calculados acima
+        isAnimated 
+        animationDuration={1000}
+        onPress={() => { /* Previne que o gráfico suma */ }}
         
         centerLabelComponent={() => (
           <View style={styles.centerLabel}>
