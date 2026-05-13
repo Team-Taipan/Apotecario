@@ -34,7 +34,7 @@ export default function EstoqueMedicamento() {
                 </View>
 
                 <View style={styles.footer}>
-                    <ButtonGradient onPress={()=> router.push("/register/medicine/estoqueMedicamento")} text="Próximo" />    
+                    <ButtonGradient onPress={()=> router.push("/register/medicine/frequenciaMedicamento")} text="Próximo" />    
                 </View>   
 
             </View>         
