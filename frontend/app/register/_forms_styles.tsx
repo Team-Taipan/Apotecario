@@ -7,7 +7,6 @@ export const styles = StyleSheet.create({
         paddingHorizontal: 24,
         paddingBottom: 30,
         justifyContent: 'space-between'
-
     },
     footer: {
         flex: 1,
@@ -27,11 +26,13 @@ export const styles = StyleSheet.create({
         fontSize: 20,
         fontWeight: "bold",
         textAlign: "center",
-        color: Colors.accent
+        color: Colors.accent,
+        marginBottom: 10,
     },
     subTitle: {
         fontFamily: 'Inter',
         marginTop: 5,
+        marginBottom: 5,
         fontSize: 13,
         color: Colors.secondary_text,
         textAlign: "center",
@@ -46,5 +47,6 @@ export const styles = StyleSheet.create({
         color: Colors.secondary_text,
         marginTop: 4,
         lineHeight: 16,
+        textAlign: "justify"
     },
 })
