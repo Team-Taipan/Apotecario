@@ -40,7 +40,12 @@ export default function frequenciaMedicamento() {
 
             <View style={styles.footer}>
                 <ButtonGradient
-                    onPress={() => router.push("/register/medicine/tratamentoMedico")}
+                    onPress={() => router.push({
+                        pathname: "/register/medicine/tratamentoMedico",
+                        params: { 
+                            frequenciaSelecionada: frequencia 
+                        }
+                    })}
                     text="Próximo"
                 />
             </View>

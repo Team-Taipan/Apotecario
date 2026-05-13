@@ -41,7 +41,7 @@ export default function listMedicamentos() {
                         style={{ flex: 1 }}
                         data={filteredMedicamentos}
                         keyExtractor={(item) => item.id.toString()}
-                        renderItem={({ item }) => <CardList name={item.name} icon={item.icon} functionRedirectOnPress={() => router.push("/register/medicine/tratamentoMedico")} />}
+                        renderItem={({ item }) => <CardList name={item.name} icon={item.icon} functionRedirectOnPress={() => router.push("/register/medicine/frequenciaMedicamento")} />}
                         // ListFooterComponent do FlatList  garante que o aviso apareça sempre ao final da lista de resultados
                         ListFooterComponent={
                             <TouchableOpacity 
