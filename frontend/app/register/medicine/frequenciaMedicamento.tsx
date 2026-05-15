@@ -15,6 +15,7 @@ export default function frequenciaMedicamento() {
     const opcoesFrequencia = [
         { label: '1 vez ao dia', value: '1_vez_dia' },
         { label: '2 vezes ao dia', value: '2_vezes_dia' },
+        { label: 'Ciclos (Dias de Uso e Pausa)', value: 'ciclo' },
         { label: 'Quando necessário', value: 'sos' },
         { label: 'Outro', value: 'outro' },
     ];

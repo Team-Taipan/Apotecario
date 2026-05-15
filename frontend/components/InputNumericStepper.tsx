@@ -1,36 +1,46 @@
 import { View, TouchableOpacity, TextInput, StyleSheet } from "react-native"
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import Colors from "@/constants/Colors";
-import { useState} from "react";
 
-export default function InputNumericStepper() {
+interface InputNumericStepperProps {
+    value?: number; // Valor atual do stepper
+    onValueChange?: (newValue: number) => void; // Função para atualizar o valor no pai
+    minValue?: number; // Valor mínimo permitido
+}
 
-    const [count, setCount] = useState(1);
+export default function InputNumericStepper({ value = 1, onValueChange, minValue = 1 }: InputNumericStepperProps) {
 
-    return(
+    // Funções para incrementar e decrementar
+    const handleIncrement = () => {
+        onValueChange && onValueChange(value + 1);
+    };
 
+    const handleDecrement = () => {
+        if (value > minValue) onValueChange && onValueChange(value - 1);
+    };
+    
+    return (
         <View style={styles.numericStepperContainer}>
-
-             
-            <TouchableOpacity onPress={()=> setCount(count + 1)} activeOpacity={0.7} style={styles.button}><MaterialCommunityIcons  name="plus" size={30} color={Colors.background_text_input} /></TouchableOpacity>
-            <TextInput placeholderTextColor="#999" editable={false} style={styles.inputTextStepper} value={String(count)}></TextInput>
-            {/* máximo permitido decrementar é até 1 */}
-            <TouchableOpacity onPress={()=> count > 1 ? setCount(count - 1) : setCount(count)} activeOpacity={0.7} style={styles.button}><MaterialCommunityIcons  name="minus" size={30} color={Colors.background_text_input} /></TouchableOpacity>
-
+            <TouchableOpacity onPress={handleIncrement} activeOpacity={0.7} style={styles.button}>
+                <MaterialCommunityIcons name="plus" size={30} color={Colors.background_text_input} />
+            </TouchableOpacity>
+            <TextInput placeholderTextColor="#999" editable={false} style={styles.inputTextStepper} value={String(value)}>
+            </TextInput>
+            <TouchableOpacity onPress={handleDecrement} activeOpacity={0.7} style={styles.button}>
+                <MaterialCommunityIcons name="minus" size={30} color={Colors.background_text_input} />
+            </TouchableOpacity>
         </View>
-
     );
 }
 
 const styles = StyleSheet.create({
     numericStepperContainer: {
-        flexDirection: "row",     
+        flexDirection: "row",
         alignItems: "center",
-        alignSelf: "center",
-        width: "50%", 
+        width: "100%",
         height: 50,
         backgroundColor: Colors.background_text_input,
-        borderRadius: 12, 
+        borderRadius: 12,
         marginTop: 10,
         elevation: 4,
         overflow: 'hidden',
@@ -46,6 +56,7 @@ const styles = StyleSheet.create({
         flex: 1,
         textAlign: "center",
         fontSize: 18,
-        fontWeight: "bold"
+        fontWeight: "bold",
+        color: Colors.primary_text, // Adicionado para consistência visual
     }
 })

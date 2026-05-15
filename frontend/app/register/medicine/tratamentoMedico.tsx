@@ -14,14 +14,25 @@ export default function tratamentoMedico() {
     const params = useLocalSearchParams<{ frequenciaSelecionada: string }>();
     
     const [intervaloLembrete, setIntervaloLembrete] = useState<string | null>(null);
+    const [quantidadePorDose, setQuantidadePorDose] = useState(1);
     const [frequenciaDiaria, setFrequenciaDiaria] = useState(1);
+    const [isCiclo, setIsCiclo] = useState(false);
+    const [diasAtivosCiclo, setDiasAtivosCiclo] = useState(21); 
+    const [diasDescansoCiclo, setDiasDescansoCiclo] = useState(7);
 
     // Sincroniza a escolha da tela anterior com o estado local
     useEffect(() => {
         if (params.frequenciaSelecionada) {
-            if (params.frequenciaSelecionada === '1_vez_dia') setFrequenciaDiaria(1);
-            else if (params.frequenciaSelecionada === '2_vezes_dia') setFrequenciaDiaria(2);
-            else if (params.frequenciaSelecionada === 'outro') setFrequenciaDiaria(2); // Assume que 'outro' precisará de intervalo
+            const freq = params.frequenciaSelecionada;
+            setIsCiclo(freq === 'ciclo');
+            
+            if (freq === '1_vez_dia') {
+                setFrequenciaDiaria(1);
+            } else if (freq === '2_vezes_dia' || freq === 'outro') {
+                setFrequenciaDiaria(2);
+            } else if (freq === 'ciclo') {
+                setFrequenciaDiaria(1); // Padrão para ciclo é 1x ao dia
+            }
         }
     }, [params.frequenciaSelecionada]);
 
@@ -45,10 +56,12 @@ export default function tratamentoMedico() {
                         <Text style={styles.subTitle}>Registre informações sobre seu tratamento para nos ajudar a personalizar seus lembretes</Text>
                     </View>
 
-                    {/* componente incremental */}
                     <View>
                         <Text style={styles.inputLabel}>Quantidade de Medicamento por Dose</Text>
-                        <InputNumericStepper />
+                        <InputNumericStepper
+                            value={quantidadePorDose}
+                            onValueChange={setQuantidadePorDose}
+                        />
                     </View>
 
                     <View style={{ flexDirection: 'column', gap: 10 }}>
@@ -63,6 +76,25 @@ export default function tratamentoMedico() {
                                 <InputDatePicker defaultDate={new Date()} mode="time" />
                             </View>
                         </View>
+
+                        {isCiclo && (
+                            <View style={{ flexDirection: 'row', gap: 10, marginBottom: 10 }}>
+                                <View style={{ flex: 1 }}>
+                                    <Text style={styles.inputLabel}>Dias de Uso</Text>
+                                    <InputNumericStepper
+                                        value={diasAtivosCiclo}
+                                        onValueChange={setDiasAtivosCiclo}
+                               />
+                                </View>
+                                <View style={{ flex: 1 }}>
+                                    <Text style={styles.inputLabel}>Dias de Pausa</Text>
+                                    <InputNumericStepper
+                                        value={diasDescansoCiclo}
+                                        onValueChange={setDiasDescansoCiclo}
+                               />
+                                </View>
+                            </View>
+                        )}
 
                         {frequenciaDiaria > 1 && (
                             <View>
