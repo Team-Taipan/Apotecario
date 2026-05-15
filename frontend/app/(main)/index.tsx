@@ -3,39 +3,41 @@ import { CalendarHome } from "@/components/CalendarHome";
 import { CardMedicine } from "@/components/CardMedicine";
 import Colors from "@/constants/Colors";
 import React from "react";
-import { View, ScrollView, StyleSheet, Text} from "react-native";
+import { View, ScrollView, StyleSheet, Text } from "react-native";
 import { router } from "expo-router";
 import PerfilHeader from "@/components/PerfilHeader";
 import { usePerfilStore } from "@/store/perfilStore";
+import DraggableButton from "@/components/DraggableButton";
+
 
 export default function HomeScreen() {
 
 
     return (
-        // ScrollView por conta dos cards de medicamentos
-        <ScrollView style={{ flex: 1 }}>
-            <View style={{ paddingHorizontal: 24 }}>
+        // Usamos um Fragment (<>...</>) ou uma View com flex: 1 para envelopar tudo
+        <>
+            <ScrollView style={{ flex: 1 }}>
+                <View style={{ paddingHorizontal: 24 }}>
+                    <PerfilHeader />
+                    <CalendarHome />
 
-                {/* Sessão do Header do Perfil*/}
-                <PerfilHeader  />
+                    <View style={[styles.medicationSection, { paddingBottom: 100 }]}>
+                        <Text style={styles.titleSection}>Medicamentos Ativos</Text>
+                        <Text style={styles.subTitleSection}>Remédios que você deve tomar:</Text>
 
-                {/* Sessão de Calendário */}
-                <CalendarHome />
-                {/* Sessão de Cards*/}
-                <View style={styles.medicationSection}>
-
-                    <Text style={styles.titleSection}>Medicamentos Ativos</Text>
-                    <Text style={styles.subTitleSection}>Remédios que você deve tomar:</Text>
-                    <View style={styles.containerCards} >
-
-                        <CardMedicine name="Dipirona" iconName="pill-multiple" qtMedicine={2} typeMedicine="comprimidos" />
-                        <CardMedicine name="Dipirona" iconName="water" qtMedicine={5} typeMedicine="gotas" />
-
+                        <View style={styles.containerCards} >
+                            <CardMedicine name="Dipirona" iconName="pill-multiple" qtMedicine={2} typeMedicine="comprimidos" />
+                            <CardMedicine name="Dipirona" iconName="water" qtMedicine={5} typeMedicine="gotas" />
+                        </View>
                     </View>
                 </View>
+            </ScrollView>
 
-            </View>
-        </ScrollView>
+            {/* O botão fica fora do ScrollView para não subir junto com o scroll */}
+            <DraggableButton 
+                onPress={() => router.push("")} 
+            />
+        </>
     );
 }
 
