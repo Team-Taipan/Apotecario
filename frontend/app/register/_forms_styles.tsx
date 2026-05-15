@@ -6,7 +6,8 @@ export const styles = StyleSheet.create({
         flex: 1,
         paddingHorizontal: 24,
         paddingBottom: 30,
-        justifyContent: 'space-between'
+        justifyContent: 'space-between',
+        backgroundColor: Colors.background
     },
     footer: {
         flex: 1,

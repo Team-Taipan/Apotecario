@@ -1,5 +1,6 @@
 import { View, Text, StyleSheet } from "react-native";
 import Colors from "@/constants/Colors";
+import { SafeAreaView } from 'react-native-safe-area-context';
 import InputDatePicker from "@/components/InputDatePicker";
 import ButtonGradient from "@/components/ButtonGradient";
 import InputNumericStepper from "@/components/InputNumericStepper";
@@ -12,12 +13,12 @@ export default function tratamentoMedico() {
 
     const router = useRouter();
     const params = useLocalSearchParams<{ frequenciaSelecionada: string }>();
-    
+
     const [intervaloLembrete, setIntervaloLembrete] = useState<string | null>(null);
     const [quantidadePorDose, setQuantidadePorDose] = useState(1);
     const [frequenciaDiaria, setFrequenciaDiaria] = useState(1);
     const [isCiclo, setIsCiclo] = useState(false);
-    const [diasAtivosCiclo, setDiasAtivosCiclo] = useState(21); 
+    const [diasAtivosCiclo, setDiasAtivosCiclo] = useState(21);
     const [diasDescansoCiclo, setDiasDescansoCiclo] = useState(7);
 
     // Sincroniza a escolha da tela anterior com o estado local
@@ -25,7 +26,7 @@ export default function tratamentoMedico() {
         if (params.frequenciaSelecionada) {
             const freq = params.frequenciaSelecionada;
             setIsCiclo(freq === 'ciclo');
-            
+
             if (freq === '1_vez_dia') {
                 setFrequenciaDiaria(1);
             } else if (freq === '2_vezes_dia' || freq === 'outro') {
@@ -45,87 +46,80 @@ export default function tratamentoMedico() {
     ];
 
     return (
-        <View style={{ flex: 1, backgroundColor: Colors.background }}>
-
-            <View style={styles.contentContainer}>
-
-                <View style={styles.formsContainer}>
-
-                    <View>
-                        <Text style={styles.title}>Informações sobre seu Tratamento</Text>
-                        <Text style={styles.subTitle}>Registre informações sobre seu tratamento para nos ajudar a personalizar seus lembretes</Text>
-                    </View>
-
-                    <View>
-                        <Text style={styles.inputLabel}>Quantidade de Medicamento por Dose</Text>
-                        <InputNumericStepper
-                            value={quantidadePorDose}
-                            onValueChange={setQuantidadePorDose}
-                        />
-                    </View>
-
-                    <View style={{ flexDirection: 'column', gap: 10 }}>
-
-                        <View style={{ flexDirection: 'row', gap: 10 }}>
-                            <View style={{ flex: 1 }}>
-                                <Text style={styles.inputLabel}>Data de Início</Text>
-                                <InputDatePicker defaultDate={new Date()} mode="date" />
-                            </View>
-                            <View style={{ flex: 1 }}>
-                                <Text style={styles.inputLabel}>Horário de Uso</Text>
-                                <InputDatePicker defaultDate={new Date()} mode="time" />
-                            </View>
-                        </View>
-
-                        {isCiclo && (
-                            <View style={{ flexDirection: 'row', gap: 10, marginBottom: 10 }}>
-                                <View style={{ flex: 1 }}>
-                                    <Text style={styles.inputLabel}>Dias de Uso</Text>
-                                    <InputNumericStepper
-                                        value={diasAtivosCiclo}
-                                        onValueChange={setDiasAtivosCiclo}
-                               />
-                                </View>
-                                <View style={{ flex: 1 }}>
-                                    <Text style={styles.inputLabel}>Dias de Pausa</Text>
-                                    <InputNumericStepper
-                                        value={diasDescansoCiclo}
-                                        onValueChange={setDiasDescansoCiclo}
-                               />
-                                </View>
-                            </View>
-                        )}
-
-                        {frequenciaDiaria > 1 && (
-                            <View>
-                                <Text style={styles.inputLabel}>Intervalo dos Lembretes</Text>
-                                <InputSelect
-                                    placeholder="Selecione o intervalo..."
-                                    options={opcoesIntervalo}
-                                    selectedValue={intervaloLembrete}
-                                    onValueChange={setIntervaloLembrete}
-                                />
-                            </View>
-                        )}
-
-                        <View>
-                            <Text style={styles.inputLabel}>Data de Termino</Text>
-                            <InputDatePicker mode="date" />
-                            <Text style={styles.helperText}> Deixe em branco caso não haja uma data de fim definida. </Text>
-                        </View>
-                    </View>
-
+        <SafeAreaView edges={['left', 'right']} style={styles.contentContainer}>
+            <View style={styles.formsContainer}>
+                <View>
+                    <Text style={styles.title}>Informações sobre seu Tratamento</Text>
+                    <Text style={styles.subTitle}>Registre informações sobre seu tratamento para nos ajudar a personalizar seus lembretes</Text>
                 </View>
 
-                <View style={styles.footer}>
-                    <ButtonGradient onPress={() => router.push("/register/medicine/estoqueMedicamento")} text="Próximo" />
+                <View>
+                    <Text style={styles.inputLabel}>Quantidade de Medicamento por Dose</Text>
+                    <InputNumericStepper
+                        value={quantidadePorDose}
+                        onValueChange={setQuantidadePorDose}
+                    />
+                </View>
+
+                <View style={{ flexDirection: 'column', gap: 10 }}>
+
+                    <View style={{ flexDirection: 'row', gap: 10 }}>
+                        <View style={{ flex: 1 }}>
+                            <Text style={styles.inputLabel}>Data de Início</Text>
+                            <InputDatePicker defaultDate={new Date()} mode="date" />
+                        </View>
+                        <View style={{ flex: 1 }}>
+                            <Text style={styles.inputLabel}>Horário de Uso</Text>
+                            <InputDatePicker defaultDate={new Date()} mode="time" />
+                        </View>
+                    </View>
+
+                    {isCiclo && (
+                        <View style={{ flexDirection: 'row', gap: 10, marginBottom: 10 }}>
+                            <View style={{ flex: 1 }}>
+                                <Text style={styles.inputLabel}>Dias de Uso</Text>
+                                <InputNumericStepper
+                                    value={diasAtivosCiclo}
+                                    onValueChange={setDiasAtivosCiclo}
+                                />
+                            </View>
+                            <View style={{ flex: 1 }}>
+                                <Text style={styles.inputLabel}>Dias de Pausa</Text>
+                                <InputNumericStepper
+                                    value={diasDescansoCiclo}
+                                    onValueChange={setDiasDescansoCiclo}
+                                />
+                            </View>
+                        </View>
+                    )}
+
+                    {frequenciaDiaria > 1 && (
+                        <View>
+                            <Text style={styles.inputLabel}>Intervalo dos Lembretes</Text>
+                            <InputSelect
+                                placeholder="Selecione o intervalo..."
+                                options={opcoesIntervalo}
+                                selectedValue={intervaloLembrete}
+                                onValueChange={setIntervaloLembrete}
+                            />
+                        </View>
+                    )}
+
+                    <View>
+                        <Text style={styles.inputLabel}>Data de Termino</Text>
+                        <InputDatePicker mode="date" />
+                        <Text style={styles.helperText}> Deixe em branco caso não haja uma data de fim definida. </Text>
+                    </View>
                 </View>
 
             </View>
-        </View>
+
+            <View style={styles.footer}>
+                <ButtonGradient onPress={() => router.push("/register/medicine/estoqueMedicamento")} text="Próximo" />
+            </View>
+        </SafeAreaView>
     )
 }
-
 
 // Ref: WheelPicker (github) : https://github.com/quidone/react-native-wheel-picker/tree/main
 // Ref: WheelPicker (npm) : https://www.npmjs.com/package/@quidone/react-native-wheel-picker

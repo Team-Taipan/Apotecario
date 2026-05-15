@@ -8,7 +8,7 @@ export default function MedicineLayout() {
                 headerShown: true,
                 headerTitle: '',
                 headerStyle: {
-                    backgroundColor: '#2d7a6e10', // Cor aproximada da tela no olhometro
+                    backgroundColor: '#2d7a6e19', // Cor aproximada da tela no olhometro
                 },
                 headerShadowVisible: false, // Remove a linha/sombra embaixo
                 headerTintColor: Colors.primary_text, // Cor da seta e texto

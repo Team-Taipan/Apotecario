@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Text, View, Switch } from "react-native";
+import { SafeAreaView } from 'react-native-safe-area-context';
 import ButtonGradient from "@/components/ButtonGradient";
 import Colors from "@/constants/Colors";
 import { useRouter } from "expo-router";
@@ -15,11 +16,7 @@ export default function EstoqueMedicamento() {
     const [avisarEstoqueBaixo, setAvisarEstoqueBaixo] = useState(true);
 
     return (
-
-        <View style={{ flex: 1, backgroundColor: Colors.background }}>
-
-            <View style={styles.contentContainer}>
-
+        <SafeAreaView edges={['left', 'right']} style={styles.contentContainer}>
                 <View style={styles.formsContainer}>
                     <View>
                         <Text style={styles.title}>Estoque de Medicamentos</Text>
@@ -35,7 +32,7 @@ export default function EstoqueMedicamento() {
                     </View>
 
                     <View>
-                        <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginTop:10, gap: 15 }}>
+                        <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginTop: 10, gap: 15 }}>
                             <Text style={[styles.helperText, { flex: 1, marginBottom: 0 }]}>
                                 Deseja ser avisado quando o estoque estiver baixo?
                             </Text>
@@ -63,9 +60,7 @@ export default function EstoqueMedicamento() {
                 <View style={styles.footer}>
                     <ButtonGradient onPress={() => router.push("/(main)/")} text="Salvar" />
                 </View>
-
-            </View>
-        </View>
+        </SafeAreaView>
     )
 
 }
