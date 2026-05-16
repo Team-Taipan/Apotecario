@@ -14,12 +14,12 @@ export default function RootLayout() {
 
   // Estado do botão de adicionar registros
   const [modalVisible, setModalVisible] = useState(false);
-  
+
   // Retorna os espaços seguros da tela
   const insets = useSafeAreaInsets();
 
   return (
-    
+
     <>
       <Tabs screenOptions={{
         headerShown: false,
@@ -42,9 +42,9 @@ export default function RootLayout() {
         },
 
       }}>
-      
-        <Tabs.Screen 
-          name="index" 
+
+        <Tabs.Screen
+          name="index"
           options={{
             title: 'Início',
             tabBarIcon: ({ color, size }) => (
@@ -52,64 +52,72 @@ export default function RootLayout() {
             ),
           }}
         />
-        
-      <Tabs.Screen 
-        name="agenda" 
-        options={{ 
+
+        <Tabs.Screen
+          name="agenda"
+          options={{
             title: 'Agenda',
             tabBarIcon: ({ color, size }) => (
               <Feather name="calendar" size={size} color={color} />
             ),
           }}
-      /> 
+        />
 
-      {/* Botão do meio */}
-      <Tabs.Screen 
-        name="post"
-        options={{
-          
-          tabBarLabel: () => null,
-          tabBarIcon: ({ color }) => (
-            <MaterialCommunityIcons name="plus" size={30} color="white" />
-          ),
-          tabBarButton: (props) => (
+        {/* Botão do meio */}
+        <Tabs.Screen
+          name="post"
+          options={{
+
+            tabBarLabel: () => null,
+            tabBarIcon: ({ color }) => (
+              <MaterialCommunityIcons name="plus" size={30} color="white" />
+            ),
+            tabBarButton: (props) => (
               <ButtonTabAdd {...props} onPress={() => setModalVisible(true)} />
-          ),
-        }}
-        listeners={{
-          tabPress: (e) => {
-            // Impede a navegação padrão para a tela "post"
-            e.preventDefault(); 
-            // abre o modal
-            setModalVisible(true);
-          },
-        }}
-      />
+            ),
+          }}
+          listeners={{
+            tabPress: (e) => {
+              // Impede a navegação padrão para a tela "post"
+              e.preventDefault();
+              // abre o modal
+              setModalVisible(true);
+            },
+          }}
+        />
 
-      <Tabs.Screen 
-        name="progresso" 
-        options={{ 
+        <Tabs.Screen
+          name="progresso"
+          options={{
             title: 'Progresso',
             tabBarIcon: ({ color, size }) => (
               <Feather name="clock" size={size} color={color} />
             ),
-         }}
-      /> 
-      <Tabs.Screen name="(config)/config"
-      options={{ 
-          title: 'Configurações',
-          tabBarIcon: ({ color, size }) => (
+          }}
+        />
+        <Tabs.Screen name="(config)/config"
+          options={{
+            title: 'Configurações',
+            tabBarIcon: ({ color, size }) => (
               <Octicons name="gear" size={size} color={color} />
             ),
 
-        }}/> 
+          }} />
+
+        <Tabs.Screen
+          name="chat"
+          options={{
+            href: null,
+            headerShown: false,
+          }}
+        />
 
       </Tabs>
 
       {/* Renderização condicional para evitar que camadas invisíveis bloqueiem o toque */}
       {modalVisible && (
         <ModalOpcoes
-          visible={modalVisible} 
+          visible={modalVisible}
           onClose={() => setModalVisible(false)} />
       )}
     </>

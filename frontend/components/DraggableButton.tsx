@@ -16,7 +16,7 @@ export default function DraggableButton({ onPress }: DraggableButtonProps) {
                 borderRadius={30}
                 idleOpacity={0.5}
                 backgroundColor={Colors.accent}
-                onPress={onPress && (() => Alert.alert('Botão Pressionado!'))}
+                onPress={onPress}
                 draggable={true}
             >
                 <Ionicons name='chatbox-ellipses-outline' size={30} color="#fff" />

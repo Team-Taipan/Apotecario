@@ -35,7 +35,7 @@ export default function HomeScreen() {
 
             {/* O botão fica fora do ScrollView para não subir junto com o scroll */}
             <DraggableButton 
-                onPress={() => router.push("")} 
+                onPress={() => router.push("/(main)/chat")} 
             />
         </>
     );
