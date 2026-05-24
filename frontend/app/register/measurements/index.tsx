@@ -34,7 +34,7 @@ export default function listMedicoes() {
 
     return (
 
-        <SafeAreaView edges={['left', 'right']} style={{ flex: 1 }}>
+        <SafeAreaView edges={['left', 'right']} style={{ flex: 1, backgroundColor: Colors.background }} >
             <View style={{ paddingHorizontal: 24 }}>
                 <InputSearch functionText={(typedText: string) => setSearchQuery(typedText)} placeHolderText="Buscar medições..." />
 
