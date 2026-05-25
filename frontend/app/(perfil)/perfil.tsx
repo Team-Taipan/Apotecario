@@ -120,7 +120,7 @@ export default function PerfilScreen() {
                     </View>
 
                     {/* Estrutura do Modal de Seleção */}
-                    <ModalPerfil modalVisible={modalVisible} closeModal={closeModal} AVATARES={AVATARES} avatarSelecionado={avatarSelecionado} onSelectAvatar={selectAvatar} />
+                    <ModalPerfil modalVisible={modalVisible} closeModal={closeModal} AVATARES={AVATARES} avatarSelecionado={avatarSelecionado} onSelectAvatar={selectAvatar} title="Escolha seu Avatar" />
 
                 </View>
             </ScrollView>
