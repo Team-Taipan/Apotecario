@@ -1,6 +1,7 @@
 import { Module } from '@nestjs/common';
 import { MikroOrmModule } from '@mikro-orm/nestjs';
 import { UsuarioModule } from './modules/user/usuario.module';
+import { MedicamentoModule } from './modules/medicine/medicamento.module';
 import { AutenticaoModulo } from './modules/auth/auth.module';
 import mikroOrmConfig from '../mikro-orm.config';
 
@@ -9,6 +10,7 @@ import mikroOrmConfig from '../mikro-orm.config';
   imports: [ 
             MikroOrmModule.forRoot(mikroOrmConfig),  // Configura o MikroORM usando as opções definidas em mikro-orm.config.ts
             UsuarioModule,
+            MedicamentoModule,
             AutenticaoModulo // modulo globais só precisam ser colocados no módulo raíz
           ],
 

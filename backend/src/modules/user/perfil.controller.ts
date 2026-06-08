@@ -1,6 +1,7 @@
-import { Controller, Post, Get, Body, UseGuards, Req } from '@nestjs/common';
+import { Controller, Post, Get, Patch, Delete, Body, Param, UseGuards, Req } from '@nestjs/common';
 import { PerfilService } from './perfil.service';
 import { CriarPerfilDto } from './dto/criar-perfil.dto';
+import { EditarPerfilDto } from './dto/atualizar-perfil.dto';
 import { AuthGuard } from '../auth/auth.guard';
 import { ApiTags, ApiBearerAuth, ApiOperation } from '@nestjs/swagger';
 
@@ -25,4 +26,24 @@ export class PerfilController {
     const contaId = req.user.sub;
     return this.perfilService.listarPerfisPorUsuario(contaId);
   }
+
+  @Get(':id')
+  @ApiOperation({ summary: 'Busca um perfil pelo ID (a conta deve ter vínculo com ele)' })
+  async buscarPorId(@Param('id') id: string, @Req() req: any) {
+    return this.perfilService.buscarPorId(req.user.sub, +id);
+  }
+
+
+  @Patch(':id')
+  @ApiOperation({ summary: 'Edita nome e/ou avatar de um perfil vinculado à conta logada' })
+  async editar(@Param('id') id: string, @Body() dto: EditarPerfilDto, @Req() req: any) {
+    return this.perfilService.editarPerfil(req.user.sub, +id, dto);
+  }
+ 
+  @Delete(':id')
+  @ApiOperation({ summary: 'Remove um perfil e todos os seus vínculos' })
+  async remover(@Param('id') id: string, @Req() req: any) {
+    return this.perfilService.removerPerfil(req.user.sub, +id);
+  }
+
 }
