@@ -15,10 +15,11 @@ interface ModalPerfilsProps {
     avatarSelecionado: Avatar;
     onSelectAvatar: (item: Avatar) => void;
     showNames?: boolean;
-    showFooter?: boolean;     
+    showFooter?: boolean;
+    title?: string;
 }
 
-export default function ModalPerfil( {modalVisible, closeModal,  AVATARES, avatarSelecionado, onSelectAvatar, showNames, showFooter} : ModalPerfilsProps) {
+export default function ModalPerfil( {modalVisible, closeModal,  AVATARES, avatarSelecionado, onSelectAvatar, showNames, showFooter, title} : ModalPerfilsProps) {
     const router = useRouter();
     return (
         <Modal
@@ -45,7 +46,7 @@ export default function ModalPerfil( {modalVisible, closeModal,  AVATARES, avata
                 <View style={styles.modalContent}>
 
                     <View style={styles.modalHeader}>
-                        <Text style={styles.modalTitle}>Escolha seu Avatar</Text>
+                        <Text style={styles.modalTitle}>{title}</Text>
 
                         <TouchableOpacity onPress={closeModal}>
                             <Ionicons name="close" size={24} color={Colors.primary_text} />

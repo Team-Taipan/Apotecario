@@ -45,6 +45,7 @@ export default function PerfilHeader() {
             }}
             showNames
             showFooter
+            title="Selecione o Perfil"
         />            
         </View>
     )

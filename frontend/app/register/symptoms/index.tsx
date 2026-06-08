@@ -5,6 +5,7 @@ import { MaterialCommunityIcons } from "@expo/vector-icons"
 import CardList from "@/components/CardList"
 import { useState } from "react"
 import { useRouter } from "expo-router";
+import Colors from "@/constants/Colors";
 
 interface SintomasItem {
     id: number,
@@ -32,7 +33,7 @@ export default function listSintomas() {
 
     return (
 
-        <SafeAreaView edges={['left', 'right']} style={{ flex: 1 }}>
+        <SafeAreaView edges={['left', 'right']} style={{ flex: 1, backgroundColor: Colors.background}} >
             <View style={{ paddingHorizontal: 24 }}>
                 <InputSearch functionText={(typedText: string) => setSearchQuery(typedText)} placeHolderText="Buscar Sintomas..." />
 
