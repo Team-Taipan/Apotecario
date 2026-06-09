@@ -91,6 +91,16 @@ export class TratamentoService {
     return estoque;
   }
 
+  async removerTratamento(perfilId: number, tratamentoId: number) {
+    const tratamento = await this.em.findOneOrFail(Tratamento, { id: tratamentoId });
+
+    if (tratamento.perfil.id !== perfilId) {
+      throw new ForbiddenException('Sem permissão para remover este tratamento');
+    }
+
+    await this.em.remove(tratamento).flush();
+    return { deleted: true };
+  }
 
   // Validação das regras de frequência
   private validarFrequencia(tipo: FrequenciaTipo, dto: Partial<CriarTratamentoDto & AtualizarTratamentoDto>) {

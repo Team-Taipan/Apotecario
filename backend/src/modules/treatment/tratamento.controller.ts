@@ -44,5 +44,14 @@ export class TratamentoController {
     return this.tratamentoService.atualizarEstoque(+perfilId, +id, dto);
   }
 
+  @Delete(':id')
+  @ApiOperation({ summary: 'Remove um tratamento do perfil' })
+  @ApiQuery({ name: 'perfilId', required: true })
+  async remover(
+    @Param('id') id: string,
+    @Query('perfilId') perfilId: string,
+  ) {
+    return this.tratamentoService.removerTratamento(+perfilId, +id);
+  }
 
 }
