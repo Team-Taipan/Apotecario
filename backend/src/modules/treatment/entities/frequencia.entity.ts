@@ -14,7 +14,7 @@ export class Frequencia {
   @PrimaryKey({ fieldName: 'fre_codigo', autoincrement: true })
   id!: number;
  
-  @Enum(() => FrequenciaTipo)
+  @Enum({ items: () => FrequenciaTipo, fieldName: 'fre_tipo' })
   tipo!: FrequenciaTipo;
  
   // Usado quando fre_tipo = 'Ciclo'

@@ -4,10 +4,10 @@ import { Medicamento } from './medicamento.entity';
 @Entity({ tableName: 'PrincipioAtivo' })
 export class PrincipioAtivo {
  
-  @PrimaryKey({fieldName: 'tra_inicioTratamento', autoincrement: true})
+  @PrimaryKey({fieldName: 'pri_codigo', autoincrement: true})
   id!: number;
  
-  @Property({ fieldName: ' pri_nome', length: 255, unique: true })
+  @Property({ fieldName: 'pri_nome', length: 255, unique: true })
   nome!: string;
  
   @ManyToMany(() => Medicamento, (m) => m.principios)

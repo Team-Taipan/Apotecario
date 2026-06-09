@@ -18,7 +18,7 @@ export class MedicamentoService {
       {
         origem: MedicamentoOrigem.ANVISA,
         // Filtro por nome só entra se o usuário digitou algo
-        ...(nome ? { med_nome: { $like: `%${nome}%` } } : {}),
+        ...(nome ? { nome: { $like: `%${nome}%` } } : {}),
       },
       {
         populate: ['formas', 'principios', 'dosagens'],
