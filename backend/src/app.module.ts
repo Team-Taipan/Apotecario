@@ -4,6 +4,7 @@ import { UsuarioModule } from './modules/user/usuario.module';
 import { MedicamentoModule } from './modules/medicine/medicamento.module';
 import { AutenticaoModulo } from './modules/auth/auth.module';
 import mikroOrmConfig from '../mikro-orm.config';
+import { TratamentoModule } from './modules/treatment/tratamento.module';
 
 @Module({
   
@@ -11,6 +12,7 @@ import mikroOrmConfig from '../mikro-orm.config';
             MikroOrmModule.forRoot(mikroOrmConfig),  // Configura o MikroORM usando as opções definidas em mikro-orm.config.ts
             UsuarioModule,
             MedicamentoModule,
+            TratamentoModule,
             AutenticaoModulo // modulo globais só precisam ser colocados no módulo raíz
           ],
 
