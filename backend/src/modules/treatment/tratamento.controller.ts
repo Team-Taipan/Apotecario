@@ -4,6 +4,7 @@ import { CriarTratamentoDto } from './dto/criar-tratamento.dto';
 import { AtualizarTratamentoDto } from './dto/atualizar-tratamento.dto';
 import { AuthGuard } from '../auth/auth.guard';
 import { ApiTags, ApiBearerAuth, ApiOperation, ApiQuery } from '@nestjs/swagger';
+import { AtualizarEstoqueDto } from './dto/atualizar-estoque.dto';
 
 @ApiTags('Tratamentos')
 @ApiBearerAuth()
@@ -29,6 +30,18 @@ export class TratamentoController {
   @ApiQuery({ name: 'perfilId', required: true })
   async listar(@Query('perfilId') perfilId: string) {
     return this.tratamentoService.listarTratamentos(+perfilId);
+  }
+
+  // cria ou atualiza o estoque de um tratamento
+  @Patch(':id/estoque')
+  @ApiOperation({ summary: 'Atualiza o estoque de medicamento de um tratamento' })
+  @ApiQuery({ name: 'perfilId', required: true })
+  async atualizarEstoque(
+    @Param('id') id: string,
+    @Query('perfilId') perfilId: string,
+    @Body() dto: AtualizarEstoqueDto,
+  ) {
+    return this.tratamentoService.atualizarEstoque(+perfilId, +id, dto);
   }
 
 

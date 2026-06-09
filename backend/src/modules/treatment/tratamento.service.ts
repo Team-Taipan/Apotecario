@@ -2,11 +2,13 @@ import { Injectable, ForbiddenException, BadRequestException } from '@nestjs/com
 import { EntityManager } from '@mikro-orm/mysql';
 import { Tratamento } from './entities/tratamento.entity';
 import { Frequencia, FrequenciaTipo } from './entities/frequencia.entity';
+import { TratamentoEstoque } from './entities/estoque.entity';
 import { Horario } from './entities/horario.entity';
 import { Medicamento } from '../medicine/entities/medicamento.entity';
 import { Perfil } from '../user/entities/perfil.entity';
 import { CriarTratamentoDto } from './dto/criar-tratamento.dto';
 import { AtualizarTratamentoDto } from './dto/atualizar-tratamento.dto';
+import { AtualizarEstoqueDto } from './dto/atualizar-estoque.dto';
 
 @Injectable()
 export class TratamentoService {
@@ -57,6 +59,36 @@ export class TratamentoService {
       { perfil: { id: perfilId } },
       { populate: ['medicamento', 'frequencia', 'frequencia.horarios'] },
     );
+  }
+
+  // cria ou atualiza o estoque do tratamento
+  async atualizarEstoque(perfilId: number, tratamentoId: number, dto: AtualizarEstoqueDto) {
+    const tratamento = await this.em.findOneOrFail(Tratamento, { id: tratamentoId });
+ 
+    if (tratamento.perfil.id !== perfilId) {
+      throw new ForbiddenException('Sem permissão para editar o estoque deste tratamento');
+    }
+ 
+    let estoque = await this.em.findOne(TratamentoEstoque, { tratamento });
+ 
+    if (estoque) {
+      // Atualiza existente
+      estoque.qtdAtual = dto.qtdAtual;
+      if (dto.qtdMinimaAviso !== undefined) estoque.qtdMinimaAviso = dto.qtdMinimaAviso;
+      estoque.ultimaAtualizacao = new Date();
+    } else {
+      // Cria novo registro de estoque
+      estoque = this.em.create(TratamentoEstoque, {
+        qtdAtual: dto.qtdAtual,
+        qtdMinimaAviso: dto.qtdMinimaAviso,
+        ultimaAtualizacao: new Date(),
+        tratamento,
+      });
+      this.em.persist(estoque);
+    }
+ 
+    await this.em.flush();
+    return estoque;
   }
 
 
