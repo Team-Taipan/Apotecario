@@ -16,7 +16,7 @@ export class MedicamentoService {
     const [medicamentos, total] = await this.em.findAndCount(
       Medicamento,
       {
-        med_origem: MedicamentoOrigem.ANVISA,
+        origem: MedicamentoOrigem.ANVISA,
         // Filtro por nome só entra se o usuário digitou algo
         ...(nome ? { med_nome: { $like: `%${nome}%` } } : {}),
       },
@@ -24,7 +24,7 @@ export class MedicamentoService {
         populate: ['formas', 'principios', 'dosagens'],
         limit: limite,
         offset,
-        orderBy: { med_nome: 'ASC' },
+        orderBy: { nome: 'ASC' },
       },
     );
 
@@ -41,9 +41,9 @@ export class MedicamentoService {
     const perfil = await this.em.findOneOrFail(Perfil, { id: perfilId });
 
     const medicamento = this.em.create(Medicamento, {
-      med_nome: dto.nome,
-      med_origem: MedicamentoOrigem.USUARIO,
-      med_fotoURL: dto.fotoURL,
+      nome: dto.nome,
+      origem: MedicamentoOrigem.USUARIO,
+      fotoURL: dto.fotoURL,
       perCriador: perfil,
     });
 
@@ -53,18 +53,18 @@ export class MedicamentoService {
 
   // RF04 — Edita um medicamento próprio (somente o perfil criador pode editar)
   async editarMedicamento(perfilId: number, medicamentoId: number, dto: EditarMedicamentoDto) {
-    const medicamento = await this.em.findOneOrFail(Medicamento, { med_codigo: medicamentoId });
+    const medicamento = await this.em.findOneOrFail(Medicamento, { id: medicamentoId });
 
     // Garante que só o criador edita, e que não é um medicamento da ANVISA
     if (
-      medicamento.med_origem === MedicamentoOrigem.ANVISA ||
+      medicamento.origem === MedicamentoOrigem.ANVISA ||
       medicamento.perCriador?.id !== perfilId
     ) {
       throw new ForbiddenException('Sem permissão para editar este medicamento');
     }
 
-    if (dto.nome) medicamento.med_nome = dto.nome;
-    if (dto.fotoURL !== undefined) medicamento.med_fotoURL = dto.fotoURL;
+    if (dto.nome) medicamento.nome = dto.nome;
+    if (dto.fotoURL !== undefined) medicamento.fotoURL = dto.fotoURL;
 
     await this.em.flush();
     return medicamento;
@@ -72,10 +72,10 @@ export class MedicamentoService {
 
   // RF04 — Remove um medicamento próprio (somente o perfil criador pode remover)
   async removerMedicamento(perfilId: number, medicamentoId: number) {
-    const medicamento = await this.em.findOneOrFail(Medicamento, { med_codigo: medicamentoId });
+    const medicamento = await this.em.findOneOrFail(Medicamento, { id: medicamentoId });
 
     if (
-      medicamento.med_origem === MedicamentoOrigem.ANVISA ||
+      medicamento.origem === MedicamentoOrigem.ANVISA ||
       medicamento.perCriador?.id !== perfilId
     ) {
       throw new ForbiddenException('Sem permissão para remover este medicamento');

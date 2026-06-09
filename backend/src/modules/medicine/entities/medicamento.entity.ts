@@ -12,17 +12,17 @@ export enum MedicamentoOrigem {
 @Entity({ tableName: 'Medicamento' })
 export class Medicamento {
 
-  @PrimaryKey({ autoincrement: true })
-  med_codigo?: number;
+  @PrimaryKey({ fieldName: 'med_codigo', autoincrement: true })
+  id!: number;
 
-  @Property({ length: 100 })
-  med_nome!: string;
+  @Property({ fieldName: 'med_nome', length: 100 })
+  nome!: string;
 
-  @Enum(() => MedicamentoOrigem)
-  med_origem!: MedicamentoOrigem;
+  @Enum({ items: () => MedicamentoOrigem, fieldName: 'med_origem' })
+  origem!: MedicamentoOrigem;
 
-  @Property({ length: 255, nullable: true })
-  med_fotoURL?: string;
+  @Property({ fieldName: 'med_fotoURL', length: 255, nullable: true })
+  fotoURL?: string;
 
   // Perfil que criou — só preenchido quando med_origem = 'USUARIO'
   @ManyToOne(() => Perfil, { nullable: true, fieldName: 'per_criador' })

@@ -4,14 +4,14 @@ import { Medicamento } from './medicamento.entity';
 @Entity({ tableName: 'Dosagem' })
 export class Dosagem {
  
-  @PrimaryKey()
-  dos_codigo!: number;
+  @PrimaryKey({ fieldName: 'dos_codigo', autoincrement: true })
+  id!: number;
  
-  @Property({ columnType: 'decimal(6,2)' })
-  dos_valor!: number;
+  @Property({ fieldName: 'dos_valor', columnType: 'decimal(6,2)' })
+  valor!: number;
  
-  @Property({ length: 10 })
-  dos_unidade!: string;
+  @Property({ fieldName: 'dos_unidade', length: 10 })
+  unidade!: string;
  
   @ManyToMany(() => Medicamento, (m) => m.dosagens)
   medicamentos = new Collection<Medicamento>(this);

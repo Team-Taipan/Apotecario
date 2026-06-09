@@ -6,17 +6,17 @@ import { Frequencia } from './frequencia.entity';
 @Entity({ tableName: 'Tratamento' })
 export class Tratamento {
  
-  @PrimaryKey({ autoincrement: true })
-  tra_codigo!: number;
+  @PrimaryKey({ fieldName: 'tra_codigo' , autoincrement: true })
+  id!: number;
  
-  @Property()
-  tra_inicioTratamento!: Date;
+  @Property({ fieldName: 'tra_inicioTratamento' })
+  inicioTratamento!: Date;
  
-  @Property({ nullable: true })
-  tra_fimTratamento?: Date;
+  @Property({ fieldName: 'tra_fimTratamento', nullable: true })
+  fimTratamento?: Date;
  
-  @Property()
-  tra_qtdPorDose!: number;
+  @Property({ fieldName: 'tra_qtdPorDose' })
+  qtdPorDose!: number;
  
   @ManyToOne(() => Frequencia, { fieldName: 'fre_codigo' })
   frequencia!: Frequencia;

@@ -4,11 +4,11 @@ import { Frequencia } from './frequencia.entity';
 @Entity({ tableName: 'Horario' })
 export class Horario {
  
-  @PrimaryKey({ autoincrement: true })
-  hor_codigo!: number;
+  @PrimaryKey({ fieldName: 'hor_codigo' , autoincrement: true })
+  id!: number;
  
-  @Property({ columnType: 'time' })
-  hor_hora!: string;
+  @Property({ fieldName: 'hor_hora' ,  columnType: 'time' })
+  hora!: string;
  
   @ManyToOne(() => Frequencia, { fieldName: 'fre_codigo' })
   frequencia!: Frequencia;

@@ -11,22 +11,22 @@ export enum FrequenciaTipo {
 @Entity({ tableName: 'Frequencia' })
 export class Frequencia {
  
-  @PrimaryKey({ autoincrement: true })
-  fre_codigo!: number;
+  @PrimaryKey({ fieldName: 'fre_codigo', autoincrement: true })
+  id!: number;
  
   @Enum(() => FrequenciaTipo)
-  fre_tipo!: FrequenciaTipo;
+  tipo!: FrequenciaTipo;
  
   // Usado quando fre_tipo = 'Ciclo'
-  @Property({ nullable: true })
-  fre_cicloAtivo?: number;
+  @Property({ fieldName: 'fre_cicloAtivo' , nullable: true })
+  cicloAtivo?: number;
  
-  @Property({ nullable: true })
-  fre_cicloRepouso?: number;
+  @Property({ fieldName: 'fre_cicloRepouso' , nullable: true })
+  cicloRepouso?: number;
  
   // Usado quando fre_tipo = 'Intervalo'
-  @Property({ nullable: true })
-  fre_intervaloHoras?: number;
+  @Property({ fieldName: 'fre_intervaloHoras',  nullable: true })
+  intervaloHoras?: number;
  
   @OneToMany(() => Horario, (h) => h.frequencia)
   horarios = new Collection<Horario>(this);

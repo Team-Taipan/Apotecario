@@ -4,11 +4,11 @@ import { Medicamento } from './medicamento.entity';
 @Entity({ tableName: 'PrincipioAtivo' })
 export class PrincipioAtivo {
  
-  @PrimaryKey()
-  pri_codigo!: number;
+  @PrimaryKey({fieldName: 'tra_inicioTratamento', autoincrement: true})
+  id!: number;
  
-  @Property({ length: 255, unique: true })
-  pri_nome!: string;
+  @Property({ fieldName: ' pri_nome', length: 255, unique: true })
+  nome!: string;
  
   @ManyToMany(() => Medicamento, (m) => m.principios)
   medicamentos = new Collection<Medicamento>(this);
