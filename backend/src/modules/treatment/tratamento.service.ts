@@ -12,7 +12,7 @@ import { AtualizarTratamentoDto } from './dto/atualizar-tratamento.dto';
 export class TratamentoService {
   constructor(private readonly em: EntityManager) {}
 
-  // RF05 — Vincula um medicamento ao tratamento do perfil
+ 
   async criarTratamento(perfilId: number, dto: CriarTratamentoDto) {
     this.validarFrequencia(dto.frequenciaTipo, dto);
 
