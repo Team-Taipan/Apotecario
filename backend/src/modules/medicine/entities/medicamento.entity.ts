@@ -9,7 +9,7 @@ export enum MedicamentoOrigem {
   ANVISA = 'ANVISA',
 }
 
-@Entity()
+@Entity({ tableName: 'Medicamento' })
 export class Medicamento {
 
   @PrimaryKey({ autoincrement: true })

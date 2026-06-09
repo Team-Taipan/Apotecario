@@ -1,7 +1,7 @@
 import { Entity, PrimaryKey, Property, ManyToMany, Collection } from '@mikro-orm/core';
 import { Medicamento } from './medicamento.entity';
  
-@Entity()
+@Entity({ tableName: 'Dosagem' })
 export class Dosagem {
  
   @PrimaryKey()
